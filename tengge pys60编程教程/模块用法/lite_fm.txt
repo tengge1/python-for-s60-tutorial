@@ -1,0 +1,11 @@
+作者：明天见
+
+import lite_fm
+path=lite_fm.manager('e:\\',ext='.py')
+print path
+#解说：(path = None, find = 'file', ext = None)
+
+path为打开文件的默认路径如果没有输入则默认打开盘符！find=dir时为选择文件！
+ext = '.Py'为只显示后缀py的文件。
+注意：只能过虑一个后缀文件
+

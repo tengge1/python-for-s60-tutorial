@@ -1,0 +1,11 @@
+
+timer模块用来记算耗时时差
+----------------------
+例：
+import timer,e32
+tm=timer.Timer()
+#定义开始时间
+e32.ao_sleep(2.222)
+print tm.endtimer()
+#打印出从开始时间到结束时间的时差
+输入：耗时 00:00:03

@@ -1,0 +1,26 @@
+import math
+a=math.acos(0.5)#求反余弦
+b=math.asin(0.5)#求正余弦
+c=math.atan(1)#求反正切
+d=math.atan2(1,0)#未知
+e=math.ceil(1.2)#求不大于1.2的最大整数
+f=math.cos(1)#求余弦
+g=math.cosh(0.5)#求双曲余弦
+h=math.e#得到e的值
+i=math.exp(2)#求e的2次方
+j=math.fabs(2.1)#未知
+k=math.floor(2.5)#求不小于2.5的最小整数
+l=math.fmod(2,1.3)#得到2-1.3的值
+m=math.pi#取得π的值
+n=math.esexp(1.6)#未知
+o=math.hypot(2,3)#计算2^2+3^3的算术平方根
+p=math.ldexp(4,3)#计算4*2^3的值
+a=math.log(2)#计算2的自然对数
+b=math.log10(2)#求2的常用对数
+c=math.modf(2)#未知
+d=math.pow(3,4)#求3的4四次方
+e=math.sin(2)#求正弦
+f=math.sinh(1.3)#求双曲正弦
+g=math.sqrt(2)#求算术平方根
+e=math.tan(2)#求正切
+f=math.tanh(1.3)#求双曲正切

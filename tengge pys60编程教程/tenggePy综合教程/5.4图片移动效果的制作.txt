@@ -1,0 +1,24 @@
+#看代码！
+#programed by tengge
+
+#head
+from appuifw import app,Canvas
+from graphics import Image
+import e32
+
+#body
+img=Image.open("e:\\2.jpg")
+app.screen="full"
+app.body=canvas=Canvas()
+i=-60
+while i<20:
+    canvas.clear(0)
+    canvas.blit(img,(-i,-55))#后面的那个坐标参数设置了图片显示的坐标
+    e32.ao_yield()#检测用户是否按下了左键或右键，可以避免死循环，但在此处没用
+    e32.ao_sleep(0.1)#暂停0.1秒钟
+    i=i+1
+    if i==20:
+        e32.ao_sleep(1)#这句代码是为了让它在移到最后时暂停一秒钟
+
+#有看不懂的地方请参照《tenggePy教程（1）》有关图像处理的部分和《tenggePy教程（2）》有关循环语句的部分
+

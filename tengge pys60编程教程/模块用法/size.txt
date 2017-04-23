@@ -1,0 +1,11 @@
+
+size模块用来检测模块的所在路径
+here
+#返回lip模块的路径
+例
+import size;print size.here
+E:\System\Apps\PyModulePack
+platsec_import(模块名)
+例
+import site;print site.platsec_import(u"appuifw")
+〈module 'appuifw' from 'E:\System\Apps\PyModulePack\appuifw.pyc'〉

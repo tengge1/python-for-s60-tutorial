@@ -1,0 +1,13 @@
+repr函数是将对象转化为字符串的函数。
+eval函数是将字符串转化为对象的函数。
+如用解释器操作：
+
+>>> list=["apple","orange"]
+>>> repr(list)
+"['apple', 'orange']"
+>>> eval("list")
+['apple', 'orange']
+
+#repr函数会在对象两侧各加一个引号。
+#eval函数会在引号两边各去一个引号。
+#这可能在某些程序的设计中用到。

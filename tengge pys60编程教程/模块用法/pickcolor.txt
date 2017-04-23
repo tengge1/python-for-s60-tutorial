@@ -1,0 +1,8 @@
+
+pickcolor模块用来快速选择颜色
+例：
+import pickcolor
+pic=pickcolor.show().Pick()
+print pic
+输出：
+0xffffff

@@ -1,0 +1,111 @@
+#作者：tengge
+#QQ:930372551
+#这一节，我们将学习好友列表的获取，顺便学习sid的提取
+#代码有些长，这是因为从网页源码中获得好友的QQ号和昵称比较麻烦。这个代码同时完成了登录、获取sid，获取在线好友列表三个任务！看不懂字典和正则表达式的请看前面的tenggePy教程…以后我再优化优化…:)
+#本节代码还是那个登录3GQQ的代码改的，前面的很熟了吧！
+#6120c测试成功
+
+import httplib
+import urllib
+import re
+#正则表达式模块
+
+def get_source(myurl,con={"":""}):
+    '''get_source by tengge.'''
+    params = urllib.urlencode(con)
+    headers = {'Content-type': 'application/x-www-form-urlencoded','Accept': 'text/plain'}
+    conn = httplib.HTTPConnection("10.0.0.172", 80)
+    conn.request("POST", myurl, params, headers)
+    data=conn.getresponse().read().replace("amp;","").replace("\n","")
+    #这次改下，将没用的字符去掉，方便处理
+    conn.close()
+    return data
+
+print "请输入您的QQ号并按回车".decode("utf8")
+qq=raw_input()
+print "请输入您的密码并按回车".decode("utf8")
+pwd=raw_input()
+
+#获取3GQQ登录页面源码
+data1=get_source("http://pt.3g.qq.com/s?aid=nLogin3gqq&auto=1&s_it=1&g_f=286&sid=gRx6/ZLbzPLJOMkXUX4bTA==")
+
+mark='<postfield name="sid" value="'
+start=data1.find(mark)
+end=data1.find('"/>',start+1)
+sid2=data1[start+len(mark):end]
+
+#这是要提交的网址和数据
+myurl="http://pt.3g.qq.com/handleLogin?r=38445815"
+con={"sid":sid2,"qq":str(qq),"pwd":pwd,"toQQchat":"true","modifySKey":"0","loginType":"1"}
+
+#获取登录后的数据
+data2=get_source(myurl,con)
+
+#####前面的好几遍了#####
+
+#这次我们仅将登录成功失败的消息打印出来，注意每个utf8编码的汉字占三字节
+start=data2.find("登录")
+print data2[start:start+12].decode("utf8")
+
+#我们查找出登录后的sid并将其打印出来，好了，现在你该会制作sid提取器了吧
+global sid
+mark="sid="
+start=data2.find(mark)+len(mark)
+end=data2.find("&myqq=",start+1)
+
+sid=data2[start:end]
+print sid
+
+####sid提取器到此为止####
+
+
+
+#下面我们来获取好友列表
+
+#本函数从网页源码中获取好友列表，data是utf8编码的网页源码，返回一个字典，键为QQ号，值为昵称，昵称为utf8编码，state为1时返回在线好友，为0时返回不在线好友。
+def get_friend(data,state=1):
+    '''get_friend by tengge'''
+    p=re.compile('u=[\d]{0,15}&on='+str(state)+'">[\x00-\xff]{0,18}</a>',re.I)
+    #呵呵，我把QQ号限制在15位以内
+    #我把昵称限制在0到6个字
+    list=p.findall(data)
+    friend={}
+    for i in list:
+        start=i.find("u=")+2
+        end=i.find("&on="+str(state))
+        start2=i.find('on='+str(state)+'">')+6
+        end2=i.find("</a>")
+        friend.update({i[start:end]:i[start2:end2]})
+    return friend
+
+#该函数从utf8编码的网页源码中获取好友列表页数，返回整数
+def get_page(data):
+    '''by tengge'''
+    p=re.compile("/[\\d]*页")
+    list=p.findall(data)
+    if list!=[]:#仅有一页好像不出第几页…
+        item=list[0]
+        end=item.find("页")
+        return item[1:end]
+    else:
+        return 1
+
+#下面我们获取所有在线好友并输出和保存，大家用UC看在线好友时是分页的，这极大的增加了我们的麻烦！:(于是我们先获取总页数，一页一页的提取，最后把它们放到一个字典friendlist中
+page=1
+friendlist={}
+for i in range(1,page+1):
+    myurl="http://q30.3g.qq.com/g/s?sid="+sid+"&aid=nqqchatMain&on=1&p="+str(i)
+    data3=get_source(myurl)
+    page=get_page(data3)
+    print page
+    friendlist.update(get_friend(data3))
+qq=friendlist.keys()
+file=open("c:\\friendlist","w")
+for i in qq:#输出
+    print str(i)+friendlist[str(i)].decode("utf8")
+    file.write(str(i)+friendlist[str(i)]+",")
+file.close()#保存文件
+
+#获取离线好友列表就不说了，自己思考一下吧
+#代码有点长，不好意思…
+#好了，本节就到这里…

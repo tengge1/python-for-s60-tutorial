@@ -1,0 +1,37 @@
+本教程来自iniwap！转载请注明出处！
+作者：┈┾夨憶D*.亼ぺ
+#这是第十一课了，你学到什么了？
+#你练习了吗？
+#你尝试了吗？
+#这节讲述如何打开一个图片
+#并将这张图片作为图形界面的背景
+#是不是越来越接近游戏了？
+#继续前进吧
+#-*-coding:utf-8-*-
+import appuifw,graphics,e32
+running=1
+def quit():
+++++global running
+++++running=0
+canvas=appuifw.Canvas()
+appuifw.app.body=canvas
+appuifw.app.screen=’full’
+#img=graphics.Image.new(canvas.size)
+#注意这了吗？标准模块的这句被注释掉了
+#什么原因呢？因为在模块中，是新建一个图形界面，想起来了吗？
+#而这里呢是要打开图片，所以是已经存在的
+#不需要新建了
+#打开图片是这样的
+img=graphics.Image.open(’c:\\3.jpg’)
+#是不是和打开文件很像呢？路径要完整哦
+#这样图片就打开了
+#我们是不是能对图片做些操作呢？
+#下节将做详细介绍，这里只讲解怎么样实现背景
+appuifw.app.exit_key_handler=quit
+while running:
+#就是这了，把图片添加到画布上，是不是和以前一样呢？回答是肯定的。
+#下节这里也是个重点，这个可以实现游戏中的精灵哦
+#对人物的操作就可以通过这个函数
+#期待下节吧，明天出炉
+++++canvas.blit(img)
+++++e32.ao_yield()

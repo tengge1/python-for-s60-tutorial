@@ -1,0 +1,6 @@
+
+
+XYsms模块与messaging模块都是用来发送信息(定时与闪信)
+XYsms.chg_sms_send(收件人名称,收件人号码,信息内容,是否为闪信,发送时间)
+例：XYsms.chg_sms_send(“明天见“.decode(“utf8“),u“15980037210“,u“hello“,1,u“20080817:130900“)
+注：为0普通信1为闪信

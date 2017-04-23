@@ -1,0 +1,26 @@
+#作者：tengge
+
+在我们以前的学习中，一向是把类的属性和实例属性混着用的。下面我们来看看区别：
+
+class Person:
+    name="Jim"
+    #这是类的属性
+    def __init__(self):
+        self.age=20
+        #这是实例属性
+
+#使用实例属性
+jim=Person()
+print jim.name
+print jim.age
+
+#使用类的属性
+print Person.name
+#print Person.age这一句有错误，Person类不存在age属性。
+
+输出：
+Jim
+20
+Jim
+
+说明：age属性是在产生实例时产生的，Person类不存在age属性。

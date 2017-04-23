@@ -1,0 +1,6 @@
+
+telephone模块下只有两个涵数！用来打电话
+telephone.dial(电话号码)
+例：telephone.dial(u'10086')
+telephone.hang_up()
+用来结束电话

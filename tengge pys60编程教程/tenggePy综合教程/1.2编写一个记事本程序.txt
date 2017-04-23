@@ -1,0 +1,28 @@
+import appuifw,e32
+def cn(x):return x.decode("utf8")
+def exit():
+    appuifw.app.set_exit()#这是定义函数，详见定义函数一节。注意缩进！
+appuifw.app.body=t=appuifw.Text()#定义主界面是文本界面
+t.set(cn("这是一个记事本程序！\n")+cn("制作者：tengge"))
+#定义文本界面的内容，顺便学一下用"="建两段文本连在一起
+appuifw.app.title=cn("记事本")#定义标题栏
+appuifw.app.screen="normal"#定义窗口大小，有效值"normal"（标准）,"full"（全屏）,"large"（大屏）
+appuifw.app.menu=[(cn("退出"),exit)]#创建菜单，详见创建菜单一节
+appuifw.app.exit_key_handler=exit#定义右键动作，即：按下右软键，运行定义好的exit函数
+e32.Ao_lock().wait()#锁住线程，否则测试代码时会一闪而过，详见线程的锁定和释放一节。
+
+效果如图，该讲的在设计程序时都讲了，这里就不重复了。如果看着乱的话，将汉字去掉就不乱了。看：
+
+import appuifw,e32
+def cn(x):return x.decode("utf8")
+def exit():
+    appuifw.app.set_exit()
+appuifw.app.body=t=appuifw.Text()
+t.set(cn("这是一个记事本程序！\n")+cn("制作者：tengge"))
+appuifw.app.title=cn("记事本")
+appuifw.app.screen="normal"
+appuifw.app.menu=[(cn("退出"),exit)]
+appuifw.app.exit_key_handler=exit
+e32.Ao_lock().wait()
+
+好了，这节就到这里。

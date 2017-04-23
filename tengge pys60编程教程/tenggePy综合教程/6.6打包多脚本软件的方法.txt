@@ -1,0 +1,10 @@
+看上一节，将所有的脚本放到“!\\Private\\你打包软件的UID号\\”即可。
+
+#理论上，放在
+
+>>> import sys
+>>> sys.path
+['E:\\private\\2000b1a5', 'e:\\resource', 'E:\\System\\Apps\\PyModulePack']
+>>> 
+
+上面列表中的三个目录中都行，可是由于不同手机安装平台及解释器的位置不同，建议按上面方法打包。

@@ -1,0 +1,39 @@
+"""希望大家多多支持WAPE乐网(wapele.cn)希望有空时多下载一些站内的免费软件，就是对我明天见最大的支持。同时我也要写出最好的教程给大家！"""
+import appuifw,os
+import minidb as f
+#导入所需的模块
+def ru(x):return x.decode('utf-8')
+path='d:\\'
+#定义数据库的地址
+def writes(key, con):
+  f.Open(u'pb_sets',path, update=0)
+  f.Write(key, con)
+  f.Close()
+#数据库写入涵数
+def reads(str):
+  f.Open(u'pb_sets',path, update=0)
+  opn=f.Read(str)
+  f.Close()
+  return opn
+#数据库读出涵数
+if not os.path.exists(path+'pb_sets.pydb'):
+    f.Create(u'pb_sets',path)
+    writes(u'one',1)
+    writes(u'two',u'http://wapele.cn')
+    writes(u'three',0)
+#如果初始数据不存在则创建初始数据库f.Create(u'pb_sets',path)创建一个名为pb_sets的数据库其中writes(u'three',0)中的three为调用变量,0为值
+form=appuifw.Form(
+    [(ru('风格选择'),'combo',([ru('风格一'),ru('风格二')],reads(u'one'))),
+    (ru('文本输入'),'text',reads(u'two')),
+    (ru('数字输入'),'number',reads(u'three'))],
+    appuifw.FFormEditModeOnly|appuifw.FFormDoubleSpaced)
+form.execute()
+#为了让大家更加直观的了解该数据库我加如form表格处理
+writes(u'one',form[0][2][1])
+writes(u'two',form[1][2])
+writes(u'three',form[2][2])
+#但用户执行保存操作
+print form[0][2][1]
+print form[1][2]
+print form[2][2]
+#输入表格数据

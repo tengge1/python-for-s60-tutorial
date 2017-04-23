@@ -1,0 +1,16 @@
+
+uitricks模块用来更改键值的名称
+该模块下只有一个涵数
+--------------------
+set_text(text，tricks)
+#text为你要修改的文字
+#tricks为你要修改的关键值
+例：
+import uitricks
+uitricks.set_text(u”see you”，3000)
+uitricks.set_text(u”tomorrow”，3009)
+将左键“选项”改为“see you”
+将右键“退出”改为“tomorrow”
+------------------------
+PS:看出来了把！比uikludges模块多了选项！
+下面我附上一些改名称的ricks值！由于时间的关系我就不在测试了！

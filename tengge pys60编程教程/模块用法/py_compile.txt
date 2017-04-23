@@ -1,0 +1,9 @@
+作者：爱不只是说说
+
+编译：
+>>> import py_compile
+>>> py_compile.compile("e:\\a.py")#将a.py编译，编译出来的文件与源文件在同一个文件夹
+—————————
+反编译：
+>>>from decompile import main
+>>>main('','.',['e:\\a.pyc'])#将a.pyc反编译，反编译出来的文件与源文件在同一个文件夹

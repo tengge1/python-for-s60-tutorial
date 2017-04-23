@@ -1,0 +1,38 @@
+作者：__旋风__
+
+ZipFile(file[, mode[, compression]])
+打开一个ZIP文件。
+file文件地址(字符串)
+mode打开方式：
+'r'读取己存在文件，'w'写入一个新文件，'a'追加到一个己存在文件。
+compression压缩方式：
+ZIP_STORED压缩
+ZIP_DEFLATED不压缩
+默认是ZIP_STORED压缩
+=========================
+包含以下函数：
+——————
+close()关闭ZIP文件。在退出程序前要先关闭ZIP文件，否则无法保存。
+
+——————
+getinfo(name)返回ZIP包有关name文件的信息。
+infolist()返回ZIP包内所有文件信息列表。
+
+——————
+namelist()返回ZIP包内所有文件名列表。
+
+——————
+printdir()用print法输出一个ZIP包内文件信息，是一个table，table是由sys.stdout决定。
+——————
+
+read(name)返回ZIP包里的name文件的字节码内容。打开模式必须是只读('r')和追加('a')。
+——————
+
+testzip()根据CRC校验码，测试ZIP包内所有文件的完整性。返回第一个受损文件的名称。如果压缩包完整，则返回None。
+
+——————
+write(filename[, arcname[, compress_type]])
+将filename文件写入ZIP包，保存在ZIP包的名称为arcname(默认和filename文件名相同)。compress_type为压缩类型。ZIP包必须以'w'或'a'模式打开。
+
+——————
+writestr(zinfo, bytes)把字符串bytes写入ZIP包; 以ZipInfo变量为格式写zinfo. zinfo至少要有filename, date, and time。必须以'w'或'a'模式打开。以下数据类型也是有效的：debug。debug输出等级可以使用。可以设置从0(the default, no output)到3(the most output). (本函数我不会用。照着翻译。)

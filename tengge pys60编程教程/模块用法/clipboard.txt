@@ -1,0 +1,11 @@
+
+
+clipboard模块与hy_copy.py相同也是只是两个可用涵数！用来复制粘贴文件！
+clipboard.Set(内容)
+用来复制指定内容
+例：
+〉〉〉a=“http://wapele.cn\n“
+〉〉〉clipboard.Set(a)
+返回值为1时成功0时失败按笔键粘贴
+clipboard.Get()
+挂号内没有参数用来还源粘贴复制的内容

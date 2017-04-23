@@ -1,0 +1,6 @@
+作者：五百年前
+
+调用浏览器打开网页openurl.pyd用法：
+import openurl
+openurl.open_browser(url)#调用系统浏览器打开网页
+openurl.open_ucweb(url)#调用Ucweb打开网页。支持浏览器正在运行时传递网址进去！参数url可省略，会打开作者的Ucweb推广页，希望大家支持彩虹。

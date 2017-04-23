@@ -1,0 +1,10 @@
+wap模块用来下载网页文件
+---------------
+例：
+import wap
+ip="10.0.0.172:80"
+url=u"http://wapele.cn/wapindex.asp"
+file=u"D:\\index.asp"
+wap.get_file(url, ip, file)
+---------------
+PS:这断代码我测试失败！可能不支持cmwap。有cmnet接入点的测试下。原"195.115.25.129"==

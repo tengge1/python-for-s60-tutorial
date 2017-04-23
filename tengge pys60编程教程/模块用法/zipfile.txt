@@ -1,0 +1,71 @@
+作者：__旋风__
+
+ZipInfo类是用于返回ZipFile类中的getinfo()和infolist()详细信息。
+每一个info中包含有每个ZIP包内各自成员的信息。
+有以下变量：
+——————
+filename
+info对应的文件名。
+——————
+date_time
+info对应的最后修改的日期和时间。这是一个含有六个值的元组： (年，月，日，时，分，秒)
+如：
+(2005, 1, 2, 15, 57, 28)指2005年1月2日15时57分28秒
+——————
+compress_type
+Type of compression for the archive member.
+——————
+comment
+Comment for the individual archive member.
+——————
+extra
+Expansion field data. (url=http://www.pkware.com/appnote.html)PKZIP Application Note(/url) contains some comments on the internal structure of the data contained in this string.
+——————
+create_system
+创建ZIP包的系统。
+——————
+create_version
+创建ZIP包的PKZIP版本。
+——————
+extract_version
+解压ZIP包需要的PKZIP版本。
+——————
+reserved
+必须是0。
+——————
+flag_bits
+ZIP flag bits.
+——————
+volume
+Volume number of file header.
+——————
+internal_attr
+Internal attributes.
+——————
+external_attr
+External file attributes.
+——————
+header_offset
+Byte offset to the file header.
+——————
+file_offset
+Byte offset to the start of the file data.
+——————
+CRC
+info对应的文件解压后的CRC-32校验码。
+——————
+compress_size
+info对应文件解压后大小。
+——————
+file_size
+info对应文件压缩后大小。
+=========================
+使用方法：
+>>> import zipfile
+>>> zip=zipfile.ZipFile('d:\\a.zip')
+>>> zip.namelist()
+['a.txt']
+>>> zip.getinfo('a.txt').date_time
+(2005, 1, 2, 15, 57, 28)
+>>> hex(zip.getinfo('a.txt').CRC)
+'0xf6d67b37'

@@ -1,0 +1,22 @@
+
+top模块用来窗口优先级（设置一直前制）
+
+实例：
+
+
+
+import sop
+
+sop.set(1)
+
+#无返回值,1为设置窗口前置
+
+0为取消前置
+
+print sop.about()
+
+#返回作者的信息
+
+write by miaochen QQ:710490467
+
+#6120c测试成功

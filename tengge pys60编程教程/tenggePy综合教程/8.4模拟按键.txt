@@ -1,0 +1,27 @@
+#模拟按键可在后台操作其他程序！
+
+import keypress
+
+keypress.simulate_key(键值,键值)
+#按键只执行一次
+#键值的获得，可使用键值获取脚本
+
+例：
+
+import keypress
+keypress.simulate_key(63554,63554)
+#模拟按右软键
+
+keypress.simulate_key_mod(键值,键值,0)
+#当值为0时只执行短按，为1时长按
+
+keypress.simulate_keyMenu()
+#停止当前的按键循环
+
+例：
+import keypress
+import e32
+keypress.simulate_key_mod(49,49,1)
+e32.ao_sleep(5)
+keypress.simulate_keyMenu()
+#这样将模拟按键长按1直到5秒后才停止！并且关闭当前模拟窗口。

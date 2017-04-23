@@ -1,0 +1,72 @@
+#作者：tengge
+#QQ:930372551
+#到别人空间留言也是一个简单提交，由于目前手机上空间仅对好友开放，所以我们需要你提供一个你的好友的QQ号…否则，留言不会成功！
+
+##下面通过登空间获取sid##
+import httplib
+import urllib
+import appuifw
+
+def get_source(myurl,con={"":""}):
+    '''get_source by tengge.'''
+    params = urllib.urlencode(con)
+    headers = {'Content-type': 'application/x-www-form-urlencoded','Accept': 'text/plain'}
+    conn = httplib.HTTPConnection("10.0.0.172", 80)
+    conn.request("POST", myurl, params, headers)
+    data=conn.getresponse().read().replace("amp;","").replace("\n","")
+    conn.close()
+    return data
+
+print "请输入您的QQ号并按回车".decode("utf8")
+qq=raw_input()
+print "请输入您的密码并按回车".decode("utf8")
+pwd=raw_input()
+
+#我们取得系统随机产生的需要我们提交的数据mkey
+data1=get_source("http://qzone51.z.qq.com/index.jsp?3g_sid=cFx87uo0URPJOMkXUX4bTA==&KqqWap_Act=5&3g_style=1&g_f=275")
+
+mark='mkey" value="'
+start=data1.find(mark)
+end=data1.find('"/>',start+1)
+mkey=data1[start+len(mark):end]
+
+
+#这是要提交的网址和数据
+myurl="http://qzone30.z.qq.com/login_result.jsp?nb=0&sid=/Kuuu0p+G4aXmdFJoYat3g=="
+con={"qq":str(qq),"pwd":str(pwd),"mkey":mkey}
+
+#获取登录后的数据
+data2=get_source(myurl,con)
+
+#打印登录信息
+start=data2.find("登录")
+print data2[start:start+12].decode("utf8")
+
+#获取sid号
+mark="&sid="
+start=data2.find(mark)+len(mark)
+end=data2.find('">',start)
+sid=data2[start:end]
+print sid
+
+####好了，前面都学了####
+
+####下面给好友留言#####
+
+print "请输入您要留言的好友号并按回车".decode("utf8")
+fqq=raw_input()
+
+msg=appuifw.query("请输入要留言的内容".decode("utf8"),"text")
+
+#这是留言指向的网址…
+myurl="http://blog30.z.qq.com/mmsgb/add_msg.jsp?entry=blog&sid="+sid
+
+#这是要提交的数据
+con={"msg":(msg.encode("utf8")),"sign":"0","B_UID":fqq}
+
+#提交获取数据并打印
+data=get_source(myurl,con)
+print data.decode("utf8")
+#返回的字中是不是有留言成功的提示哈！
+
+#好了，困了，这节就到这里…

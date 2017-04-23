@@ -1,0 +1,24 @@
+1.普通资源管理器（可能出错，不建议使用）
+
+import lite_fm,appuifw
+def cn(x):return x.decode("utf8")
+
+path=lite_fm.fileman.AskUser("e:\\")#这句实现了打开资源管理器这一操作,“"e:\\"”可省略，默认为打开盘符选择界面
+
+if path==None:#未选任何文件时返回None##
+    appuifw.note(cn("没选择路径！"),"error")
+else:
+    appuifw.note(cn("路径是")+path)
+
+注：上述代码在脚本编辑中运行可能出错是正常的，打开资源管理器的语句也可这样写：
+
+path=lite_fm.manager()
+
+效果是一样的。
+
+2.选择性资源管理器（性能很稳定，推荐使用）
+
+import powlite_fm
+path=powlite_fm.manager().AskUser("c:\\",ext=[".mp3",".txt"])#调用资源管理器
+
+说明：“c:\\”为进入时的路径，省略为盘符选择界面，ext=[]为显示的文件类型，后面是一个列表。当用户未选择任何文件时，返回None；选择后，返回以unicode表示的路径。

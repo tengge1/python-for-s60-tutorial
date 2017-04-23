@@ -1,0 +1,32 @@
+定时程序主要靠time模块显示时间，用appuifw的请求输入日期和时间功能输入时间。再结合发短信、打电话、打开程序的函数，就能实现定时发短信、打电话、打开程序。学完这节，你还可以做电子时钟等。
+
+import time
+clock=time.clock()
+#获得当前的时间，以秒为单位，从今天0时0分0秒算起。
+
+tm=time.time()
+#获得当前时间，以秒为单位，从1970年1月1日0时0分0秒算起
+
+tm=time.localtime()
+#获得手机上设置的时间，得到的tm是一个元组，第一二三四五六项分别是“年”“月”“日”“时”“分”“秒”。
+
+import appuifw
+def cn(x):return x.decode("utf8")
+
+date=appuifw.query(cn("请输入日期："),"date")
+#得到的date为从1970年1月1日0时0分0秒算起，到用户设定日期0时0分0秒的秒数。
+
+
+time=appuifw.query(cn("请输入时间："),"time")
+#得到的time为从0时0分0秒算起到用户设定时间的秒数。
+
+#定时装置可以用while实现，如：
+
+import time,messaging
+def cn(x):return x.decode("utf8")
+while time.clock()<60*60*12:
+    pass
+messaging.sms_send("15963210431",cn("你好！"),encoding="UCS2")
+
+#如果上午你让该程序运行，一到十二点，就会给我发短信！
+#下午你一运行，短信会立即发给我！

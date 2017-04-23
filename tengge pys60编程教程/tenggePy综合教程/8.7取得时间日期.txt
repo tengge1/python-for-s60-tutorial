@@ -1,0 +1,16 @@
+import time
+
+year=time.localtime()[0]
+#年
+month=time.localtime()[1]
+#月
+day=time.localtime()[2]
+#日
+hour=time.localtime()[3]
+#时
+minute=time.localtime()[4]
+#分
+second=time.localtime()[5]
+#秒
+clock=time.clock()
+#返回从凌晨到现在的秒数

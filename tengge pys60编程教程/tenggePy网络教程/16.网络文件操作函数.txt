@@ -1,0 +1,59 @@
+#作者：tengge
+#QQ:930372551
+#这一节我们学一下对网络文件操作的函数，程序用的图片那一节的，下载文件和图片是一样的。
+
+import httplib
+import urllib
+
+params = urllib.urlencode({"":""})
+
+headers = {'Content-type': 'application/x-www-form-urlencoded','Accept': 'text/plain'}
+
+conn = httplib.HTTPConnection("10.0.0.172", 80)
+
+myurl="http://wap.baidu.com/r/wise/wapsearchindex/logo_index_s.gif"
+#这个是手机百度网首页的网标，看网址知道它对应一个gif格式的图片文件
+
+conn.request("POST", myurl, params, headers)
+
+file=conn.getresponse()
+#至此，我们获得了一个网络文件对象，现在我们看对它的操作。
+#到现在，文件并没有下载，只是将文件读入了服务器的内存中。返回的只是与文件相关的信息。
+
+file.version
+#返回版本号，一个整数
+
+file.debuglevel
+#返回纠错级别，一个整数
+
+file.status
+#返回连接状态，一个整数
+
+file.strict
+#返回下载时的严格程度，一个整数
+
+file.reason
+#返回对连接状态的解释，一个字符串，如“OK”
+
+file.length
+#返回文件大小
+
+msg=file.msg
+
+msg.headers
+#返回文件类型、大小、时间、连接状态、代理连接状态、网络类型等信息
+
+file.read(10)
+#读取十个字节，返回字节码，这个必须在它规定的时间内开始读取才行
+
+file.close()
+#关闭文件
+
+file.isclosed()
+#文件关闭后返回1，否则返回0。
+
+file.chunk_left
+file.chunked
+#这两个函数可能与开始读取的位置有关，但我不会用
+
+conn.close()

@@ -1,0 +1,19 @@
+来源：┈┾夨憶D*.亼
+第七课gles、glcanvas的初步了解
+这一节我们还是抛开理论知识，因为那不但枯燥而且不容易理解也很难讲解。大家从一种探究学习的态度来对待本系列教程即可。不过我还是希望有更多的人加入我们，希望大家相互告知希望热爱PY的友友来我们社区分享自己的看法。下面切入整体。对于嵌入式设备，由于种种原因并没有使用所有OPENGL的API，而是使用的一个叫OPENGL ES的API。当然我们可爱的PYTHO提供了gles模块来对OPENGL ES绑定支持。更多相关知识请参阅官网。今天我们主要讲我们必须用到的几个基本知识点。
+gles.array(类型，维数，序列)：构建一个数组对象类型。其实这经过封装过的以方便我们对数据的操作，可以看到OPENGL并不是这样做的。当然这样主要是有利于各种操作。我们暂且称之为顶点数组。
+参数：
+类型，包括：GL_FLOAT,GL_BYTE,GL_UNSIGNED_BYTE,GL_SHORT,GL_UNSIGNED,GL_FIXED。其实这些类型都和C语言类型相关的。这里我们一般常用GL_FLOAT,GL_UNSIGNED_BYTE，后面序列的数据类型要与此一致！
+维数：主要是为输入数据提供一些必要的信息，当然只是有些需要。
+序列：PYTHON的表列类型，比如元组，列表等。我们常用列表。
+对于如何利用这个array，我们后面课程会讲到。下面再来看看glcanvas模块。概括的讲这个模块提供了OPENGL图形的UI控制。也就是说要用pys60编程，这个模块才是图形显示的关键。
+glcanvas.GLCanvas(redraw_callbacks[,event_callback=None,resize_callback=None,attributes=None])参数的含义和appuifw.Canvas的是一致的。这里我们把他们与模板对应起来。
+redraw_callback: display
+event_callback:keysEvent
+resize_callback:reshape
+attributte：用于设置EGL的配置选项。我们忽略此参数，默认即可。
+函数：
+bind(key_code,callenable):绑定按键
+drawNow()：调用显示函数，我们常用。
+makeCurrent()：将GLCanvas设置为当前，就是说这个将要被显示。用于多个GLCanvas之间的切换。
+好了，这节先讲这么多。大家也别嫌我唠叨，我还是希望大家发帖，邀请朋友加入我们。更多期待吧…

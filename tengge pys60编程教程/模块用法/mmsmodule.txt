@@ -1,0 +1,8 @@
+
+mmsmodule模块用来发送彩信
+------------------
+例：
+import mmsmodule
+retcode = mmsmodule.mms_send(u"15980037210", u"Test message", u"c:\\image.png")
+------------------
+注：mms_send(接收号码, 内容, 附件)

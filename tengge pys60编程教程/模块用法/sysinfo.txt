@@ -1,0 +1,165 @@
+
+sysinfo模块用来获取手机上的一些信息。
+该模块下的涵数有：
+---------------------
+active_profile()
+#获取当前情景模式
+general-标准
+silent-无声
+meeting-会议
+outdoor-户外
+pager-寻呼机
+offline-办公
+drive-驾车
+user-用户自定义
+例：
+import sysinfo
+sysinfo.active_profile()
+general
+#获得是使用“标准”的情景模式！
+注意：下面的例子我将不在用import sysinfo
+---------------------
+battery()
+#获取当前的电量值
+例：
+sysinfo.battery()
+7
+#如果要将它转为%分量与时间可以这样
+str(sysinfo.battery()*14.285714+0.000002)+“%“
+100.0%
+str(sysinfo.battery()*0.5+“hour“
+3.5hour
+---------------------
+display_pixels()
+#获取屏幕的尺寸
+如：
+sysinfo.batterydisplay_pixels()
+(176，208)
+#屏幕宽，屏幕高
+---------------------
+display_twips()
+#屏幕显示的象素(宽，高)
+如：
+sysinfo.display_twips()
+(1984， 2324)
+#我手机支持象素
+---------------------
+free_drivespace()
+#获取磁盘空间
+sysinfo.free_drivespace()
+{u“C：“： 6528844， u“D：“： 454656， u“Z：“： 0， u“E：“： 3243008}
+#如果要显示单独磁盘空间并且以mb为当位记算可以这样
+“%.1f“%(float(sysinfo.free_drivespace()[u“C：“])/1048576)+“ mb“
+6.2 mb
+#c盘的空间为6.2 mb
+---------------------
+free_ram()
+#剩余内存
+如：
+“%.1f“%(float(sysinfo.free_ram())/1048576)+“ mb“
+0.3 mb
+#剩余0.3 mb内存
+---------------------
+imei()
+#读取手机串后
+如：
+sysinfo.imei()
+353388006444294
+---------------------
+max_ramdrive_size()
+#获取磁盘空闲内存最大值
+#示例同上
+---------------------
+os_version()[br#用法获取手机的系统版本信息。用三元组表示：(主版本号，副版本号，附加版本号)
+数值范围定义如下
+主��本号：0 － 127
+副版本号：0 － 99
+附加版本号：0 － 32767
+]例：
+sysinfo.os_version()
+(1， 2， 422)
+---------------------
+ring_type()
+#铃声的类型(有返回值)
+normal-连续响铃
+ascending-渐强
+ring_once-响铃一次
+beep-蜂鸣
+silent-无声
+unknown-不知
+例：
+sysinfo.ring_type()
+normal
+#当前我手机铃声类型为连续响铃
+---------------------
+signal()
+#当前信号的强度
+例：
+sysinfo.signal()
+7
+#将信用值转为%分值请参阅battery()
+---------------------
+signal_bars()
+#信号的条状
+例：
+sysinfo.signal_bars()
+6
+#当前电量的条状方块格仅剩下6格
+---------------------
+sw_version()
+#手机的版本信息(相当于在待机时按*#0000#)
+例：
+sysinfo.sw_version()
+V 6.0525.0ch 23-06-05 RH-51 (c)NMP
+#V 6.0525.0ch内存 23-06-05出厂日期 RH-51版本 (c)NMP
+---------------------
+total_ram()
+#总内存(用法同上)
+total_rom()
+#总磁盘(用法同上)
+---------------------
+
+[分页查看]
+[专题]派森模块用法
+签名：用心专注 用心服务
+新帖:这是一个很受欢迎的笑话
+
+
+楼主:贴子.回复.相册
+
+
+
+快速回复 文件回复
+
+--最新回复--
+[5楼].[引]Module SYSINFO
+
+Module to display any information about the smart =)
+import sysinfo
+# import (add) module.
+
+Function module:
+sysinfo.active_profile ()
+# Display the currently active profile.
+sysinfo.battery ()
+# Displays the battery level.
+sysinfo.display_pixels ()
+# Display display resolution.
+sysinfo.free_drivespace ()
+# Display size of free space on all drives.
+sysinfo.free_ram ()
+# Display size of free RAM.
+sysinfo.imei ()
+# Displays IMEI device.
+sysinfo.os_version ()
+# Display version of the OS.
+sysinfo.ring_type ()
+# Displays the type of your call.
+sysinfo.signal ()
+# Displays signal strength.
+sysinfo.sw_version ()
+# Display version of the firmware.
+sysinfo.total_ram ()
+# Display size of the entire memory.
+sysinfo.total_rom ()
+# Display size of memory.

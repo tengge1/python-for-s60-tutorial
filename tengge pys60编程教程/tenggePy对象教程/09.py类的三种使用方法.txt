@@ -1,0 +1,32 @@
+#作者：tengge
+
+和Java一样，py类的使用大致有三种方法。下面我们用一个例子来介绍这三种方法：
+
+class Person:
+    name="UN_KNOWN"
+
+print Person.name
+#第一种方法：直接使用类的属性
+
+person=Person()
+print person.name
+#第二种方法：先生成实例，再使用实例的属性。
+
+class Jim(Person):
+    name="Jim"
+print Jim.name
+#第三种方法，先派生子类，再使用子类的属性。
+
+输出：
+UN_KNOWN
+UN_KNOWN
+Jim
+
+很简单，不说了。最后，我们解释几个与类有关的单词的意思。
+class：类
+object：对象
+instance：实例
+method:方法
+attribute:属性
+
+好了，这节就到这里。

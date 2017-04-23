@@ -1,0 +1,25 @@
+
+用法:
+-把程序从任务列表隐藏
+msys.set_hidden()
+-撤销隐藏程序
+msys.unset_hidden()
+-检测程序是否隐藏，已隐藏返回1，非隐藏返回0
+msys.is_hidden()
+-把程序设为系统程序，按红键不退出
+msys.set_system()
+-撤销设为系统程序
+msys.unset_system()
+-检测程序是否系统程序，是返回1，非返回0
+msys.is_system()
+-把程序转为后台运行
+msys.send_bg()
+-把程序从后台转为前台运行
+msys.send_fg()
+-检测程序是否运行，是返回1，非返回0
+msys.isrunning(u'Menu') #括号写入程序名称
+-关闭运行的程序
+msys.closeapp(u'Menu') #括号写入程序名称
+-终止运行的程序
+msys.killapp(u'Menu') #括号写入程序名称
+

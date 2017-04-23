@@ -1,0 +1,46 @@
+本教程来自iniwap！转载请注明出处！
+作者：┈┾夨憶D*.亼ぺ
+#这是第十课了，再来熟悉下各数学公式的用法
+#这个实现了一点以及一条线与一点的在圆上运动
+#多看多练习吧
+#有问题发帖哦
+#-*-coding:utf-8-*-
+import appuifw,graphics,e32
+import math
+#初始化三个变量
+y=40
+z=z1=150
+t=40
+#标准模块部分
+running=1
+def quit():
+++++global running
+++++running=0
+canvas=appuifw.Canvas()
+appuifw.app.body=canvas
+appuifw.app.screen=’full’
+img=graphics.Image.new(canvas.size)
+appuifw.app.exit_key_handler=quit
+while running:
+++++img.clear(0)
+#画椭圆函数，四个坐标为椭圆外切矩形的坐标，如果为正方形，那么画的就是圆
+++++img.ellipse((40,100,140,200),0xff0000,width=4)
+#画点
+++++img.point((y,z+10),0x00ff00,width=10)
+++++img.point((t,z1+10),0x00ff00,width=10)
+#画线
+++++img.line((90,150,t,z1+10),0x00ff00,width=5)
+++++canvas.blit(img)
+++++e32.ao_yield()
+#改变Y值
+++++y=y+1
+#相碰时回到起点
+++++if y==140:
+++++++++y=40
+#这里新知识，fabs()求绝对值，pow()次方，sqrt()开方
+#温故而知新，别忘了把前面的课程掌握了，只要熟练了，后面的课程才可以顺手。
+++++z=140+math.sqrt(math.fabs(2500-math.pow(y-90,2)))
+++++t=t+1
+++++if t==140:
+++++++++t=40
+++++z1=140-math.sqrt(math.fabs(2500-math.pow(t-90,2)))

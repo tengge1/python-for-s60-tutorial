@@ -1,0 +1,40 @@
+作者：tengge
+这节我们学习类的两个特殊属性__doc__和__module__，两个特殊方法__init__（构造方法）和__del__（析构方法）。
+
+class Person:
+    '''this is a class by tengge.'''
+    #类中的文档信息
+    def __init__(s,name):#构造方法，产生实例时自动运行
+        print "start…"
+        print name
+    def say(s):
+        print "hello"
+    def __del__(s):#析构方法，仅在实例被销毁时才会运行
+        print "end…"
+
+person=Person("tengge")
+#生成实例
+#构造方法从Person后面那个括号里获得参数
+person.say()
+
+print person.__doc__
+#输出类中的文档信息
+print person.__module__
+#判断类是直接调用还是被其它类调用，直接调用时为“__main__”
+
+del person
+#销毁实例
+
+输出：
+start…
+tengge
+hello
+this is a class by tengge.
+__main__
+end…
+
+也许有人会感到奇怪，初始化方法在生成实例时自动运行，它的参数是从哪获得的呢？
+
+其实，就在生成实例时类后面的那个括号里。那个括号的用途除是生成实例的标志外，还有给初始化方法赋值。
+
+好了，这节就到这里。

@@ -1,0 +1,79 @@
+#这是我写的，现在公布出来，希望大家借鉴一下，有关class,repr,eval等，在我的教程中已作详细介绍！欢迎下载《tenggePy教程》合集查看！另外，本节就是一个脚本，可直接运行！
+#tengge作品
+#QQ:930372551
+
+
+import appuifw
+import e32
+import base64
+
+class codewatcher:
+    def __init__(self):
+        self.cn=lambda x:x.decode("utf8")
+        self.note=appuifw.note
+        self.query=appuifw.query
+        self.lock=e32.Ao_lock()
+        self.running=1
+        self.encodestring=base64.encodestring
+    def translator(self,x,code):
+        if code=="unicode":
+            x=eval(repr(x).replace("\\u","\\\\u"))
+        elif code=="ascii":
+            y=str(eval(repr(x).replace("\\u","")))
+            i=0
+            z=""
+            while i<len(y):
+                z+=y[i+2:i+4]
+                z+=y[i:i+2]
+                i+=4
+            x=z
+        elif code=="utf8_base64":
+            x=eval(repr(self.encodestring(x.encode("utf8"))).replace("\\n","\\\\n"))
+        elif code=="gbk_base64":
+            x=eval(repr(self.encodestring(x.encode("gbk"))).replace("\\n","\\\\n"))
+        else:
+            x=eval(repr(x.encode(code)).replace("\\x","\\\\x"))
+        return x
+    def watcher(self):
+        try:
+            self.t.clear()
+            self.t.add(self.cn("下面是“")+self.x+self.cn("”的各种编码：\n"))
+            self.t.add(self.cn("unicode码：")+unicode(self.translator(self.x,"unicode")))
+            self.t.add(self.cn("\nutf8码：")+unicode(self.translator(self.x,"utf8")))
+            self.t.add(unicode(self.cn("\nutf7码：")+self.translator(self.x,"utf7")))
+            self.t.add(unicode(self.cn("\nutf16码：")+self.translator(self.x,"utf16")))
+            self.t.add(unicode(self.cn("\ngbk码：")+self.translator(self.x,"gbk")))
+            self.t.add(unicode(self.cn("\ngb2312码：")+self.translator(self.x,"gb2312")))
+            self.t.add(unicode(self.cn("\nbig5码：")+self.translator(self.x,"big5")))
+            self.t.add(unicode(self.cn("\nascii码：")+self.translator(self.x,"ascii")))
+            self.t.add(self.cn("\nutf8_hex码：")+unicode(self.x.encode("utf8").encode("hex")))
+            self.t.add(self.cn("\ngbk_hex码：")+unicode(self.x.encode("gbk").encode("hex")))
+            self.t.add(self.cn("\nutf8_base64码：")+unicode(self.translator(self.x,"utf8_base64")))
+            self.t.add(self.cn("\nutf8_base64码：")+unicode(self.translator(self.x,"gbk_base64")))
+            self.t.set_pos(0)
+            appuifw.app.menu=[(self.cn("返回"),self.main)]
+            appuifw.app.exit_key_handler=self.main
+        except:
+            self.note(self.cn("发生错误，无法查看！"),"error")
+            self.main()
+    
+    def inputwords(self):
+        self.x=self.query(self.cn("请输入汉字："),"text")
+        if self.x==None:
+            self.main()
+        else:
+            self.watcher()
+    def about(self):
+        appuifw.note(self.cn("tengge作品\nQQ:930372551"))
+    def main(self):
+        appuifw.app.body=self.t=appuifw.Text()
+        self.t.clear()
+        self.t.add(self.cn("本软件及源码归中国石油大学（华东）tengge所有，欢迎使用！\n欢迎下载“【tengge作品】QQ炸弹”和“《tenggePy教程》合集”（已更新至61节），QQ炸弹软件源码已在tenggeQQ空间公布！\nQQ:930372551"))
+        appuifw.app.menu=[(self.cn("查看编码"),self.inputwords),(self.cn("关于"),self.about),(self.cn("退出"),self.lock.signal)]
+        appuifw.app.exit_key_handler=self.lock.signal
+        while self.running:
+            self.running=0
+            self.lock.wait()
+codewatcher().main()
+
+#tengge作品

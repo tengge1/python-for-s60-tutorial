@@ -1,0 +1,6 @@
+import audio
+def cn(x):return x.decode("utf8")
+audio.say(u"happy birthday!")
+#让手机读出happy birthday
+audio.say(cn("生日快乐！"))
+#让手机读出“生日快乐”，请先编脚本，直接用脚本命令可能不行

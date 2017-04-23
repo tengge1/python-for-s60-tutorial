@@ -1,0 +1,23 @@
+#类中总是 __init__函数先运行，__del__函数最后一个运行，不管你调用不调用它！看代码：
+#class.py by tengge
+
+class tengge:
+    def __init__(self):
+        from appuifw import note
+        def cn(x):return x.decode("utf8")
+        note(cn("我总是第一个运行！"))
+    def __del__(self):
+        from appuifw import note
+        def cn(x):return x.decode("utf8")
+        note(cn("我总是最后一个运行！"))
+    def say(self):
+        from appuifw import note
+        def cn(x):return x.decode("utf8")
+        note(cn("我是个普通函数！"))
+
+tengge()
+
+tengge().say()
+
+#因此，我们可用__init__对类中的函数进行一些初始化操作，用__del__进行一些结束操作。
+

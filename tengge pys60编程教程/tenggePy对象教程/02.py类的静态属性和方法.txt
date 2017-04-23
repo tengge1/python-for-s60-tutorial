@@ -1,0 +1,74 @@
+作者：tengge
+和大多数编程语言一样，py类的属性包括静态属性和动态属性（即方法）。通俗来讲，静态属性就是类中的变量，方法就是类中的函数。
+
+1.静态属性（简称属性）
+看示例：
+class Person:
+    name="tengge"
+    age=20
+    sex="M"
+
+#直接使用类的静态属性
+print Person.name
+print Person.age
+print Person.sex
+
+#先生成实例，再使用实例的属性
+person=Person()
+print person.name
+print person.age
+print person.sex
+
+其实很简单，调用时只需要用“类名或实例名.属性名”即可。
+
+py类或实例的静态属性可以在类外部进行修改。
+看示例：
+class Person:
+    name="tengge"
+    age=20
+    sex="M"
+
+#修改并输出类的静态属性
+Person.age=10
+print Person.age
+
+很简单，不讲了。
+
+2.动态属性（方法）
+看示例：
+
+class Person:
+    name="tengge"
+    def say(s):
+        print "Hello,"+s.name
+
+#先产生实例，再调用实例的方法
+person=Person()
+person.say()
+
+注意，类中的方法要比函数多一个参数（即第一个，一般用self或s表示），这个参数代表类自己。如示例中，调用了自身的name属性。同样，调用自身的方法，也要使用“s.方法”（本例中）。
+
+3.类的方法中属性的调用
+看示例：
+class Person:
+    name="tengge"
+    def say(s):
+        print "Hello,"+s.name#仔细看一下在类中是怎样使用类的属性的
+        s.word()#仔细看一下在类中是怎样调用类的其他方法的
+        s.thank("tengge")
+        print s.end()
+    def word(s):
+        print "I love python."
+    def thank(s,name):
+        print "Thank you,"+name
+    def end(s):
+        return "end."
+
+person=Person()
+person.say()
+
+本例中定义了一个属性和四个方法，在第一个方法中调用了后三个方法。后三个方法中，第一个是不含参数的，第二个是含一个参数的，第三个是有返回值的。通过本例，大家可以学习各种方法的定义和使用方法。注意调用自身方法都是“自身指代.属性或方法”。
+
+py中的类比java中简单的多，大家可不要丧失信心啊。好了，这节就到这里。
+
+

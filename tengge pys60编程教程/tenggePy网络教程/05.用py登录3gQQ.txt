@@ -1,0 +1,49 @@
+#作者：tengge
+#QQ:930372551
+#这一节我们通过用程序登录3gQQ来学习如何联网提交数据。
+#学习了本节，您就可以制作一个“挂Q”软件了
+#本节代码是一个脚本，可直接测试，请用自己的QQ号和密码，因为那样不需要验证码，可直接登录！
+
+import httplib
+import urllib
+
+#为了方便，我们先用所学知识做一个函数以方便我们使用，其中，myurl是网址，con是提交的数据，是一个字典。
+
+def get_source(myurl,con={"":""}):
+    '''get_source by tengge.'''
+    params = urllib.urlencode(con)
+    headers = {'Content-type': 'application/x-www-form-urlencoded','Accept': 'text/plain'}
+    conn = httplib.HTTPConnection("10.0.0.172", 80)
+    conn.request("POST", myurl, params, headers)
+    data=conn.getresponse().read().replace("amp;","").replace("\n","")
+    conn.close()
+    return data
+
+#关于解释器界面的输入输出函数请参照《tenggePy补充教程》
+print "请输入您的QQ号并按回车".decode("utf8")
+qq=raw_input()
+print "请输入您的密码并按回车".decode("utf8")
+pwd=raw_input()
+
+
+#我们首先获取一次登录界面的源码
+data1=get_source("http://pt.3g.qq.com/s?aid=nLogin3gqq&auto=1&s_it=1&g_f=286&sid=gRx6/ZLbzPLJOMkXUX4bTA==")
+
+#然后我们取得系统随机产生的需要我们提交的数据sid，字符串处理请参照《tenggePy教程》及补充。
+mark='<postfield name="sid" value="'
+start=data1.find(mark)
+end=data1.find('"/>',start+1)
+sid=data1[start+len(mark):end]
+
+#这是要提交的网址和数据
+myurl="http://pt.3g.qq.com/handleLogin?r=38445815"
+con={"sid":sid,"qq":str(qq),"pwd":pwd,"toQQchat":"true","modifySKey":"0","loginType":"1"}
+
+#获取登录后的数据
+data2=get_source(myurl,con)
+
+#呵呵，我把登录后的源码打印出来，大家可以看到有“登录成功”提示！
+print data2.decode("utf8")
+
+#其实，联网的软件也很简单，只要模仿我们用浏览器操作的动作就行了。
+#好了，这节就到这里。

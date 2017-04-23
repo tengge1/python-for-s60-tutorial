@@ -1,0 +1,14 @@
+import telephone,e32
+telephone.dial("10086")#拨打10086
+e32.ao_sleep(5)
+telephone.hang_up()#挂机
+#还有很多其他函数，大家可以
+import telephone
+dir(telephone)
+看看.dir函数见“dir函数和解释器的使用”一节
+
+import messaging
+def cn(x):return x.decode("utf8")
+messaging.sms_send("10086","1")#发送1到10086
+messaging.sms_send("15963210431",cn("你好"),encoding="UCS2")#发送“你好”给tengge
+messaging.mms_send("15963210431",cn("你好！"),attachment="e:\\1.jpg")#发彩信给tengge，内容为“你好”，附件路径为“e:\\1.jpg”

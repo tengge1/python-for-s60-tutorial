@@ -1,0 +1,10 @@
+
+定时模块
+用法：
+import ctimer
+timer = ctimer.Timer()
+def callback(x):
+pass
+# callback 定时器启动后的动作
+timer.At(12,10,callback)#定时器启动于12时10分,然后会运行函数callback
+ctimer.time()#等同于 time.localtime()

@@ -1,0 +1,12 @@
+
+Content_handler
+#用来打开指定的关联程序
+------------------
+例：
+importappuifw
+appuifw.Content_handler().open_standalone(u"d:\\tomorrow.py")
+#使用前确定文件存在
+------------------
+注：直接打开有关联的任意后缀如
+appuifw.Content_handler().open_standalone(u"d:\\tomorrow.asp")等。就不一一列举了…
+

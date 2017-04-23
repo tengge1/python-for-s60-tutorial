@@ -1,0 +1,14 @@
+看代码：
+import appuifw,e32
+def cn(x):return x.decode('utf-8')
+lock=e32.Ao_lock()#1
+def signal():
+    lock.signal()#2
+appuifw.note(cn("线程将要挂起！"))#此处省略"info"，默认是"info"
+appuifw.app.menu=[(cn('释放线程'),signal)]
+
+lock.wait()#3
+
+appuifw.note(cn('线程已经释放！'))#4
+#代码结束
+当运行到3时，线程锁住，无法继续向下运行，只有遇到2释放线程的函数时，才能继续向下运行，运行4

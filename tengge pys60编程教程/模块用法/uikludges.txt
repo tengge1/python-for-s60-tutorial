@@ -1,0 +1,11 @@
+
+uikludges模块主要用来更改右键的名称
+该模块下只有一个涵数
+-------------
+set_right_softkey_text(text)
+#text为你要更改的名称
+例：
+import uikludges
+uikludges.set_right_softkey_text(u”hello word”)
+#将右健“退出”改为“hello word”
+-------------

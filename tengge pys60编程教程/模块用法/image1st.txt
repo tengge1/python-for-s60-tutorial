@@ -1,0 +1,27 @@
+作者：-=复活€249
+
+这个模块可以使QD支持图片界面…以下范例转载自艾力克的博客…
+import image1st,e32
+form graphics import*
+
+def img_open(x):
+  return Image.from_cfbsbitmap(image1st.convertimage(x))#使用image1st模块让QD在py的graphics中可使用图片…支持jpg,mbm,gif.bmp…好像不支持png…其他自己测试…
+
+def main():
+  global img
+  img = Image.new((176,208))
+  appuifw.app.body=canvas
+  bm = img_open('c:/a.jpg')
+  img.blit(bm)
+  handle_redraw(())
+  appuifw.app.screen='normal'
+  appuifw.app.title = u'image1st'
+
+def handle_redraw(rect):
+  canvas.blit(img)
+
+canvas = appuifw.Canvas(event_callback=None, redraw_callback=handle_redraw)
+
+app_lock=e32.Ao_lock()
+main()
+app_lock.wait()

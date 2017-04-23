@@ -1,0 +1,24 @@
+import miso
+#miso是对内存操作的专用模块
+
+content=miso.alloc_heap_cell(0xf6589654)
+#查看某内存地址的内容
+
+miso.alloc_heap_cells_size()
+#显示总内存大小
+
+miso.check_heap()
+#检查内存
+
+miso.compress_all_heaps()
+#压缩内存
+
+miso.create_drive_subst(100000,"F")
+#新建一个F盘，三版机会出现权限问题
+
+miso.free_heap_cell(0x96554631)
+#判断某内存地址是否有内容
+
+miso.heap_total_avail()
+#所有可用内存
+

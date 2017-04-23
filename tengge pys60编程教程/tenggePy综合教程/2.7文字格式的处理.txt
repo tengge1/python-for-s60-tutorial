@@ -1,0 +1,24 @@
+import appuifw,e32
+def cn(x):return x.decode("utf8")
+appuifw.app.body=t=appuifw.Text()
+t.color=(255,0,0)#红色，第一种表示方法
+t.add(cn("我爱Python!\n"))
+t.color=0x00ff00#绿色，第二种表示方法
+t.add(cn("教程是tengge写的。\n"))
+t.style=appuifw.HIGHLIGHT_ROUNDED
+t.add(cn("这是高亮圆体！\n"))
+t.style=appuifw.HIGHLIGHT_SHADOW
+t.add(cn("这是高亮阴影！\n"))
+t.style=appuifw.HIGHLIGHT_STANDARD
+t.add(cn("这是高亮标准！\n"))
+t.style=appuifw.STYLE_BOLD
+t.add(cn("这是粗体！\n"))
+t.style=appuifw.STYLE_ITALIC
+t.add(cn("这是斜体！\n"))
+t.style=appuifw.STYLE_STRIKETHROUGH
+t.add(cn("这是删除线！\n"))
+t.style=appuifw.STYLE_UNDERLINE
+t.add(cn("这是下划线！\n"))
+e32.Ao_lock().wait()
+
+颜色的表示有两种，(255,255,255)是十进制表示法，分别表示红、绿、蓝成分的多少，有效值0～255；0xffffff是十进制表示法，分别表示红、绿、蓝成分的多少，有效值00～ff。

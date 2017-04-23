@@ -1,0 +1,16 @@
+1.简单输入框
+import appuifw
+def cn(x):return x.decode("utf8")
+tengge=appuifw.query(cn("请输入文字。"),"text")
+
+效果如图。如果将text改为number,date,time,code，就是分别请求输入数字、日期、时间和密码。变量tengge就是取得用户输入的东西。简单吧！
+
+再来看另一个，将text改为"query"，就是请求用户确认。如果用户按是，tengge等于1；按否，tengge等于0。这在条件语句一节将有重要应用。
+
+2.多元输入框
+import appuifw
+(a,b)=appuifw.multi_query(u"text1",u"text2")
+
+效果如图，a,b分别是用户输入的两个值。输入文字系统会直接转换为“unicode”代码。这在文本的替换一节将有重要应用。按“否”，系统会报错。可改为下面的形式：
+a=appuifw.multi_query(u"text1",u"text2")
+按否则返回0。输入后按是，返回一个二元序列。

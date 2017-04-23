@@ -1,0 +1,102 @@
+本教程来自iniwap！转载请注明出处！
+作者：┈┾夨憶D*.亼ぺ
+#转眼到了第十七课了，这课并没有按计划，但是并不影响学习进度。
+#我一直坚持写，希望大家也坚持学下去，更希望能有更多的人支持。
+#课程一定会进行下去，大家一起，相信我们会做的更好。
+#本节是为了满足大家的要求：游戏菜单的基本设计，这里使用纯界面，并不适用高级界面的
+#相应API(即appuifw.app.menu)，当然使用也是可以的。操作相对简单。
+#好了，开始吧。依然使用基本模版
+#-*-coding:utf-8-*-
+#导入模块
+import appuifw
+import graphics
+import e32
+#导入所有键值
+from key_codes import *
+#定义字体，这个要注意，请修改为适合你手机的字体
+#图形界面属于低级界面，要求严格，字体容易出现口口
+ziti=u’CombinedChinesePlain12’
+#实例化canava
+canvas=appuifw.Canvas()
+#程序主体
+appuifw.app.body=canvas
+#声明全屏
+appuifw.app.screen=’full’
+#新建屏幕大小的图像
+img=graphics.Image.new(canvas.size)
+#初始化菜单坐标
+menu_y=0
+#中文
+def chn(x):
+++return x.decode(’utf8’)
+#定义按键移动控制函数
+def move(y):
+#声明菜单坐标为全局变量(这个概念前面有讲到，大家一定要掌握)
+++global menu_y
+#判断按键传过来的参数(这个判断按了向上键)
+++if y==’up’:
+#于是菜单坐标减1(也就是上移动’1’)
+#这个会体现在图形上
+++++menu_y-=1
+#判断向下则加1
+++if y==’down’:
+++++menu_y+=1
+#限制菜单坐标不超过给定范围(试想界面上坐标超过的情形一定很搓)
+++if menu_y==5 or menu_y<0:
+#向上或者向下超过都回到或保持开始位置即菜单坐标为0
+++++menu_y=0
+#判断按下选择键
+++if y==’***’:
+#如果在第一菜单项处按确认键则执行相应操作
+#效果看截图，自己测试也可
+++++if menu_y==0:
+#这里只是给出个提示，其实这里可以是任何函数
+#也即按下了键后你想执行的操作。
+++++++appuifw.note(chn(’开始游戏’),’info’)
+#一下同上解释，不同的菜单项而已
+++++if menu_y==1:
+++++++appuifw.note(chn(’游戏设置’),’info’)
+++++if menu_y==2:
+++++++appuifw.note(chn(’游戏帮助’),’info’)
+++++if menu_y==3:
+++++++appuifw.note(chn(’游戏排行’),’info’)
+++++if menu_y==4:
+++++++appuifw.note(chn(’游戏退出’),’info’)
+#还可以增加菜单项，相应的值应有所修改
+#菜单主界面函数
+def menu():
+#关联键值，这里使用了bind()函数，见前面的课程
+#即canvas绑定到键，当有键按下时执行相应操作
+#lambda匿名函数关键字，具体含义不必追究，记得前面的键按下时执行lambda后的函数就行
+#这里记格式，详细的lambda可以查看资料里的PDF书等
+#EKeyUpArrow键值向上，这里也可以是63497
+++canvas.bind(EKeyUpArrow,lambda: move(’up’))
+++canvas.bind(EKeyDownArrow,lambda: move(’down’))
+++canvas.bind(EKeyS elect,lambda: move(’***’))
+#循环，执行重绘操作，不然画面只能一现或者不能动态改变
+while 1:
+#清屏
+++img.clear(0)
+#菜单说明信息，可以是版权，作者信息等等，随你了。
+++img.text((30,180),u’(c)’, 0xffff00)
+++img.text((50,180),chn(’手机网 iniwap’), 0xff0000,font=ziti)
+#光标，菜单指示肯定要有光标的。这里可以是图片(你喜欢的)，也可是绘出来的符号等等。
+#显然这个光标是要跟着菜单坐标移动的，这里其实就是光标的坐标按照菜单坐标变化的
+#记住菜单坐标是1增加或减少的，光标不然。所以只是个对应而已。
+#这里选择了画矩形高亮菜单项。注意坐标是menu_y*20，明显这里是增减20。这里增加了填充色，是为了区分菜单字颜色和高亮颜色
+++img.rectangle((50,menu_y*20+68,120,68+20*(menu_y+0.8)), 0x99ccff, fill=(103,154,201))
+#下面是所有菜单项，具体排版(菜单项坐标)完全看个人喜好，图形字体函数大家应该会用了。
+++img.text((60,80),chn(’开始游戏’),0x99ccff,font=ziti)
+++img.text((60,100),chn(’游戏设置’),0x99ccff,font=ziti)
+++img.text((60,120),chn(’游戏帮助’),0x99ccff,font=ziti)
+++img.text((60,140),chn(’游戏排行’),0x99ccff,font=ziti)
+++img.text((60,160),chn(’退出游戏’),0x99ccff,font=ziti)
+#img画到界面
+++canvas.blit(img)
+++e32.ao_yield()
+#调用(运行)菜单函数
+menu()
+#最后注意截图，你会看到菜单的上面还有空位置，只是用来显示软件缩略图的
+#可以是图片也可以是你自己画的任何图像。关键的只是坐标的确定而已，不然会很不美观。
+#好了，本节结束了，有不懂的问题法帖提问吧。
+#希望大家继续支持我。

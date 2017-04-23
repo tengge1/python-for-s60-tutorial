@@ -1,0 +1,66 @@
+
+time.sleep(second)
+#时间等待(second为数值)相当于e32.ao_sleep支持浮点数
+例：
+import time
+print u"see tomorrow"
+time.sleep(2.3)
+print u"http://wapele.cn"
+-------------------
+time.clock()
+#返回系统时间值(这个一般用的最多是用来或取程序的响应时间如下面示例)
+示例：
+t1=time.clock()
+time.sleep(3)
+t2=time.clock()
+print "%d"%(t2-t1)+"ms"
+-------------------
+time.asctime()
+#输出当前时间年份日格式(日 时间 年)
+例：
+〉〉〉 import time
+〉〉〉 time.asctime()
+输出〈do type="prev" label="11 21:56:29 2009 "〉〈prev/〉〈/do〉
+-------------------
+time.ctime()
+#同上
+-------------------
+time.strftime(tuple)#根据格式规格说明显示时间
+例：
+〉〉〉 time.strftime("%a")
+输出〈do type="prev" label="Wed"〉〈prev/〉〈/do〉
+#tuple格式说明如下：
+"%a"-简写的英文星期
+"%A"-全英文星期
+"%b"-简写的英文月份数
+"%B"-全称的英文月份数
+"%c"-显示日期时间
+(如：Wed Mar 11 22:28:07 2009)
+"%d"-显示几日数(号数)
+"%H"-显示当前小时(1-12)
+"%l"-显示当前小时(1-23)
+"%j"-显示本年已过多少天(1-366)
+"%m"-显示当月份数(01-12)
+"%M"-显示当前分钟数(1-59)
+"%p"-显示当前时间属于上午、或下午如(下午PM)
+"%S"-显示当前秒数(0-59)
+"%U"-显示当前小时数
+"%w"-显示当前星期数
+"%W"-未知
+"%x"-显示当前日期(如：Wed Mar 11 2009)
+
+"%X"-显示单前时间
+"%y"-未知
+"%Y"-显示年份
+补充：tuple格式还支持以下类型
+例：
+〉〉〉 time.strftime('%Y-%m-%H %X')
+显示〈do type="prev" label="2009-3-22 23:59:23"〉〈prev/〉〈/do〉
+-------------------
+time.gmtime()
+#返回一个时间元组：
+例：
+〉〉〉 time.gmtime()
+(2009, 3, 11, 13, 44, 41, 2, 70, -1)
+-------------------
+〈do type="prev" label="未完待续"〉〈prev/〉〈/do〉

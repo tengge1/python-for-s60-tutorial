@@ -1,0 +1,27 @@
+import base64
+
+a=base64.encodestring("goodbye")
+#将“goodbye”按base64方式编码，即得到"Z29vZGJ5ZQ==\n"
+
+b=base64.decodestring("Z29vZGJ5ZQ==\n")
+#将"Z29vZGJ5ZQ==\n"按base64方式译码，即得到“goodbye”
+
+
+file1=open("c:\\1.txt","r") 
+file2=open("c:\\2.txt","w")
+
+base64.encode(file1,file2)
+#将1.txt按base64方式编码，并保存为2.txt
+
+file1.close()
+file2.close()
+
+
+file2=open("c:\\2.txt","r")
+file3=open("c:\\3.txt","w")
+
+base64.decode(file2,file3)
+#将2.txt按base64方式译码，并保存为3.txt
+
+file2.close()
+file3.close()

@@ -1,0 +1,32 @@
+
+keycapture模块可以启到热健的作用(任意界面均为有效)，也可以用来制作按键记录程序！
+
+import keycapture
+press=keycapture.KeyCapturer(object)
+#object按健调用的对象(函数)，并把键值作为参数付给函数
+
+press.keys=(keys,keys)
+#按健调用的健值(第二个健值可选)
+
+press.start()
+#启动按健(将替代原健功能)，即按下键值为keys的键，就执行object，而不执行原来的功能
+
+press.stop()
+#结束按健(恢复原健功能)
+
+press.last_key()
+#返回最后按健的健值
+
+
+
+import keycapture,e32,appuifw
+def call(key):
+    appuifw.note(u"this is key"+unicode(key),"info")
+press=keycapture.KeyCapturer(call)
+press.keys=(63586,63586)
+press.start()
+e32.ao_sleep(10)
+press.stop()
+
+#当按键为拨号键时，弹出this is key62586。10秒后恢复原来功能。
+

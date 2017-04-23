@@ -1,0 +1,20 @@
+1.选择列表
+import appuifw,e32
+def cn(x):return x.decode("utf8")
+lock=e32.Ao_lock()#赋值
+
+list=[cn("鸡蛋"),cn("火腿"),cn("面包")]
+
+index=appuifw.selection_list(choices=list,search_field=1)#index返回第几项（注：python从零计数），search_field为1时，显示搜索框，为0时不显示。
+
+lock.wait()#lock相当于e32.Ao_lock()
+
+2.复选框
+import appuifw,e32
+def cn(x):return x.decode("utf8")
+lock=e32.Ao_lock()
+list=[cn("鸡蛋"),cn("火腿"),cn("面包")]
+index=appuifw.multi_selection_list(choices=list,style="checkmark",search_field=1)
+lock.wait()
+
+search作用同上，type是checkbox时是复选框，是checkmark时是标记。（我的不行，我用了别人的一张图片）

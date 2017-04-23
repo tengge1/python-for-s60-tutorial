@@ -1,0 +1,17 @@
+1.字符串转换为unicode类型
+
+x="hello,tengge"
+y=unicode(x)
+
+2.数字转换为字符串
+
+x=8
+y=str(x)
+
+3.数字转换为unicode
+
+x=8
+y=unicode(x)
+
+＃一定注意：条件语句和循环语句中，一定要同类的进行比较
+

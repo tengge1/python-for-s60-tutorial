@@ -1,0 +1,25 @@
+作者：明天见
+
+yxznw模块用来语言翻译
+yxznw.text(txt,type=u'ru',come=u'zh-CN')
+#txt为翻译的文本(必填)
+#type为原翻译文本的种类！(可选)
+#come为翻译文本的种类(可选)
+注意：如果您没有填type与come文本将自动默认翻译俄文为中文其中ru为俄文、zh-CN为简体中文等下我发上语言的对照列表！
+------------------
+例一：
+import yxznw
+print yxznw.text('Новые версии программ на официальном сайте'.decode('utf-8'))
+新版本的程序的官方网站
+------------------
+例二：
+import yxznw
+print yxznw.text('新版本的官方网站'.decode('utf-8'),type=u'zh-CN',come=u"en")
+e new version of the official Web site
+------------------
+例三：
+import yxznw
+print yxznw.text('see tomorrow'.decode('utf-8'),type=u'en',come=u"zn-CN")
+明天见
+------------------
+其实：只要能灵活运动就行了！zh-TW 中文(繁体)zh-CN 中文(简体)ru 俄语en 英语ar 阿拉伯文bg 保加利亚文pl 波兰语ko 朝鲜语da 丹麦语de 德语fr 法语fi 芬兰语nl 荷兰语cs 捷克语hr 克罗地亚文ro 罗马尼亚语no 挪威语pt 葡萄牙语ja 日语sv 瑞典语es 西班牙语el 希腊语it 意大利语hi 印度文

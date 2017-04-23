@@ -1,0 +1,22 @@
+#数据库文件是写一些游戏和程序参数文件所必须的，字典似的储存方式使写入和读取非常方便
+
+
+import appuifw,e32dbm
+#e32dbm是对dbm数据库操作的模块，我们可以通过它储存和加密一些数据
+
+file=e32dbm.open("c:\\tengge","n")
+#打开数据库"e:\\tengge.e32dbm"，"n"表示可读可写，"w"表示只写，"r"表示只读
+
+file["py"]=u"I love python!"
+#以字典形式向数据库中写入数据
+
+file.close()#关闭数据库
+
+del file
+#我们将原来的file变量删除，但没删除数据库文件
+
+file=e32dbm.open("c:\\tengge","r")
+
+appuifw.note(unicode(file["py"]))#输出数据
+
+#注意：e32dbm模块写入数据时，会自动转化为字符串格式，所以我们用unicode函数转化后才能正常显示！

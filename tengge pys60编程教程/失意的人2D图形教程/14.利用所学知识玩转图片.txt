@@ -1,0 +1,78 @@
+本教程来自iniwap！转载请注明出处！
+作者：┈┾夨憶D*.亼ぺ
+#-*-coding:utf-8-*-
+#好了，第十三课的知识是不是掌握了呢？
+#不懂一定要在问题专版提问
+#一定要掌握，这节将教大家利用上节的知识做点实际的东东
+#如果你学会了这节相信你会做出更炫的玩意来。
+#仍然使用基本模块
+#那么这节实现的是什么呢？
+#为了提高学习的欲望可以告诉大家实现的是
+#图片的向下拉开，向上拉开，从中间向四周，从四周向中间拉开
+#其他各种炫的方式你可以自己动脑筋哦
+#好了，开始第十四课的内容了。
+#导入模块
+import appuifw,e32,graphics
+appuifw.app.body=canvas=appuifw.Canvas()
+appuifw.app.screen=’full’
+#打开图片
+img=graphics.Image.open(’e:\\load.jpg’)
+#将缩放至屏幕大小
+img=img.resize(canvas.size)
+#这里我只解释一种拉开方式，其他留给大家做思考题
+######向下######
+#for循环0-55，可以修改此值看效果
+#作用是递增坐标，一点一点的将图画到canvas界面上
+for i in range(56):
+#又见blit，上节的内容出现了。
+#第一个参数img,就是图片了
+#target，图片的左上角画到canvas的坐标，这里是（0，0）,可以想到图是从最上方拉开的了吧
+#source，这个比较关键，这个坐标都是关于img的坐标，那画的图的哪部分呢？
+#前两个（0，0)是不是看出是img的左上角了？
+#后两个176，图的最右端，i*4呢？对，就是图的y坐标递增，这样就实现了
+#画img的x,0到176,y,0到i*4部分
+#是不是想到这样实现了图是一点一点向下拉开的呢？
+++++canvas.blit(img,target=(0,0),source=(0,0,176,i*4))
+#者句是延时0.2秒，为什么呢？因为要看到的效果是一点一点的拉开
+#没有延时不就一下拉开了吗？那没效果了。
+++++e32.ao_sleep(0.2)
+#向下拉开完全后停顿3秒，以便看清后面的效果
+e32.ao_sleep(3)
+#清除canvas界面()默认颜色为白色
+#这样是为了看下一个效果
+canvas.clear()
+#OK，完美结束了一个效果
+#下面的几个自己慢慢体会吧
+######向上#####
+for i in range(56):
+++++canvas.blit(img,target=(0,208-4*i),source=(0,208-4*i,176,208))
+++++e32.ao_sleep(0.2)
+e32.ao_sleep(3)
+canvas.clear()
+######向四周#####
+for i in range(28):
+++++canvas.blit(img,target=(88-i*4,104-i*4),source=(88-i*4,104-i*4,88+4*i,104+i*4))
+++++e32.ao_sleep(0.2)
+e32.ao_sleep(3)
+canvas.clear()
+######向中间#####
+#这里要特别说明一下，向中间实现起来麻烦了点
+#因为只根据坐标不可能直接画出中间没有四周有图
+#所以使用了点小技巧，在img上画空白图，向中间缩小
+#相对背景图img不就是从四周向中间拉开的吗？
+#至于坐标参数的含义，慢慢悟吧。
+#多测试多练??一定能掌握的。
+img1=graphics.Image.new(canvas.size)
+for i in range(28):
+++++canvas.blit(img)
+++++canvas.blit(img1,target=(i*4,i*4),source=(i*4,i*4,176-4*i,208-i*4))
+++++e32.ao_sleep(0.2)
+#下面还是基本模块的内容
+running=1
+def quit():
+++++global running
+++++running=0
+appuifw.app.exit_key_handler=quit
+while running:
+++++canvas.blit(img)
+++++e32.ao_yield()

@@ -1,0 +1,55 @@
+作者：tengge
+
+看示例：
+class Calculate:#计算父类
+    def __init__(self):
+        self.a=0
+        self.b=0
+        self.out=0#结果
+        
+    def input(self):#输入
+        self.a=int(raw_input("input an number:"))
+        self.b=int(raw_input("input another number:"))
+    
+    def function(self):#计算
+        pass
+        
+    def output(self):#输出
+        print self.out
+        
+    def calculate(self):#主函数
+        self.input()
+        self.function()
+        self.output()
+
+class Plus(Calculate):#加法子类
+    def function(self):
+        self.out=self.a+self.b
+
+class Multiply(Calculate):#乘法子类
+    def function(self):
+        self.out=self.a*self.b
+
+#计算加法
+plus=Plus()
+plus.calculate()
+
+#计算乘法
+multiply=Multiply()
+multiply.calculate()
+
+输出结果：
+input an number:5
+input another number:6
+11
+input an number:2
+input another number:4
+8
+
+我们在父类中定义了一个空方法function，然后又在子类中重新定义它。
+父类中的这个空function的存在是有意义的。
+因为若没有这个空方法，直接用父类生成实例，那么就会出错。有了这个空方法就不会出错了。
+举个不恰当的例子：__init__是object类定义的空方法。若没有，你就要在每个类中定义该方法。那将多么麻烦。
+
+同样，静态属性也可以重新定义。本人在本例中a，b，out覆初值0，又在后面重新定义了它。
+好了，这节就到这里。

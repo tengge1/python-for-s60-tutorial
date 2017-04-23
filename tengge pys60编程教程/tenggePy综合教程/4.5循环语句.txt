@@ -1,0 +1,40 @@
+1.while循环
+
+i=0
+while i<100:
+    print i#这节我们用解释器界面，不用用户界面，print是打印的意思
+    i+=1#相当于i=i+1
+
+#说明：当满足i<100时就会执行下面的语句。会打印出0到99
+
+2.for循环
+from appuifw import note
+things=[u"apple",u"orange",u"banana"]
+for i in things:
+    note(i)
+
+for依次将列表中项赋值给i，再执行下面的语句
+
+while循环那个例子也可用for来实现
+
+for i in range(1,100,1):
+    print i
+
+比while更简单对吧。range(1,100,1)意思是起始值为1，结束值为99，步长为1（及后一个值比前一个值多1）的等差数列。
+
+3.break和continue语句
+
+循环体中，碰到break时会跳出循环，碰到continue时会直接再去判断条件，而不向下执行！如：
+
+import appuifw
+def cn(x):return x.decode("utf8")
+
+while True:
+    x=appuifw.query(cn("请输入“8”："),"number")
+    if x==8:
+        break#跳出循环
+    else:
+        appuifw.note(cn("错！"))
+        continue
+        appuifw.note(cn("对！"))#此句不被执行
+

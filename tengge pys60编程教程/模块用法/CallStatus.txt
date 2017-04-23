@@ -1,0 +1,7 @@
+
+CallStatus模块用来判断来去电通话的状态
+示例：
+〉〉〉import CallStatus
+〉〉〉CallStatus.GetStatus()
+1
+注：1为正在通话。0为待机状态

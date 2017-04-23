@@ -1,0 +1,107 @@
+:【教程】PYthonC++交互技术⑥-派森C#高级缝装式
+这章是真正典型的C++封装缝合C++和PYTHON缺口的事例。
+下面我们再看一个C++类型的封装代码：
+Wrapper.cpp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//MultiBoolean类的Python封装，使用boost::python技术
+//作者：刘鑫
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//引用boost库
+#include <boost/python.hpp>
+//引用多值逻辑定义
+#include “MultiBoolean.h“
+//引用与或运算的Python封装接口
+#include “pyMultiBoolean.h“
+//引用相关的命名空间
+using namespace boost::python;
+using namespace MarchLibrary;
+//模块定义
+BOOST_PYTHON_MODULE(MarchLibrary)
+{
+*//类封装，这里用no_init表示没有可用的构造函数
+*class_<MultiBoolean>(“MultiBoolean“, no_init)
+**//可选的逻辑值接口
+**.def_readonly(“True“, &MultiBoolean::True)
+**.def_readonly(“False“, &MultiBoolean::False)
+**.def_readonly(“Unknown“, &MultiBoolean::Unknown)
+**.def_readonly(“Undefine“, &MultiBoolean::Undefine)
+**.def_readonly(“Nil“, &MultiBoolean::Nil)
+**//兼容C++版定义的字符串处理接口
+**.def(“ToString“, &MultiBoolean::ToString)
+**.def(“FullName“, &MultiBoolean::FullName)
+**.def(“Parse“, &MultiBoolean::Parse)
+**//逻辑值判定
+**.def(“IsTrue“, &MultiBoolean::IsTrue)
+**.def(“IsFalse“, &MultiBoolean::IsFalse)
+**.def(“IsUnknown“, &MultiBoolean::IsUnknown)
+**.def(“IsUndefine“, &MultiBoolean::IsUndefine)
+**.def(“IsNil“, &MultiBoolean::IsNil)
+**//运算符重载接口
+**.def(!self)
+**.def(self &= self)
+**.def(self &= bool())
+**.def(self |= self)
+**.def(self |= bool())
+**.def(self ^= self)
+**.def(self ^= bool())
+**.def(self == self)
+**.def(self == bool())
+**.def(bool() == self)
+**.def(self != self)
+**.def(self != bool())
+**.def(bool() != self)
+**.def(self & self)
+**.def(self & bool())
+**.def(bool() & self)
+**.def(self | self)
+**.def(self | bool())
+**.def(bool() | self)
+**.def(self ^ self)
+**.def(self ^ bool())
+**.def(bool() ^ self)
+**//提供给Python解释器的标准字符串输出接口
+**.def(“__str__“, &MultiBoolean::ToString)
+**.def(“__repr__“, &MultiBoolean::FullName)
+*;
+}
+MultiBoolean本身是一个多值逻辑类型，它的实现比较长，就不在这里放出了。（直接在IDE展示）这里主要给大家演示下class封装的基本功能，包括方法、属性和运算符重载。
+
+

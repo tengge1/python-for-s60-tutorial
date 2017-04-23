@@ -1,0 +1,74 @@
+作者：№榀榀※
+
+import lightblue
+#查找附近的设备和提供的服务
+>>> lightblue.finddevices()
+ [('00:0E:6D:71:A2:0B', u'My6600', 5243396),('00:0D:93:19:8:68',u'pantherbox', 1057028)]
+>>> lightblue.findservices('00:0D:93:19:C8:68')
+ [('00:0D:93:19:C8:68', 10, 'OBEX Object Push'), ('00:0D:93:19:C8:68', 15,'OBEX File Transfer'), ('00:0D:93:19:C8:68', 1, 'Bluetooth-PDA-Sync'),('00:0D:93:19:C8:68', 3, 'Palm Serial Port')]
+#选择一个设备或服务：
+>>> ligtblue.selectdevice()# brings up a device-selection GUI
+ ('00:0E:6D:71:A2:0B', u'My6600', 5243396)
+>>> lightblue.selectservice() # brings up a service-selection GUI
+ ('00:0E:6D:71:A2:0B', 2, u'Bluetooth Serial Port')
+#To use RFCOMM socket objects:
+# client socket
+>>> s = lightbluesocket()
+>>> s.connect(("00:12:2c:45:8a:7b", 5))
+>>> s.send("hello")
+ 5
+>>> s.close()
+# server socket
+>>> s = lightblue.socket()
+>>> s.bind(("", 0)) # bind to 0 to bind to dynamically assigned port
+>>> s.listen(1)
+>>> lightblue.advertise("My RFCOMM Service", s, lightblue.FCOMM)
+>>> conn, addr = s.accept()
+>>> print "Connected by", addr
+ Connected by ('00:0D:93:19:C8:68', 5)
+>>> conn.recv(1024)
+ "hello"
+>>> conn.close()
+>>> s.close()
+#To send and receive files over OBEX:
+# send a file (can pass file name or file object)
+>>> lightblue.obx.sendfile("00:12:2c:45:8a:7b", 10, "MyFile.txt")
+# receive a file and save it as MyFile.txt
+>>> s = lightblue.socket()
+>>> s.bind(("", 0))
+>>> lightblue.advertise("My OBEX Service", s, lightblue.OBEX)
+>>> lightblue.obex.recvfile(s, "MyFile.txt") # or pass file object instead
+>>> .close()
+#To run OBEX client sessions:
+# send a business card (vCard) to an Object Push service
+>>> client = lightblue.obex.OBEXClient("00:12:2c:45:8a:7b", 10)
+>>> client.connect()
+ <OBEXResponse reason='OK' code=0x20 (0xa0) headers={}>
+>>> client.put({"name": "MyBusinessCard.vcf"} file("MyBusinessCard.vcf", "r"))
+ <OBEXResponse reason='OK' code=0x20 (0xa0) headers={}>
+>>> client.disconnect()
+ <OBEXResponse reason='OK' code=0x20 (0xa0) headers={}>
+# get a directory listing from a File Transfer service
+# (see examples/obex_ftp_client.py for a basic File Transfe client implementation)
+>>> client = lightblue.obex.OBEXClient("00:12:2c:45:8a:7b", 15)
+>>> ftp_target_uuid = '\xf9\xec{\xc4\x95<\x11\xd2\x98NRT\x00\xdc\x9e\t'
+>>> client.connect({"target": ftp_target_uuid})
+ <OBEXResponse reason='OK' code=0x20 (0xa0) headers={'connection-id': 327258,'wh': '\xf9\xec{\xc4\x95<\x11\xd2\x98NRT\x00\xdc\x9e\t'}>
+>>> import StringIO
+>>> dirlist = StringIO.StringIO()
+>>> client.get({'type': 'x-obex/folder-listing'}, dirlist)
+ <OBEXResponse reason='OK' code=0x20 (0xa0) headers={'length': 292}>
+>>> dirlist.getvalue()
+ '<?xml version="1.0"?\n<!DOCTYPE folder-listing SYSTEM
+ "obex-folder-listing.dtd"\n [ <!ATTLIST folder mem-type CDATA #IMPLIED>\n
+ <!ATTLIST folder label CDATA #IMPLIED> ]>\n<folder-listing version="1.0">\n
+ <folder name="C:" user-perm="RW" mem-type="DEV" label="Phone memory"/>\n</folder-listing>'
+>>> clint.disconnect()
+ <OBEXResponse reason='OK' code=0x20 (0xa0) headers={}>
+#阅读本地设备的信息:
+>>> lightblue.gethostaddr()
+ '00:0F:3D:5F:20:F0'
+>>> lightblue.finddevicename(lightblue.gethostaddr())# get local device name
+ u'susebox'
+>>> lightblue.gethostclass()# class of device
+ 367027

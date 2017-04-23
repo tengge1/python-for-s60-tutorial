@@ -1,0 +1,15 @@
+#以self开头的函数是全局性的，根本不用global声明！这将使编程非常简单！！
+
+class tengge:
+    def __init__(self,x):#它需要的参数直接放在tengge后面的那个括号中即可！
+        import appuifw
+        self.note=appuifw.note
+        self.x=x
+        self.cn=lambda x:x.decode("utf8")#见tengge教程lambda那一节！
+    def say(self):
+        self.note(self.cn("你输入的是")+unicode(self.x))
+
+tengge(3).say()
+
+#很简单吧！
+

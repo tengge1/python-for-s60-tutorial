@@ -1,0 +1,2 @@
+
+〈a href="http://pic3.lexun.com/kki/bbs_wap/myphoto/act/20090130/15/36209286.jar"〉免费下载〈/a〉〈br/〉[格式:jar/大小:0k]〈br/〉下载后改zip后缀解压〈br/〉——————————〈br/〉#好久没来玩了〈br/〉#这个是俄人写的运用uid启动程序的模块(￣▽￣)〈br/〉import laa〈br/〉print dir(laa)〈br/〉#运行结果：['__doc__', '__file__', '__name__', 'about', '*', '*_bg']〈br/〉laa.*(0x10008d39)〈br/〉#启动自带浏览器〈br/〉laa.*(0x10008d39, u'http://www.google.com')〈br/〉#启动自带浏览器并上谷歌，细节：自带浏览器及时之前就已经在后台，他也会不顾一切往谷歌上冲〈br/〉laa.*_bg(0x10008d39)〈br/〉#会完全不知不觉在后台打开自带浏览器，其他跟*一样〈br/〉laa.about()#作者信息〈br/〉来源：媩褋留念处

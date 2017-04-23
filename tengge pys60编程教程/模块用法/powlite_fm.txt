@@ -1,0 +1,16 @@
+
+import powlite_fm
+path = powlite_fm.manager().AskUser('e:/', ext=['.py'])
+print path
+#解说：AskUser(path = None, find = 'file', ext = [], moe=None)
+path为打开文件的默认路径如果没有输入则默认打开盘符！find=dir时为选择文件！
+ext = ['.Py']为只显示后缀py的文件。过虑多个文件加个号如['.Py','.Pyc']
+moe='more'用笔健可多选择(文件夹)文件。返回值是一个列表！
+import lite_fm
+path=lite_fm.manager('e:\\',ext='.py')
+print path
+#解说：(path = None, find = 'file', ext = None)
+
+path为打开文件的默认路径如果没有输入则默认打开盘符！find=dir时为选择文件！
+ext = '.Py'为只显示后缀py的文件。
+注意：只能过虑一个后缀文件

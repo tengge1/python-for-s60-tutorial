@@ -1,0 +1,8 @@
+
+appuifw.multi_selection_list(list，style，search_field)
+#注：list列表选项必填，style类型选项为可选style=”checkmark”是为记号选择style=”checkbox”时为标记选择search_field值为1时显示搜索框为0是不显示！具体查看下面示例！
+-----------------
+import appuifw
+list=[u"see tomorrow",u"wapele.cn"]
+index=appuifw.multi_selection_list(list,style="checkbox",search_field=1)
+print index

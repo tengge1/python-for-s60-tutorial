@@ -1,0 +1,23 @@
+
+importappuifw
+#appuifw.query(内容,类型,默认)
+适用于界面的数据输入
+--------------------
+#文本输入
+appuifw.query(u"input","text")
+#如果你想在输入框中内带默认文字可以这样写：
+appuifw.query(u"input","text",u"see tomorrow")
+--------------------
+#数字
+appuifw.query(u"input","number")
+
+--------------------
+#密码
+appuifw.query(u"input","code")
+--------------------
+#日期
+appuifw.query(u"input","date")
+--------------------
+#时间
+appuifw.query(u"input","time")
+注：输入日期和时间值的返回都是布尔值

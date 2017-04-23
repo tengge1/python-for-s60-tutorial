@@ -1,0 +1,52 @@
+作者：無爱
+
+import time
+import thread
+def a(n,s):
+  for i in range(0,10):
+     print n,'->',i
+     time.sleep(s)
+def b(n,s):
+  list=['a','b','c','d','e','f','g','h','i','j']
+  for i in list:
+    print n,'->',i
+    time.sleep(s)
+#怎样使a()和b()同时运行？使用thread.start_new_thread()方法简单的产生2个新的线程
+def test():
+  thread.start_new_thread(a,('a_1',2))#运行a()
+  thread.start_new_thread(b,('b_2',2))#运行b()
+test()
+#这个是thread.start_new_thread(function,args[,kwargs])函数原型，其中function参数是你将要调用的线程函数；args是讲传递给你的线程函数的参数，他必须是个tuple类型；而kwargs是可选的参数
+线程的结束一般依靠线程函数的自然结束；也可以在线程函数中调用thread.exit()，他抛出SystemExit exception，达到退出线程的目的。
+——————————
+import appuifw
+import e32
+import thread
+lock=e32.Ao_lock()
+lockTHR=thread.allocate_lock()
+
+i=0
+def funzDaemon():
+  global i
+  while True:#这是一个循环，如果不用if判断，会一直循环下去，也就是一个死循环。
+    lockTHR.acquire()#获得锁定(个人理解)
+    e32.ao_sleep(1)
+    open('E:\\Others\\tmp.txt','a').write(str(i)+"\n")
+    i+=1
+    if i==20:#下面3句效果一样
+#      thread.exit_thread()#线程退出
+      thread.ao_waittid(s)#线程等待
+#      break#跳出循环
+    print i
+    s=thread.get_ident()#获取线程标识
+    lockTHR.release()#解除锁定
+###########################
+appuifw.app.exit_key_handler=lambda:lock.signal()
+
+print 'Start'
+
+thread.start_new_thread(funzDaemon,())
+
+lock.wait()
+
+print 'Stop'

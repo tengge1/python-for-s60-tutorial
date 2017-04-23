@@ -1,0 +1,36 @@
+lambda函数用来创建简单函数，不需要缩进，主要是用来使程序符合语法，并使程序简单易读。
+
+1.创建无参数函数
+如：
+
+import appuifw
+appuifw.app.menu=[(u"say hello",lambda:appuifw.note(u"Hello!"))]#使程序符合定义菜单的格式
+
+相当于：
+
+import appuifw
+def sayhello():
+    appuifw.note(u"Hello!")
+appuifw.app.menu=[(u"sayhello",sayhello)]
+
+只不过前者更简单！
+
+2.定义含参数函数
+
+import appuifw
+sayhello=lambda x:appuifw.note(x)
+sayhello(u"Hello!")
+
+相当于：
+
+import appuifw
+def sayhello(x):
+    appuifw.note(x)
+sayhello(u"Hello!")
+
+其实，(lambda x:appuifw.note(x))就相当于下面的sayhello函数名，你可以直接这样用：
+
+import appuifw
+(lambda x:appuifw.note(x))(u"Hello!")
+
+用lambda函数可以使构造的函数很简单吧！！

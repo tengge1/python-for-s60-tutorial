@@ -1,0 +1,51 @@
+作者：tengge
+
+类的继承和派生是面向对象编程最具特色的地方之一，python的类同样可以继承和派生。
+看示例：
+
+#定义一个类Person
+class Person:
+    name="Jim"
+    age=20
+    sex="M"
+    def say(s):
+        print "Hello!"
+
+#由类Person派生出两个类Man和Women
+class Man(Person):
+    name="Jim"
+    sex="M"
+
+class Women(Person):
+    name="Kate"
+    sex="W"
+#上面使用新派生出的两个类
+
+man=Man()
+women=Women()
+print man.name,man.age,man.sex
+print women.name,women.age,women.sex
+man.say()
+women.say()
+
+输出：
+Jim 20 M
+Kate 20 W
+Hello!
+Hello!
+
+在本例中，我们用Person类派生出两个新类Man和Women，或者说Man和Women继承了Person类的属性和方法。这样，我们就不必在子类中重新定义它，于是，减少了工作量。
+同样，在游戏，虽然各种怪的许多特征不同，但它们仍具有许多相似的属性，于是，我们将它抽象为类Monster，再用该类去派生各种各样的子类。
+如：
+
+class Monster:
+    type=1#类型
+    HP=200#体力
+    MP=500#魔法
+    posX=20
+    posY=20#位置(posX,posY)
+    speed=2#速度
+    attack=20#攻击力
+    defend=30#防御力
+
+好了，这节就到这里。

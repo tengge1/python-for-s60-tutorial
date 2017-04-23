@@ -1,0 +1,47 @@
+作者：tengge
+我们以前的编程主要是利用了面向过程的编程方法（即通过定义函数来编程），其实，python是一种面向对象的编程语言，可以通过定义类来编程。
+
+看示例：
+
+class SayHello:#定义类SayHello
+    def say(self):#定义类的方法say
+        print "Hello!"
+
+x=SayHello()#生成类的一个实例
+x.say()#调用类的一个方法。
+
+在本例中，我们首先利用class关键字定义了一个类SayHello，其中有一个方法say，它有一个参数self，这个参数不需要给其赋值的，它代表类自身，现在只需要记住在类中定义方法，多加一个参数（第一个）即可，以后我们会详细说明其意义。这个参数用任意一个英语单词或字母都行，我们推荐使用self。
+
+在编写简单程序时，用函数可能比类简单，可是当程序变得复杂时，用函数会很复杂。例如，我们编写了一个100个函数的方法，这是很难维护的；如果我们将其分成10个类，每个类10个方法，就好处理多了。
+
+下面我们通过一个例子来介绍类的一些术语，大家可暂时不做深究，我们以后会详细介绍：
+
+class Hello:
+    words="Hello,world!"
+    #定义类的一个静态属性（类的属性）
+
+class SayHello(Hello):
+    #子类SayHello继承了父类Hello
+    def __init__(s,name):
+        #构造方法，生成实例时自动执行
+        s.name=name
+        #将局部变量转化为类的属性
+        print s.name+":"
+    def say(s):
+        print s.words#调用了继承来的方法
+    def __del__(s):#销毁实例时自动运行
+        print "end."
+
+hello=SayHello("tengge")
+#将"tengge"以类的参数传给类
+hello.say()
+#调用类的动态属性（即方法）
+del hello
+#销毁实例
+
+#本例输出：
+tengge:
+Hello,world!
+end.
+
+好了，这节就到这里。由于本人最近比较忙，不能连续出教程。本人准备写十几节《tenggePy对象教程》，欢迎下载使用。

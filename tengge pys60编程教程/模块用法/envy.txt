@@ -1,0 +1,17 @@
+作者：龙飞飞龙
+
+用法:
+
+import envy
+envy.set_app_system(1) # 设为系统程序
+envy.set_app_hidden(1) # 长按功能表隐藏图标
+
+envy.set_app_system(0) # 取消设为系统程序
+envy.set_app_hidden(0) # 取消隐藏图标
+
+envy.is_app_system() # 1-已经设为系统程序 , 0 - 非系统程序
+envy.is_app_hidden() # 1-已经隐藏图标 , 0 -  非隐藏图标
+
+作者  Maxim6630
+应用于 - Symbian 7-8
+发布于 2009.04.03

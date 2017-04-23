@@ -1,0 +1,4 @@
+本节代码在三版机上用脚本编辑和解释器都不能正常运行，会引发塞班错误。因为程序未获得重启和关机的权限，打包成软件签名后可能行。
+import switchoff
+switchoff.Restart()#重启
+switchoff.Shutdown()#关机

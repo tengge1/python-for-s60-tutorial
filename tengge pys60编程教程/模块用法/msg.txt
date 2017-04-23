@@ -1,0 +1,8 @@
+
+msg模块用来设置随显提示
+import msg,time
+msg=Msg()
+msg.on("模块用法：\nimport Msg, time\nmsg=Msg()\nmsg.on(Content, Title, Corner, Shadow)\ntime.sleep(3)\nmsg.off()", "Msg模块 V 0.1：", "corner3", 1)
+e32.ao_sleep(5)
+msg.off()
+＃效果如下图作者啊高==贴子附件==

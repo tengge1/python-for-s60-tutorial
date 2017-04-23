@@ -1,0 +1,20 @@
+#我们以做除法为例讲解：
+
+import appuifw
+def cn(x):return x.decode("utf8")
+(a,b)=appuifw.multi_query(cn("被除数"),cn("除数"))
+c=int(a)/int(b)#int函数将字符串类型转为数值类型，见“各类型之间的转换”一节
+appuifw.note(cn("结果是")+unicode(c))
+
+上面语句如果用户正确操作，不会出错，如果用户胡输入一个东西或直接返回，就会出现严重错误！！如果先判断用户输入的东西再计算又太麻烦，怎么办呢？用try…except…finally语句！看修改后的代码：
+
+import appuifw
+def cn(x):return x.decode("utf8")
+try:#先尝试执行下面的语句
+    (a,b)=appuifw.multi_query(cn("被除数"),cn("除数"))
+    c=int(a)/int(b)
+    appuifw.note(cn("结果是")+unicode(c))
+except:#如果上面的无法执行，跳过，执行下面的！
+    appuifw.note(cn("无法计算！"),"error")
+
+大家若将上面的代码中的except改为finally，尝试执行的语句不管执行不执行，下面的都会执行！！

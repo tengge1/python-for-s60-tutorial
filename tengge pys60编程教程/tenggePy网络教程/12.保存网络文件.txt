@@ -1,0 +1,27 @@
+#作者：tengge
+#QQ:930372551
+#这节的东西非常简单，前面几节已经用过，和保存图片没什么区别…
+#我们这节仅从易搜下载一个50k左右的jar格式的小说进行测试…
+
+import httplib
+import urllib
+
+def get_source(myurl,con={"":""}):
+    '''get_source by tengge.'''
+    params = urllib.urlencode(con)
+    headers = {'Content-type': 'application/x-www-form-urlencoded','Accept': 'text/plain'}
+    conn = httplib.HTTPConnection("10.0.0.172", 80)
+    conn.request("POST", myurl, params, headers)
+    data=conn.getresponse().read().replace("amp;","").replace("\n","")
+    conn.close()
+    return data
+
+#这是下载的网址，大家可以看出是jar格式的…
+myurl="http://221.181.66.231/s/s733888_1.jar?esid=k-LjHygmcyN&v=2"
+
+f=open("c:\\小说.jar","w")
+data=get_source(myurl)
+f.write(data)
+f.close()
+
+#现在大家可以去安装看小说了！这一节很简单吧！

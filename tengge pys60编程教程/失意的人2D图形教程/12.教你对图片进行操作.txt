@@ -1,0 +1,50 @@
+本教程来自iniwap！转载请注明出处！
+作者：┈┾夨憶D*.亼ぺ
+#下面开始第十二课
+#上节学会如何用图片做图形界面的背景了吧？
+#上节说到打开图片
+#于是这节的主要内容就是图片打开了，我们能对图片做些什么呢？
+#框架和上节相同，下面主要讲解函数用法
+第一个函数：
+resize((宽，高),callback=函数,keepaspect=0或者1)
+用法：缩放图片，(宽，高)表示新图大小
+callback可选参数，如果给出，则函数和图片缩放是同步的，
+即只有函数被调用时，缩放才完成。这个没用，可略去。默认无
+keepaspect可选参数，设为1表示按比列缩放，为0不按比例。默认0
+第二个函数：
+transpose(方向，callback=None)
+用法：旋转图片
+参数方向：有以下几??：
+FLIP_LEFT_RIGHT: 水平翻转
+FLIP_TOP_BOTTOM: 垂直翻转
+ROTATE_90: 逆时针90*
+ROTATE_180: 旋转180*
+ROTATE_270: 逆时针270*
+以上效果自己测试，对打开图像执行transpose函数后blit到界面即可查看
+callback可选，意义同上
+第三个函数：
+load(filename,callback)
+用法：加载图像，即覆盖上次。
+filename：新图路径，必须是完整路径
+callback：同上
+第四个函数：
+save(路径，callback=None,format=None,quality=75,bpp=24,compression=’default’)
+用法：保存图像
+路径：保存路径，必须完整路径
+callback可选
+formats:保存图片格式，有JPG何PNG两种，默认取决于路径的文件名后缀
+quality：JPG格式用，范围1到100
+bpp:PNG格式参数，有1（黑白）,8（灰度256）,24（真彩）
+compression:压缩，参数有’best’，最佳压缩，速度最慢；
+’fast’最快；’no’无压缩，文件会很大；’default’以上中和
+第四个函数：
+这个特殊，不只是??于图像，其他图形界面均可使用。
+screenshot()屏幕截图
+用法为 graphics.screenshot()
+如果想保存截图，可以这样写：
+graphics.screenshot().save(保存的路径)
+以上为方法，图像还有一个有用的属性size获得图像的大小
+用法为img.size
+好了，到这里有关图像的操作终于讲完了。下一节将讲述最关键的一个函数
+blit()的用法。它可实现图片分割以及显示，图上加图等等高级功能。
+期待吧。。。

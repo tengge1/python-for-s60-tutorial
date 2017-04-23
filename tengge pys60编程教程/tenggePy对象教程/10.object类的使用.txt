@@ -1,0 +1,51 @@
+作者：tengge
+
+在python中，object类提供了很多有用的属性和方法，下面我们借一个例子重点看两个特殊方法__setattr__和__delattr__的使用。
+
+class Test(object):
+    '''This is a class by tengge.'''
+    name="test"
+    def __init__(self):#构造方法，实例创建时运行
+        print "__init__"
+    def __setattr__(self,argv1,argv2):#添加或修改属性时该方法自动运行，argv1是添加或修改的属性的名称，自动获得，argv2是添加或修改属性的值，自动获得
+        print "__getattribute__"
+        print argv1
+        print argv2
+    def __delattr__(self,argv):#删除属性时该方法自动运行，argv是删除的属性的名称，自动获得
+        print "__delattr__"
+        print argv
+    def __del__(self):#析构方法，实例销毁时运行
+        print "__del__"
+
+test=Test()
+#__int__方法此时运行
+
+print test.__doc__
+#输出实例中的文本信息
+
+test.name="tengge"
+#此时__setattr__方法运行
+
+test.age=10
+#此时__setattr__方法运行
+
+del test.name
+#__delattr__方法此时运行
+
+del test
+#__del__方法此时运行
+
+输出：
+__init__
+This is a class by tengge.
+__getattribute__
+name
+tengge
+__getattribute__
+age
+10
+__delattr__
+name
+
+有时，当一个类属性被改变时需要执行一些代码，这两个函数恰好派上用场。
+例如，在游戏中，如果外部使怪的位置属性发生变化，就要用这两个函数来重新显示怪的位置。

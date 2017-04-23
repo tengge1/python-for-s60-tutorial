@@ -1,0 +1,49 @@
+作者：飞影7610
+
+模块快捷键如下：
+1键--过滤不含中文名的文件与文件夹
+2~9键--快速找查
+0键--详细找查
+c键--返回上一找查状态
+*键(短按)--跳至上一页
+*键(长按)--跳至顶端
+#键(短按)--跳至下一页
+#键(长按)--跳至底端
+
+下面说说模块的用法：
+此模块只有一个Manager类，创建实例后，通过调用AskUser方法来获取路径。
+AskUser方法包含5个参数，依次为：
+--
+(1)path: 设定初始目录，缺省值为空，即 ""
+--
+(2)find：设定要找查文件方式，有三种方式，'file'、'dir'和'all'。
+'file'方式下找查对象为文件，
+'dir'方式下找查对象为文件夹，
+'all'方式下找查对象可以为文件也可以为文件夹。
+缺省值为'file'
+--
+(3)ext：设定找查文件对象的后缀名，只有在find设定为非'dir'时才有效。缺省值为 []
+--
+(4)mark：设定是否为标记模式，标记模式下返回的是一个列表，返之为字符串，缺省值为False，即非标记模式
+--
+(5)back：设定是否允许用户返回path的上级目录，缺省值为True，既允许返回上级目录。
+--
+按返回时，返回None
+
+注意：非标记模式下返回的字符串是没有定义decode('utf8')编码的，如果你要打印请加上.decode('utf8')，否则令中文时会乱码
+ps：为何不加编码？因为我们得到文件路径后，往往是要作为文件对象来处理，如果已经定义decode('utf8')编码了，又得定义encode('utf8')了…
+而标记模式下返回的列表中的元素也是没有定义编码的，这一点要注意。
+
+以下是示例：
+from fy_manager import Manager
+manager=Manager()
+
+print manager.AskUser()#相当于调用manager.AskUser(path='',find='file',ext=[],mark=False,back=True)，返回字符串
+
+print manager.AskUser('C:\\',find='dir') #设定初始目录为'C:\\'，找查对象为目录，返回字符串
+
+print manager.AskUser('C:\\',find='dir',mark=True) #设定初始目录为'C:\\'，找查对象为目录，并且为标记模式，返回一个列表
+
+print manager.AskUser('C:\\',find='file',ext=['txt','py'],mark=True) #设定初始目录为'C:\\'，找查对象为后缀名为.txt或.py的文件，并且为标记模式，返回一个列表
+
+print manager.AskUser('E:\\BianTZshou\\',find='file',ext=['txt','py'],back=False) #设定初始目录为'C:\\'，找查对象为后缀名为.txt或.py的文件，并且不允许用启返回上级目录，返回字符串。此模式非常适合需要获取自身软件所保存的文件的软件使用。

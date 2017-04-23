@@ -1,0 +1,21 @@
+:【教程】PYthonC++交互技术④-正题
+④BOOST的预编译
+BOOST中的部分模块需要预编译才能使用，Boost.Python也在此列。在Boost的文档中，有详细的编译方式说明，具体到我们使用的VC6/7.1，windows 2000+，Python2.4，编译过程可以简化为以下几步：
+1、*生成Boost编译工具BJam。这个工具的源码在Boost目录的tools\build\jam_src 目录下，正常情况下，直接执行build.bat即可生成。执行完毕后，到bin.ntx86子目录找到bjam.exe文件，复制到Boost根目录即可。
+2、*配置编译环境，编译Boost时，要提供编译器种类和路径，子模块还可能有自己的配置要求，如Python子模块要求提供Python的目录和版本号。
+3、*执行Bjam。此时要向Bjam提供使用的编译器种类，以及附带的编译参数。
+4、*以下是我编译Boost使用的bat文件，大家需要编译Boost的话，可以将其中的VC和Python路径改为本机路径，即可使用。
+这里给大家事例：
+bjam_vc71.bat
+set PYTHON_ROOT=D:/Python24
+set vc-7_1=D:\Microsoft Visual Studio .NET 2003\Vc7
+set ICU_PATH=D:/icu3.4
+set VC71_ROOT=D:\Microsoft Visual Studio .NET 2003\Vc7
+bjam -sTOOLS=vc-7_1 -sICU_PATH=D:/icu3.4 stage
+bjam_vc60.bat  set PYTHON_ROOT=D:/Python24
+set ICU_PATH=D:/icu3.4
+set MSVC_ROOT=D:\Microsoft Visual Studio\VC98
+bjam -sTOOLS=msvc -sICU_PATH=D:/icu3.4 stage
+这里的ICU是一个国际化代码库，Boost使用这个第三方代码库为自己的正则表达式模块提供Unicode支持，如果只使用Python模块，可以去掉这方面的配置。
+Stage参数指示编译工具将生成的lib文件统一放置于stage子目录。
+Boost.Python的引用头文件是<boost/python.hpp>，命名空间是boost::python。

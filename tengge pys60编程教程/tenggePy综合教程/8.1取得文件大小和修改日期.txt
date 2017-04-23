@@ -1,0 +1,9 @@
+import os
+os.path.getsize("e:\\2.jpg")
+返回文件大小，以字节为单位，32121b
+
+os.path.getatime("e:\\2.jpg")
+#返回日期，25233248，以秒为单位
+
+os.path.getmtime("e:\\2.jpg")
+#返回日期，1264468420，以秒为单位

@@ -1,0 +1,25 @@
+#表格界面常用来做软件的设置界面等，非常灵活，请自测代码观察效果。源码来自哇麦网随缘情恋教程，tengge表示衷心感谢！注饰为tengge所注。
+
+#head
+import appuifw
+def m(x):return x.decode('utf-8')
+
+#定义一些列表，为表格单元格中显示内容做准备
+list0=[m('哇麦'),m('智能论坛')]
+#两项的为选择性型单元格，两者任选其一
+
+list1=(m('随缘情恋'),'text',m('感谢大家的支持！'))
+#首项为提示文字，中项为文本输入框，末项为预设内容
+
+list2=(m('我的Q号'),'number',334246568)
+#首项为提示文字，中项为数字滚动式输入框，末项为预设内容
+
+MAIN_list=[(m('诺机特攻在'),'combo',(list0,0)),list1,list2]
+#这个定义了上面的三个单元格到底怎么排列；首项中的三项分别为提示文字、显示类型、滚动的内容和默认项
+
+#以下使表格显示出来
+start=appuifw.Form(MAIN_list,appuifw.FFormEditModeOnly|appuifw.FFormDoubleSpaced)
+#第一个参数为定义好的表格，第二个参数为类型（appuifw.FFormEditModeOnly表示可编辑状态，appuifw.FFormDoubleSpaced表示每个单元格分两行显示，“|”表示并列，两个效果同时体现出来）
+
+content=start.execute()
+#将定义好的表格界面显示出来

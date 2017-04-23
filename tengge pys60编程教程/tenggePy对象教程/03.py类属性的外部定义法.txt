@@ -1,0 +1,35 @@
+#作者：tengge
+
+python类的属性和方法可以在类外部定义。
+看示例：
+
+class Person:
+    pass
+#先定义一个空类，再在后面定义其属性
+
+def say(s):
+    print "Hello,"+s.name
+
+Person.name="tengge"
+Person.say=say
+person=Person()
+person.say()
+
+同样，如果我们在类已经定义了一些属性，在外部可以直接修改它，同上述方法，不说了。
+
+另外，类中可以直接调用已经定义好的函数。看示例：
+
+def say():
+    print "hello,tengge!"
+
+class Person:
+    def say(s):
+        say()
+        #一定注意，这里调用了外面定义的函数，不是自身的函数，区别有二：
+        #1.不能用s.say()
+        #2.函数不需要多加参数
+
+person=Person()
+person.say()
+
+#很简单，不说了。这节就到这里。

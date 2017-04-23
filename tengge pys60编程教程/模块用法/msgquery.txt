@@ -1,0 +1,14 @@
+
+弹出窗口模块
+用法：
+import msgquery
+msgquery.infopopup('madhacker@2009\n版权所有\n2009/4/12'.decode('utf8'),'关于'.decode('utf8'),msgquery.OKREmpty)
+第三个参数可选(更改左右软键文字)：
+msgquery.LYesRNo#左键是右键否
+msgquery.OKRBack#左键确认右键返回
+msgquery.OKRCancel#左键确认右键取消
+msgquery.OKREmpty#左键确认右键空白
+msgquery.RBack#左键空白右键返回
+msgquery.RCancel#左键空白右键取消
+msgquery.RClose#左键空白右键关闭
+为真返回1，反之为0

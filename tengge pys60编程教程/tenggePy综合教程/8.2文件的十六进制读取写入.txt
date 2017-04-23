@@ -1,0 +1,17 @@
+任何文件都可以十六进制打开。我写的游戏自动破解软件就是打开class文件进行修改的。
+
+file=open("e:\\1.jpg","rb")
+#十六进制只读方式打开e:\\1.jpg
+
+file.read()
+#返回十六进制数据（是字符串），像“\xa2\xff”这种东西
+
+file.close()
+
+另外，也可十六进制写入文件：
+
+file=open("e:\\2.dat","wb")#若存在"e:\\2.dat"，会覆盖，不存在，自动建立
+
+file.write("\x00")
+
+file.close()

@@ -1,0 +1,12 @@
+多脚本软件每个脚本都相当于一个模块，从一个脚本(如abin.py)转到另一个脚本(如tengge.py)，只要在abin.py中要跳转的地方写上
+
+import tengge
+
+即可。
+
+如果你只想用tengge.py中的一个函数（sayhello）。这时你不要在tengge.py中写上让tengge.py运行的函数，这样就行：
+
+import tengge
+tengge.sayhello()
+
+最后，按我以前讲得方法打包就可以了。

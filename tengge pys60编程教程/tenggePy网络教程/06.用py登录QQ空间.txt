@@ -1,0 +1,46 @@
+#作者：tengge
+#QQ:930372551
+#虽然这节代码和“通过QQ号和密码登录3gQQ”的代码非常相似，但与QQ空间的相关的软件非常多，非常重要，本人于是再重复一遍。
+#本节代码归tengge所有，您只能进行学习、交流使用。
+#本节教程可直接运行
+
+import httplib
+import urllib
+
+def get_source(myurl,con={"":""}):
+    '''get_source by tengge.'''
+    params = urllib.urlencode(con)
+    headers = {'Content-type': 'application/x-www-form-urlencoded','Accept': 'text/plain'}
+    conn = httplib.HTTPConnection("10.0.0.172", 80)
+    conn.request("POST", myurl, params, headers)
+    data=conn.getresponse().read().replace("amp;","").replace("\n","")
+    conn.close()
+    return data
+
+print "请输入您的QQ号并按回车".decode("utf8")
+qq=raw_input()
+print "请输入您的密码并按回车".decode("utf8")
+pwd=raw_input()
+
+
+#我们首先获取一次登句空间界面的源码
+data1=get_source("http://qzone51.z.qq.com/index.jsp?3g_sid=cFx87uo0URPJOMkXUX4bTA==&KqqWap_Act=5&3g_style=1&g_f=275")
+
+#然后我们取得系统随机产生的需要我们提交的数据mkey，字符串处理请参照《tenggePy教程》及补充。
+mark='mkey" value="'
+start=data1.find(mark)
+end=data1.find('"/>',start+1)
+mkey=data1[start+len(mark):end]
+
+
+#这是要提交的网址和数据
+myurl="http://qzone30.z.qq.com/login_result.jsp?nb=0&sid=/Kuuu0p+G4aXmdFJoYat3g=="
+con={"qq":str(qq),"pwd":str(pwd),"mkey":mkey}
+
+#获取登录后的数据
+data2=get_source(myurl,con)
+
+#呵呵，我把登录后的源码打印出来，大家可以看到有“登录成功”提示！
+print data2.decode("utf8")
+
+#呵呵，登录空间也很简单吧！

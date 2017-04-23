@@ -1,0 +1,8 @@
+uidcrc模块下只有一个涵数sun使用类型是用来记算文件的uid如修改(.Aif/.App/.Src文件等等)记算方法是：
+uidcrc.sum(uid1, uid2, uid3)
+uid1, uid2, uid3为任意数值(1-10，a-z)
+import uidcrc
+crc = uidcrc.sum(268435511, 268450360, 268450362)
+print crc.encode('hex')
+有朋友肯定要问：当我们记算出文件的uid又有什么用呢？
+我们安装的每一个软件的uid都是唯一的。如果相同的uid会导致软件的打不开。或是系统错误。具体使用方法请参阅下面给出的uid修改器原码。

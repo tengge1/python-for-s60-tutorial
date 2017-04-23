@@ -1,0 +1,12 @@
+
+
+hy_copy模块也是只是两个可用涵数！用来复制文件！
+hy_copy.fz(内容)
+用来复制指定内容
+例：
+〉〉〉a=“http://wapele.cn\n“
+〉〉〉hy_copy.fz(a)
+返回值为1时成功0时失败按笔键粘贴
+hy_copy.fz_zh(内容，把换行转为定义内容)
+〉〉〉hy_copy.fz_zh(a，“〈br/〉“)
+笔键粘贴效果http://wapele.cn〈br〉

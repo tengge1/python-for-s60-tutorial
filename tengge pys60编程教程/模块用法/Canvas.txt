@@ -1,0 +1,9 @@
+
+Canvas画布一般都是要结合graphics图型模块使的的。先看断示例
+import graphics,appuifw
+img = graphics.Image.open(u"c:/see.gif")
+appuifw.app.body = can = appuifw.Canvas()
+can.blit(img)
+注：使用前请确保c:/see.gif文件的存在没有请先建立。如若无法使用请把/改为双\。
+在Canvas()里面我们还经常看到这样的变量event_callback=None, redraw_callback=_redraw前者是按键回调的涵数。后着是重复画面的涵数。
+好了。关于Canvas图型界面当然不仅仅是打开图片而已。在借助graphics模块可以使用很多功能。下回我介绍graphics模块时在详细解说。

@@ -1,0 +1,160 @@
+﻿Python的应用程序，只使用基本的用户界面元素的描述第4章 （如通知，列表框，对话框等）不得要求任何更改，以运行在触摸功能的设备。 这是因为当用户产生的事件涉及一个UI元素都映射到该应用程序从物理按键收到关于非接触的设备相同的事件。 
+
+基于Symbian 2.0的Python提供的帆布明确的appuifw模块支持触摸指针事件对象。 应用程序使用一个绘图画布可以很容易地作出明智的工作设备都接触和非接触通过使用屏幕上的虚拟键盘来模拟定向键盘操作的物理，如在讨论第7章 。 
+
+下面的示例显示了如何在虚拟键盘可以在触摸设备只启用。
+===============================================
+import appuifw
+...
+if appuifw.touch_enabled():
+   appuifw.app.directional_pad=True;
+else:
+   appuifw.app.directional_pad=False;
+...
+ 
+==========================================================
+前面的代码使用touch_enabled（）函数来确定该设备是触摸启用，并返回 True，如果触摸用户界面和错误，如果不支持。 
+
+支持自定义的应用程序支持触摸帆布元素可以使用此方法，使有条件的设备代码接触。
+
+Python可以检测到4种不同的触摸事件，这是引用使用以下关键代码 (from key_codes.py )： 
+EButton1Down -触摸事件， 下降时发送手指/手写笔触摸屏幕 
+EButton1Up -触摸起来的事件，发送时手指/手写笔是屏幕上调 
+EDrag -拖动事件，发送时手指/手写笔是屏幕上的拖动 
+ESwitchOn -点击屏幕时，手指时发送/水龙头或手写笔点击屏幕上的双重 
+
+为了检测触摸事件，画布事件处理程序绑定到所需的关键代码，即所谓当指定的事件发生。 这种方法是非常相同的按键来绑定到Canvas作为我们在讨论第7章 。 
+
+下面的代码片段显示了一个应用程序，将显示一个屏幕被触摸时通知。 画布绑定到EButton1Down事件，但你可以绑定到EDrag或ESwitchOn其他接触，事件取代EButton1Down与EButton1Up。
+====================================================
+import appuifw
+import graphics
+import e32
+import key_codes #import key_codes - 进口key_codes -检测所需的触摸事件
+ 
+# 定义白色不变
+RGB_WHITE =(255, 255, 255)
+ 
+# 申请更改屏幕大小为 'full'
+appuifw.app.screen = 'full' 
+ 
+def quit():
+	'''Define quit function'''
+	app_lock.signal()
+ 
+def down_event(event):
+	'''Pen DOWN event handler'''
+	appuifw.note(u"Down Event")	
+ 
+#编写绘图画布
+canvas = appuifw.Canvas()    
+appuifw.app.body = canvas
+ 
+#定义右软键为退出键
+appuifw.app.exit_key_handler = quit
+ 
+#清除白色帆布
+canvas.clear(RGB_WHITE)
+ 
+'''bind canvas for touch event'''
+canvas.bind(key_codes.EButton1Down, down_event)  
+#EButton1Up，EDrag和ESwitchOn同样可以用于
+ 
+#等待用户退出
+app_lock = e32.Ao_lock()
+app_lock.wait()
+ 
+===========================================================
+
+在前面的片段，该EButton1Down事件绑定到down_event（）函数。 回调函数可以通过调用替换在bind（）函数再次以不同的处理程序，也可以作为证明清除指定无 。
+==========================================================
+canvas.bind(key_codes.EButton1Down, None)
+===========================================================
+检测范围涉及特定
+
+
+在上一节，我们说明了如何触摸事件可以在充分画布检测。 检测画布事件对特定区域的办法，是通过左上和右下角的共同呼吁坐标为（）绑定所需的地区，附加参数。 
+
+关系PyS60不提供任何专门的用户界面控制按钮，但它们可以作为画布上绘制的形状提供的，可圆，甚至圆形。 在bind（）方法只允许我们指定矩形区域，因此在本节结束 ，我们将解释如何检测形区域中任意触摸事件。 
+在一个长方形检测触摸事件 
+
+为了检测下来与左上角的协调（× 1，Y1）的右下角和协调（χ2，y2）的矩形事件联系，我们将使用：
+=====================================================
+canvas.bind(key_codes.EButton1Down, down_event, ((x1,y1),(x2,y2)))
+=========================================================
+下面的代码片段说明了如何检测到在不同地区的不同帆布触摸事件每个/屏幕：
+========================================================
+'''检测''触摸屏多'一特定区域的
+ 
+import appuifw
+import graphics
+import e32
+import key_codes #import key_codes - 检测所需的触摸事件
+ 
+# 定义颜色常数
+RGB_RED = (255, 0, 0)
+RGB_GREEN = (0, 255, 0)
+RGB_BLUE = (0, 0, 255)
+RGB_PURPLE = (100,0,255)
+RGB_BLACK = (0,0,0)
+ 
+# 禁用方向板
+appuifw.app.directional_pad = False
+ 
+#编写绘图画布
+canvas = appuifw.Canvas()    
+appuifw.app.body = canvas
+ 
+#获取画布大小（Total_x和Total_y）
+Total_x, Total_y = canvas.size
+y1 = Total_y/4
+ 
+def blue_down(event):
+    '''蓝色向下事件处理程序'''
+    appuifw.note(u"Blue Down")
+ 
+def green_up(event):
+    '''绿色UP事件处理程序'''
+    appuifw.note(u"Green Up")
+ 
+def red_drag(event):
+    '''红拖动事件处理程序'''
+    appuifw.note(u"Red Drag")
+ 
+def purple_tap(event):
+    '''紫色的TAP事件处理程序'''
+    appuifw.note(u"Purple Tap")
+ 
+# 蓝色长方形-向下事件
+'''绘制蓝色矩形和文本'''
+canvas.rectangle(((0,0), (Total_x,y1)), fill=RGB_BLUE, width=5)
+canvas.text((Total_x/2,y1/2), u"DOWN", fill = RGB_BLACK,font=(u'Nokia Hindi S60',40,appuifw.STYLE_BOLD)) 
+'''绑定向下蓝矩形'''
+canvas.bind(key_codes.EButton1Down, blue_down, ((0,0), (Total_x,y1)))
+ 
+# ＃绿色长方形-向上事件
+'''绘制绿色矩形和文本'''
+canvas.rectangle(((0,y1), (Total_x,2*y1)), fill=RGB_GREEN, width=5)
+canvas.text((Total_x/2,3*y1/2), u"UP", fill = RGB_BLACK,font=(u'Nokia Hindi S60',40,appuifw.STYLE_BOLD))  
+ '''包扎蓝矩形'''
+canvas.bind(key_codes.EButton1Up, green_up, ((0,y1), (Total_x,2*y1)))
+ 
+# 红色长方形-拖动事件
+'''绘制红色矩形和文本'''
+canvas.rectangle(((0,2*y1), (Total_x,3*y1)), fill=RGB_RED, width=5)
+canvas.text((Total_x/2,5*y1/2), u"DRAG", fill = RGB_BLACK,font=(u'Nokia Hindi S60',40,appuifw.STYLE_BOLD))  
+'''绑定拖动以红色长方形'''
+canvas.bind(key_codes.EDrag, red_drag, ((0,2*y1), (Total_x,3*y1)))
+ 
+# ＃紫色长方形-技术咨询活动 
+  '''绘制紫色矩形和文本''' 
+canvas.rectangle(((0,3*y1), (Total_x,4*y1)), fill=RGB_PURPLE, width=5)
+canvas.text((Total_x/2,7*y1/2), u"TAP", fill = RGB_BLACK,font=(u'Nokia Hindi S60',40,appuifw.STYLE_BOLD))  
+'''绑定技术咨询为红色长方形'''
+canvas.bind(key_codes.ESwitchOn, purple_tap, ((0,3*y1), (Total_x,4*y1)))
+ 
+#＃等待用户退出
+app_lock = e32.Ao_lock()
+app_lock.wait()
+===================================================
+当运行时，该示例应用程序看起来像图8.1所示的画面。 每个屏幕面积的响应其指定类型的事件显示的情况说明。 注意：如果去一个拖动事件之外的约束区，再拖动事件将被接收。

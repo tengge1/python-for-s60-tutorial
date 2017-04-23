@@ -1,0 +1,36 @@
+作者：飞影7610
+
+add模块是我写编帖助手时一起写的，内含一个Add主类，有三个功能，分别为：
+1)返回路径--file方法
+2)返回表情地址--face方法
+3)打开帮助--about方法
+#
+1)file方法：
+file(path,ext=[],title='选择文件'.decode('utf8'))
+path为目录路径
+ext为文件后缀
+title为标题
+此方法通过传递一个目录名来找查该目录下的文件，返回的是一个文件的全路径名
+#
+2)face方法：
+face(ini,mbm=None,title='选择表情'.decode('utf8')):
+ini为配置文件全路径名
+mbm为None时既表示它的会路径名与ini为配置文件路径相同，只是后缀名为.mbm
+title为标题
+此方法通过传递一个ini配置文件全路径名来选择表情代码
+ini配置文件格式为：
+标题1,face/1.gif
+标题2,face/2.gif
+#
+3)about方法：
+about(path,title='关于&帮助'.decode('utf8')):
+path为帮助文件全路径名
+title为标题
+此方法通过传递一个文件全路径名来显示帮助
+
+if __name__=='__main__':
+  add=Add()
+  print add.file('E:\\BianTZshou\\帖子', ext=['.txt'],title='选择帖子'.decode('utf8'))
+  print add.face('E:\\System\\Apps\\BianTZshou\\face_lexun.txt',mbm=None,title='选择表情'.decode('utf8'))
+  print add.face('E:\\System\\Apps\\BianTZshou\\face_rz.txt')
+  add.about(u'E:\\System\\Apps\\BianTZshou\\help.txt',title='关于&帮助'.decode('utf8'))

@@ -1,0 +1,46 @@
+#作者：tengge
+
+在C语言中，结构体是一种非常好用的构造数据类型。在python中，可以简单地用字典去模仿它；当然，也能用类去模仿它。
+例如：
+
+结构体：
+
+struct Person
+{
+    char *name;
+    int age;
+}person1,person2;
+
+用python字典表示：
+
+person1={"name":"","age":0}
+person2={"name":"","age":0}
+
+用python类表示：
+
+class Person:
+    name=""
+    age=0
+
+person1=Person()
+person2=Person()
+
+用python类记录数据可以嵌套使用，例如：
+
+class Score:
+    chinese=99
+    math=100
+    english=98
+
+class Tengge:
+    name="tengge"
+    age=20
+    score=Score
+
+print Tengge.name
+print Tengge.age
+print Tengge.score.chinese
+print Tengge.score.math
+print Tengge.score.english
+
+非常好用。好了，这节就到这里。

@@ -1,0 +1,10 @@
+
+＃positioning模块用来对GPS模块进行操作（由于没有外置gps模块未测试）
+import positioning
+requestor = {'type':'service', 'format':'application', 'data':'myappname'}
+positioning.set_requestors([requestor])
+pos = positioning.position(course=1, satellites=1)
+if pos and pos.has_key('position'):l
+at = pos['position']['latitude']
+lon = pos['position']['longitude']
+print "GPS:", lat, lon

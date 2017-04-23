@@ -1,0 +1,188 @@
+本节由阿斌所写，与tengge无关，tengge仅作修改整理！
+1.普通快捷键
+快捷键其实很简单，只要你知道各个按键的键值就可以了！
+获取键值请下载附件中的脚本，然后用解释器或PED脚本编辑器运行就可以了！
+
+下面是我在5700上获取的键值：
+删除键：8
+#键：35
+*键：42
+0键：48
+1键：49
+2键：50
+3键：51
+4键：52
+5键：53
+6键：54
+7键：55
+8键：56
+9键：57
+左导航键：63495
+右导航键：63496
+上导航键：63497
+下导航键：63498
+OK键：63557
+菜单键：63570
+拨号键：63586
+挂机键：63587
+
+接下来，我们一起来看一个实例吧！
+其实很简单，假如我们定义了一个函数，以前我们一般把它设在菜单选项里面调用并执行，也有设在右软键上（比如退出），现在我们把它设到其他按键上，比如拨号键或OK键！
+
+看代码：
+
+import appuifw,e32
+def cn(x):return x.decode("utf-8")
+
+appuifw.app.body=m=appuifw.Text(cn("①请按导航键确定\n②请再按拨号键\n"))
+
+def a():
+    m.add(cn("\n简单吧 ？？"))
+
+def b():
+    appuifw.note(cn("就是这么简单！"),"info")
+
+appuifw.app.body.bind(63557,a)
+m.bind(63586,b)
+
+appuifw.app.menu=[(cn("导航键"),a),(cn("拨号键"),b)]
+e32.Ao_lock().wait()
+
+讲解：
+很简单吧？好像没什么好解释的！
+代码中我们定义了两个简单的函数a()和b()，然后将这两函数与相应按键联系起来，格式是：
+appuifw.app.body.bind(键值,响应事件)
+
+其中appuifw.app.body我们早已学过了，这是文本界面的主体，由于前面已定义为m，所以我们也可以用m.bind来代替！
+bind是“绑定”的意思，整句的意思就是把按键与函数绑定！
+例子中把导航键的OK键（63557）与函数a绑定；拨号键与函数b绑定！
+
+由于我们定义的界面是文本界面，在文本编辑时，所有数字键、*键，#键等就会被输入法占用，所以我们不能将函数直接与这些键绑定！
+
+在图形界面中这些键都可以用，有兴趣的友友可以试试！
+
+2.组合快捷键
+组合快捷键主要用在文本编辑界面，因为在编辑界面所有数字键都被输入法占用了，我们无法绑定，这一点和图形界面是不一样的！
+
+所以我们要使用数字键必须关闭输入状态然后再把数字键与相关函数绑定！
+怎么弄呢？先看代码吧！
+import appuifw,e32
+def cn(x):return x.decode("utf-8")
+appuifw.app.body=m=appuifw.Text()
+
+#以下是定义响应事件的函数
+def a00():
+  appuifw.note(cn("绿键+数字键"),"note")
+  m.set(cn("绿键+数字键"))
+def a1():
+  m.set(cn("1键"))
+def a2():
+  m.set(cn("2键"))
+def a3():
+  m.set(cn("3键"))
+def a4():
+  m.set(cn("4键"))
+def a5():
+  m.set(cn("5键"))
+def a6():
+  m.set(cn("6键"))
+#完成
+
+#调用组合键的第一个键，等待调用第二个键
+def shortkey():
+  oldfocus=m.focus
+  try:
+    m.focus=False
+#输入光标消失，输入法被挂起
+  except:
+    pass
+
+#定义组合键的第二个键及其动作
+  m.bind(63586,a00)#(拨号键)
+  m.bind(49,a1) # (1键)
+  m.bind(50,a2) # (2键)
+  m.bind(51,a3) # (3键)
+  m.bind(52,a4)
+  m.bind(53,a5)
+  m.bind(54,a6)
+
+  e32.ao_sleep(0.8)
+  m.focus=oldfocus
+  m.bind(63586,shortkey)
+#等待0.8秒后恢复原来的状态
+
+m.bind(63586,shortkey)
+#定义组合键的第一个键(通话键)及其动作
+e32.Ao_lock().wait()
+讲解：
+先看最后一句
+m.bind(63586,shortkey)
+这句不难理解吧？
+这是把拨号键与函数shortkey绑定！
+
+接下来我们来看函数shortkey的主块内容：
+def shortkey():
+++oldfocus=m.focus
+++try:
+++++m.focus=False
+++except:
+++++pass
+其中m.focus=False是让编辑界面的输入光标消失！这样，数字键就可以释放出来使用了！
+
+接下来只要把数字键与相关的函数绑定就可以了！
+
+呵呵，组合快捷键就搞定了！
+哪个键和哪个键组合，大家看懂了没？
+对，拨号键与数字键，运行时先按拨号键调用函数shortkey，关闭输入状态，然后再按数字键调用相关动作函数！
+
+认真看代码的友友一定注意到后面还有三句：
+++e32.ao_sleep(0.8)
+++m.focus=oldfocus
+++m.bind(63586,shortkey)
+这是让系统恢复输入光标的，因为如果不恢复，所有定义的数字键在打字时将无法使用！
+
+另外：
+按数字键后，恢复原来的状态时，会在界面上添加该数字，但这个数字我们一般是不需要的，怎么办呢？
+看上面的代码，1、2、3键与4、5、6键有什么不同？
+自己体会吧！
+
+好了，这一节就学到这了！
+附：获取键值的脚本
+
+#查键值
+# keyviewer.py
+
+import appuifw
+import graphics
+import e32
+
+keyboard_state={}
+last_keycode=0
+
+def cn(x):return x.decode('utf-8')
+
+def draw_state():
+    canvas.clear()
+    canvas.text((0,12),u'Scancodes of pressed keys:',0x008000)
+    canvas.text((0,30),u' '.join([unicode(k) for k in keyboard_state if keyboard_state[k]]))
+    canvas.text((0,50),u' '.join([unicode(hex(k)) for k in keyboard_state if keyboard_state[k]]))
+    canvas.text((0,80),u'Last received keycode:', 0x0000ff)    
+    canvas.text((0,100),cn(' %s        (%x   )')%(last_keycode,last_keycode))
+    
+def callback(event):
+    global last_keycode
+    if event['type'] == appuifw.EEventKeyDown:
+        keyboard_state[event['scancode']]=1
+    elif event['type'] == appuifw.EEventKeyUp:
+        keyboard_state[event['scancode']]=0
+    elif event['type'] == appuifw.EEventKey:
+        last_keycode=event['keycode']
+    draw_state()
+
+canvas=appuifw.Canvas(event_callback=callback,
+                      redraw_callback=lambda rect:draw_state())
+appuifw.app.body=canvas
+
+lock=e32.Ao_lock()
+appuifw.app.exit_key_handler=lock.signal
+lock.wait()

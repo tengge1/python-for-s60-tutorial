@@ -1,0 +1,7 @@
+
+appuifw.multi_query(输入框一提示，输入框二提示)
+注意：该双文本输入框没有默认值！如下面示例
+import appuifw
+a，b=appuifw.multi_query(u'input nam',u'input telephone')
+print a，b
+

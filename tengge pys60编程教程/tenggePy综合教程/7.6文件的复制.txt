@@ -1,0 +1,12 @@
+import shutil
+
+shutil.copyfile("e:\\2.jpg","c:\\1.jpg")
+#将e:\\2.jpg复制到c盘，并命名为"c:\\1.jpg"
+
+shutil.copy2("e:\\2.jpg","c:\\1.jpg")
+#好像和上面功能一样
+
+shutil.copyfileobj(open("e:\\1.txt","r"),"c:\\1.txt")
+#直接复制文件内容
+
+＾_＾||

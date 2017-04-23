@@ -1,0 +1,20 @@
+#看代码：
+
+#class.py by tengge
+
+class tengge:#定义一个新类tengge
+    def sayhello(self):#在类中定义函数一定要比原来多加一个参数self
+        import appuifw
+        def cn(x):return x.decode("utf8")
+        appuifw.note(cn("你好！"))
+    def big(self,x):
+        import appuifw
+        def cn(x):return x.decode("utf8")
+        appuifw.note(cn("您输入的是：")+unicode(x),"info")
+
+tengge().sayhello()#运行类中的第一个函数，tengge().sayhello
+
+tengge().big(5)#运行类中的第二个函数
+
+#我们看到，在类中定义函数好像比不用类麻烦一些，但学完后两节，你一定会为类而叫绝！！
+

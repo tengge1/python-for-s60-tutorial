@@ -1,0 +1,12 @@
+
+import pykeylock
+
+pykeylock.Lock()
+#锁住键盘
+
+pykeylock.Unlock()
+#开启键盘
+
+pykeylock.LockStatus()
+#锁住键盘时返回 1，没锁键盘时返回 0。
+

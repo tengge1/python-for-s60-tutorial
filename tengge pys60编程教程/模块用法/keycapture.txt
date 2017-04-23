@@ -1,0 +1,26 @@
+作者：明天见
+
+keycapture模块可以启到热健的作用(任意界面均为有效)
+------------------
+press=keycapture.KeyCapturer(object)#类名(这里我们付值给press方便下面涵数的调用)
+#object按健调用的对象(函数)
+------------------
+press.keys=(keys，keys)#按健调用的健值(第二个健值可选)
+------------------
+press.start()#启动按健(将替代原健功能)
+------------------
+press.stop()#结束按健(恢复原健功能)
+------------------
+press.last_key()#返回最后按健的健值
+------------------
+import keycapture,e32,appuifw
+def call(key):
+  if key==63499:
+    appuifw.note(u'this is key','info',1)
+press=keycapture.KeyCapturer(call)
+press.keys=(63499,)
+press.start()
+e32.ao_sleep(10)
+press.stop()
+------------------
+当按健为笔健时调用弹出this is key。10秒后关闭按健

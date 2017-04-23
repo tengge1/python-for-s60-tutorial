@@ -1,0 +1,6 @@
+作者：爱不只是说说
+模块作者：蝴蝶留念处
+
+import PaintBox
+
+print PaintBox.Select()

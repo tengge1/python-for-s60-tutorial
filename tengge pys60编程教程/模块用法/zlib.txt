@@ -1,0 +1,23 @@
+作者：な无爱去寻た爱
+
+zlib模块主要用来压缩数据用的，主要讲一下可用函数。
+1、compress()压缩数据。
+2、decompress()解压指定已压缩数据。
+3、crc32()计算校验CRC-32值。
+>>> import zlib
+>>> s='license for morein for mation Ped'
+>>> len(s)
+33
+>>> t=zlib.compress(s)#压缩字符串s
+>>> len(t)
+36
+不知什么原因压缩后数据反而变长？
+>>> u=zlib.decompress(t)#解压字符串t
+>>>print u
+'license for morein for mation Pd'
+#一个字符串CRC-32值是不会变的，不管压缩前或解缩后，理论应该可以计算一个文件的CRC-32的值
+>>> zlib.crc32(s)
+1644948177
+>>> zlib.crc32(u)
+1644948177
+如果两个返回值不同，说明解压时出了问题。

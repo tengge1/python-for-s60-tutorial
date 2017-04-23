@@ -1,0 +1,105 @@
+clipboard_CHN.py
+<中文复制模块>
+#clipboard_CHN.py
+#adapt to Chinese
+#20080825
+from os import makedirs
+
+def Get():
+   def readunicode(leng):
+      i=0
+      result=u''
+      unicode=False
+      unicodetemp=False
+      temp=f.read(1)
+      while i<leng:
+         if ord(temp)==0x0f:
+            unicode=True
+            unicodetemp=True
+         elif ord(temp)==0xe0:
+            unicode=False
+            unicodetemp=False
+         elif ord(temp)==0xf0:
+            unicode=False
+            unicodetemp=True
+         elif ord(temp)==0x0e:
+            unicode=True
+            unicodetemp=False
+         elif ord(temp)==0x1c:
+            if ord(f.read(1))==0x40:
+               temp = f.read(1)
+               continue
+         elif ord(temp)==0xa9:
+            result += '\n'
+            temp = f.read(1)
+            i += 1
+            continue
+         if unicode:
+            if ord(temp)==0x0f or ord(temp)==0x0e:
+               temp=f.read(1)
+            temp1=f.read(1)
+            result+=(temp+temp1).decode('utf_16_be')
+# print result
+         else:
+            result+=temp.decode('utf8')
+# print u'temp',temp
+         i+=1
+         unicode=unicodetemp
+         temp=f.read(1)
+      return result
+
+   try:
+      f=open('d:\\system\\data\\clpboard.cbd','rb')
+      f.seek(0x14)
+      length = ord(f.read(1)) + ord(f.read(1))*256 + ord(f.read(1))*65536 + ord(f.read(1))*16777216
+      result=readunicode(length)
+      f.close()
+      return result
+   except:
+      try:f.close()
+      except:pass
+      return False
+
+
+def Set(text):
+  try:
+    try: text = text.encode('utf-8')
+    except: pass
+    utf8length = len(text)
+    try: text = text.decode('utf-8')
+    except: pass
+    unicodelength = len(text)
+    if utf8length==unicodelength:
+       text = text.encode('utf8')
+       text = text.replace('\n',chr(0xe)+chr(0x20)+chr(0x29))
+    else:
+       text = text.encode('utf_16_be')
+       text = chr(0xf)+text.replace('\n'.decode('utf8').encode('utf_16_be'),chr(0x20)+chr(0x29))
+    import struct
+    header = chr(0x37) + chr(0)*2 + chr(0x10)*2 + chr(0x3a) + chr(0) + chr(0x10) + chr(0)*4 + chr(0x6a) + chr(0xfc) + chr(0x7b) + chr(0x3)
+    contentend = chr(0) + chr(0x2) + chr(0x1d) + chr(0x3a) + chr(0) + chr(0x10) + chr(0x14) + chr(0)*3
+    try:
+      makedirs(u"D:\\system\\Data\\")
+    except: pass
+    f = open(u"D:\\system\\Data\\Clpboard.cbd","wb")
+    f.write(header + chr(0)*4 + struct.pack('I',unicodelength))
+    f.write(text)
+    f.write(contentend)
+    f.close()
+    
+    f = open(u"D:\\system\\Data\\Clpboard.cbd","a+b")
+    pos = f.tell()
+    f.seek(0x10)
+    f.write(struct.pack('I',pos - 9))
+    f.close()
+    
+  except:
+    return False
+  return True
+互交演示：
+>>>import clipboard_CHN
+>>>clipboard_CHN.Set('Copy something')
+1
+>>>clipboard_CHN.Get()
+Copy something
+>>>

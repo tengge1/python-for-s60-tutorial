@@ -1,0 +1,19 @@
+作者：一叶秋鹤
+
+利用contacts模块可以选择联系人， 例如：
+import contacts, appuifw
+db = contacts.open()
+names = []
+numbers = []
+for i in db:
+  names.append(db.title)
+num = db.find('mobile_number')
+if num:
+  numbers.append(num[0].value) # first mobile
+else:
+  numbers.append(None)
+i = appuifw.selection_list(names)
+print 'nu ..mber =', numbers
+加入flashy（扩展模块）可以发闪信：
+import flashy
+flashy.flashsms_send(u'012345678',u'Hello world!')

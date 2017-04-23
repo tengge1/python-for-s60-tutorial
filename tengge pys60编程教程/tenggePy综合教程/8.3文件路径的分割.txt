@@ -1,0 +1,19 @@
+>>> import os
+>>> a=os.path
+>>> b="e:\\System\\a.jpg"
+>>> a.split(b)
+('e:\\System', 'a.jpg')
+>>> a.splitdrive(b)
+('e:', '\\System\\a.jpg')
+>>> a.splitext(b)
+('e:\\System\\a', '.jpg')
+>>> a.splitunc(b)
+('', 'e:\\System\\a.jpg')
+>>> 
+
+#这是用交互控制弄的，请仔细观察从那断开的，返回的都是元组，元组也支持
+
+>>> ("a","b")[0]
+'a'
+
+#以后写文件浏览器这节会用到。

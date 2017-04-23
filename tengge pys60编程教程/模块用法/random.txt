@@ -1,0 +1,78 @@
+作者：明天见
+
+random模块用来输出随机数据
+random()
+获取随机(0.0 ,1.0) 范围内的浮点数
+例：
+>>>import random
+>>>random.random()
+0.895253911237999
+randrange(start, stop=None, step=1, int=int, default=None)
+#随机选择一个项目从范围（开始，停止[ ，一步] ）
+例：
+>>>random.randrange(5)
+1
+randint(a, b)
+##返回随机整数在范围[ a ， b ]中，既包括终结点。
+例：
+>>>random.randint(1,5)
+2
+choice(seq)
+#选择一个随机元从一个非空序列。
+例：
+>>>random.choice([u'see',u'you',u'tomorrow'])
+you
+uniform(a, b)
+#得到一个随机浮点数，在范围(a,b)
+例：
+>>>random.uniform(3,7)
+5.5912208893365
+normalvariate(a,b)
+#产生(a,b)的b是标准偏差
+例：
+>>>random.normalvariate(3,7)
+-5.40147293846257
+lognormvariate(a,b)
+#如果你采取的自然对数的分配，您将获得一个正态分布，平均亩和标准偏差浮点数。(a,b)可以有任何的价值，和b必须大于零。
+例：
+>>>random.lognormvariate(3,7)
+15244185.734699
+cunifvariate(mean, arc)
+#这两个值必须表达的弧度。返回值范围之间的意思-弧/ 2和的意思+弧/ 2和正常化!
+例：
+>>>random.cunifvariate(30,90)
+2.20415811463256
+expovariate(lambd)
+#指数分布。 lambd是1.0除以理想的意思。 （参数会被称为“波长” ，但是这是一个保留字在巨蟒） 。返回值范围从0到积极至无限远。
+例：
+>>> random.expovariate(30)
+0.00882123238794999
+vonmisesvariate(mu, kappa)
+#Kappa是浓度参数，其中必须大于或等于零的。如果Kappa值等于零，这个分布减少到一个统一的随机角度超过范围0至2
+例：
+>>>random.vonmisesvariate(3,6)
+3.42857204255056
+gammavariate(alpha, beta)
+#生成(alpha, beta)值的方差
+例：
+>>> random.gammavariate(3,6)
+9.79474932914687
+stdgamma(alpha, ainv, bbb, ccc)
+#(alpha, ainv, bbb, ccc)的值不能例：
+>>> random.stdgamma(1,2,3,6)
+2.13974398872665
+gauss(mu, sigma)
+#生成(mu, sigma)两值的浮点数
+例：
+>>> random.gauss(3,6)
+1.55823328055708
+betavariate(alpha, beta)
+#(alpha, beta)两值应大于0
+>>> random.betavariate(1,1)
+0.556302660818536
+paretovariate(alpha)
+>>>random.paretovariate(100)
+1.00959656496638
+weibullvariate(alpha, beta)
+>>> random.weibullvariate(100,600)
+99.7219942177087

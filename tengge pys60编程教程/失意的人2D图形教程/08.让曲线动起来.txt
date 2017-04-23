@@ -1,0 +1,34 @@
+本教程来自iniwap！转载请注明出处！
+作者：┈┾夨憶D*.亼ぺ
+#这是第八课了，当然比较高级了
+#前面可能遗漏，教程会补充
+import appuifw,graphics,e32
+import math
+#多了一个模块，这个模块是产生随机数的
+from random import randint
+#这个x变量很关键哦，就是由它来实现曲线运动的
+x=0
+running=1
+#颜色列表，产生颜色效果的
+color=[0xff0000,0xaaf0d,0x00aadd,0x00f00f,0x000fff,0xaa0033,0xee2664,0xf56c4c,0x256daa,0xbd43fa]
+def quit():
+++++global running
+++++running=0
+canvas=appuifw.Canvas()
+appuifw.app.body=canvas
+appuifw.app.screen=“full“
+w,h=canvas.size
+img=graphics.Image.new((w,h))
+appuifw.app.exit_key_handler=quit
+while running:
+++++img.clear(0x000000)
+#这里最关键，和上节不同的是这次是用描点来画正弦曲线的，上节是直线哦。
+++++for i in range(1,80):
+++++++++img.point((x+i,50+20*math.sin(0.15*(x+i))),color[i%10],width=10)
+++++canvas.blit(img)
+++++e32.ao_sleep(0.1)
+#x增加，对应曲线X坐标增加，实现运动
+++++x=x+1
+#大于屏幕，重新开始
+++++if x==176:
+++++++++x=0

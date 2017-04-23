@@ -1,0 +1,53 @@
+文本的查找、替换和分割与对字符串的操作很类似，对字符串的操作见《tenggePy教程（1）》。
+
+文本的查找和替换
+#下面制作一个带查找替换功能的记事本。
+
+#book.py by tengge
+import appuifw,e32
+def cn(x):return x.decode("utf8")
+
+def txt_find():
+    try:
+        x=appuifw.query(cn("请输入要查找的内容："),"text")
+        pos=m.get().find(x)#取得文本界面内容，查找并返回输入字符的位置，没找到返回-1。
+        if pos==-1:
+            appuifw.note(cn("没找到！"))#没找到运行这个
+        else:
+            m.set_pos(pos)#找到了就把光标放在那个字或词前面
+    except:
+        pass#若用户按了返回，执行这个
+    
+def txt_replace():
+    try:
+        (x,y)=appuifw.multi_query(cn("请输入要替换的内容："),cn("替换为："))#双输入框内容见《tenggePy教程（1）》
+        m.set(m.get().replace(x,y))#取得界面内容，替换后，再将替换后的文本显示在屏幕上
+    except:
+        pass#如果用户按了返回，运行这个
+
+lock=e32.Ao_lock()
+def quit():
+    lock.signal()
+
+appuifw.app.body=m=appuifw.Text()
+m.clear()
+appuifw.app.menu=[(cn("查找"),txt_find),(cn("替换"),txt_replace),(cn("退出"),quit)]
+appuifw.app.exit_key_handler=quit
+
+lock.wait()
+
+#m.set(m.get().replace(x,y))也可写成两句：
+
+t=m.get().replace(x,y)
+m.set(t)
+
+很简单吧。
+
+#下面是文本的分割
+
+def cn(x):return x.decode("utf8")
+list=cn("中国|石油|大学").split("|")
+
+#我们得到了一个列表，内容为：
+
+[cn("中国"),cn("石油"),cn("大学")]

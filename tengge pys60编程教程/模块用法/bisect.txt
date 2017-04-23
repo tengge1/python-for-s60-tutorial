@@ -1,0 +1,15 @@
+作者：№榀榀※
+
+bisect用于列表的排序和增加成员。
+import bisect
+list = [10, 20, 30]
+bisect.insort(list, 25)
+bisect.insort(list, 15)
+print list
+[10, 15, 20, 25, 30]
+________________
+
+class Bisect:
+  def insort(list,item):
+    list.append(item)
+    return list.sort()

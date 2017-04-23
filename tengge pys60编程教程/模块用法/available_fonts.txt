@@ -1,0 +1,9 @@
+
+import appuifw
+a=appuifw.available_fonts()#获取手机所有字体
+b=[]
+for c in a:
+++b.append(c)
+d=appuifw.selection_list(choices=b,search_field=1)
+if d!=-1:
+++appuifw.note('字体：’.decode(utf8)+(b[d]),'conf’)

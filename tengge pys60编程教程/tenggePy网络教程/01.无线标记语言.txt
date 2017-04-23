@@ -1,0 +1,39 @@
+作者：tengge
+QQ:930372551
+
+我们先来掌握一些wml（无线标记语言）的知识。本节采用登陆QQ空间的网页源码。
+
+1.<?xml version="1.0" encoding="utf-8"?><!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN" "http://www.wapforum.org/DTD/wml_1.dtd">
+说明：这个在网页开头，说明了xml的版本、编码等，对编程没用处。
+
+2.<wml></wml>
+说明：这对标签说明中间的内容是由wml语言写成的。
+
+3.<card id="Card" title="登录手机QQ空间"></card>
+说明：card标签的title属性是网页标题。网页的正文应放在两标签之间。
+
+4.<a href="http://blog30.z.qq.com/getQQ.jsp?sid=BhgOu7DCNQCXmdFJoYat3g==">申请号码</a>
+说明：这个重要！通常在浏览器中只显示“申请号码”，当你点击时，浏览器自动打开前面那个网址。a标签说明是超链接，其中的href属性是对应的网址！
+
+5.<img src="http://221.130.15.185:8080/waplogo/default/logo_qzone_b.gif" alt="qzone"/>
+说明：img标签是图片，它的src属性是浏览器下载该图片的网址，alt属性是浏览器无法下载图片时（比如关闭图片）显示的文字。
+
+6.<p></p>
+说明：表示中间是一段。
+
+7.<br/>
+说明：表示换行
+
+8.<input name="iqq"  type="text" maxlength="11" value="" emptyok="false"  format="*N"/>
+说明：input标签是输入框，name属性是输入框名称，type属性为“text”时是文本输入框，maxlength是最大输入长度，value是未输入前显示的值，emptyok为true时允许空输入，为false时不允许空输入，format是输入样式，“*N”表示只允许输入整数。
+
+9.<anchor><go href="http://qzone13.z.qq.com/login_result.jsp?nb=0&sid=BhgOu7DCNQCXmdFJoYat3g==" method="post">	<postfield name="qq" value="$iqq"/>	<postfield name="pwd" value="$ipwd"/>	<postfield name="mkey" value="44362B5D06E1F5E2EB0CCDB2059F59498CFA9BDE9E5982B1"/></go>登录</anchor>
+说明：首先不要被吓住，其实很简单。:)
+<anchor>登录</anchor>表示一个按钮，在网页上显示“登录”。
+go标签表示按按钮后产生的动作，href属性表示点击按钮后需要提交数据的网址，method表示提交数据的方式，有post和get两种。
+<postfield name="qq" value="$iqq"/>表示提交的一个数据，提交数据名为“qq”，它的值$iqq是指从上面名称为“iqq”的输入框取得的，比如你的qq号是“1234567”，写成一个字典就是{"iqq":"1234567"}。
+注意：必须把所需要的全部数据做成字典提交到go标签所指向的网址，提交才能成功。
+如：{"iqq":"1234567","pwd":"abcdefg","mkey":"44362B5D06E1F5E2EB0CCDB2059F59498CFA9BDE9E5982B1"}
+
+好了，编程所用的wml知识就这么多，不懂字典的请参照《tenggePy教程》，很简单。好了，这节就到这里。
+

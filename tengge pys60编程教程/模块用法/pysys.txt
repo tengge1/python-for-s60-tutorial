@@ -1,0 +1,10 @@
+import pysys
+pysys.set_system(1)
+#把程序设为系统程序，按红键不退出，内存不足也不会强制退出
+pysys.set_system(0)
+#移除系统属性
+pysys.set_hidden(1)
+#隐藏程序，长按功能键不显示图标
+pysys.set_hidden(0)
+#取消隐藏程序
+

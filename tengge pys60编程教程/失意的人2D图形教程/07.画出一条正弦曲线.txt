@@ -1,0 +1,33 @@
+本教程来自iniwap！转载请注明出处！
+作者：┈┾夨憶D*.亼ぺ
+#这是第七课了，下面教大家如何使用正弦函数公式画出一个
+#正弦曲线
+#不懂就回复提问
+import appuifw,graphics,e32
+#这里导入math所有函数变量名等
+#注意下面使用math的函数时没有加math.
+from math import*
+running=1
+def quit():
+++++global running
+++++running=0
+def chn(x):
+++++return x.decode(’utf8’)
+canvas=appuifw.Canvas()
+appuifw.app.body=canvas
+appuifw.app.screen=“full“
+img=graphics.Image.new(canvas.size)
+appuifw.app.exit_key_handler=quit
+while running:
+++++img.clear(0)
+++++for i in range(40):
+++++++++#这里使用了一次线性插值
+++++++++#简明的说就是把一条曲线分割成很多线段，分别画出来
+++++++++#下面就是分成40段，大家可以想象下正弦曲线，X,Y坐标的对应关系
+++++++++x1=50+10*i*pi/20
+++++++++y1=100+40*sin(i*pi/20)
+++++++++x2=50+10*(i+1)*pi/20
+++++++++y2=100+40*sin((i+1)*pi/20)
+++++++++img.line((x1,y1,x2,y2),0x00ff00,width=5)
+++++canvas.blit(img)
+++++e32.ao_yield()

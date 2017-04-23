@@ -1,0 +1,118 @@
+本教程来自iniwap！转载请注明出处！
+作者：┈┾夨憶D*.亼ぺ
+#这是第二十二课了，这节讲讲如何实现游戏中角色的移动，感谢帅小子提供了图片
+#好了，下面开始讲课，这节的知识其实已经在前面的课程讲过了，只是大家可能不知道怎么利用起来而已
+#学完本节，留个作业，把教程的源码完善，看谁完善的好，回帖大家一起学习。
+#这里主要实现角色的移动以及动作动画，使用基本模版，任何疑问请发帖
+#-*-coding:utf-8-*-
+#导入模块
+import appuifw,e32,graphics
+#导入键值模块
+from key_codes import *
+#基本模版部分
+appuifw.app.body=canvas=appuifw.Canvas()
+appuifw.app.screen=’full’
+#必须把教程中的图片放大C盘下，注意文件名
+img=graphics.Image.open(’c:\\game.png’)
+running=1
+#定义角色起始相对位置(自己修改查看效果)
+pos_x=2
+pos_y=2
+#退出函数
+def quit():
+++++global running
+++++running=0
+#右软键退出
+appuifw.app.exit_key_handler=quit
+#移动函数，两个参数，x,y分别对应左右上下移动
+def move(x,y):
+#全局变量pos_x,pos_Y用于记录角色当前位置
+++++global pos_y,pos_x
+#临时变量，用于角色的越界(出屏幕)处理
+++++tpos_y=pos_y
+++++tpos_x=pos_x
+
+#动作向右(x=1)，则调用向右运动函数
+++++if x==1:
+++++++++Right()
+#动作向左(x=-1)
+++++if x==-1:
+++++++++Left()
+#动作向下(y=1)
+++++if y==1:
+++++++++Down()
+#动作向上(x=-1)
+++++if y==-1:
+++++++++Up()
+#如果角色位置到达最上方或者最下方(这里是0-192)
+#则pos_y等于没变化之前的值即前面的临时变量
+#你可以修改这个 192，适合你的屏幕
+++++if pos_y<0 or pos_y==192:
+++++++++pos_y=tpos_y
+#如果角色位置到达屏幕最左方或者最右方(这里是0-112)
+#则pos_y等于没变化之前的值即前面的临时变量
+#你可以修改这个 112，适合你的屏幕
+++++if pos_x<0 or pos_x==112:
+++++++++pos_x=tpos_x
+
+#绑定移动函数到相应按键
+#导航键向上传入移动函数的参数为x=0,y=-1
+canvas.bind(EKeyUpArrow,lambda:move(0,-1))
+
+canvas.bind(EKeyDownArrow,lambda:move(0,1))
+canvas.bind(EKeyRightArrow,lambda:move(1,0))
+canvas.bind(EKeyLeftArrow,lambda:move(-1,0))
+#下面是本节的关键。我暂且称之为动作帧
+#大家都知道动画是一帧一帧的，这里很明显是四张图组成一帧动作动画
+#这里解释其中一个动作，其余三个留作思考题，回帖说明自己的想法，大家一起学习
+#定义向下动作函数
+def Down():
+++++global pos_y,pos_x
+#清屏，这是为了清楚上一帧的图像，不然就可能叠加到一起了
+++++canvas.clear()
+#看到了，循环四次，一个动作四张图组成，一次画出四张图到屏幕，是不是有动画效果了？
+#for循环知识一定要牢固，前面【入门必看】
+++++for i in range(4):
+#由于pos_y的值不能整帧增加，那样的话动作和移动就不协调了
+#要产生动作和移动协调的效果，没张图pos_y都应该有变化
+#所以这里没张图产生移动效果0.25(其实不只，因为下面的是*16的，实际上走了4)
+++++++++pos_y+=0.25
+#这里必须提到坐标是不是支持浮点数(小数)的，所以int(pos_x)转换成整数
+#前两个参数不用解释了就是角色在屏幕的位置
+#source参数实现了什么呢？对，就是整个图片的第一行的每一张图分别显示
+#我们看当 i=0时，source的x范围是384-512，y范围是0-128，这个范围是整张图的哪里呢？
+#大家仔细观察下就会发现是第一行的最后一张图
+#那么这样的话，随着i的增加，第一行的每张图会被一次显示，这样就构成了一次动作帧
+#动画就是这么简单
+++++++++canvas.blit(img,target=(int(pos_x)*16,int(pos_y)*16),source=(512-(i+1)*128,0,512-i*128,128))
+#延时，为什么延时呢？很简单，每张图之间没时间间隔那不一闪而过了？没动画效果了
+#这和电影一样的，有一定时间间隔，视觉暂留？呵呵。
+++++++++e32.ao_sleep(0.5)
+#一下各动作帧原理相同，留作思考题。发帖分享经验。
+def Right():
+++++global pos_y,pos_x
+++++canvas.clear()
+++++++++for i in range(4):
+++++++++pos_x+=0.25
+++++++++canvas.blit(img,target=(int(pos_x)*16,int(pos_y)*16),source=(i*128,128,(i+1)*128,256))
+++++++++e32.ao_sleep(0.5)
+def Up():
+++++global pos_y,pos_x
+++++canvas.clear()
+++++for i in range(4):
+++++++++pos_y-=0.25
+++++++++canvas.blit(img,target=(int(pos_x)*16,int(pos_y)*16),source=(i*128,256,(i+1)*128,384))
+++++++++e32.ao_sleep(0.5)
+def Left():
+++++global pos_y,pos_x
+++++canvas.clear()
+++++for i in range(4):
+++++++++pos_x-=0.25
+++++++++canvas.blit(img,target=(int(pos_x)*16,int(pos_y)*16),source=(512-(i+1)*128,384,512-i*128,512))
+++++++++e32.ao_sleep(0.5)
+#这里可以用于显示背景
+#但是如??加背景必须对角色做透明处理
+#前面的课程已讲过，发挥你的创造力吧
+while running:
+#canvas.blit(bg)这样可以添加背景，但是前面的角色也应该bg.blit(img...)了
+++++e32.ao_yield()

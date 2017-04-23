@@ -1,0 +1,39 @@
+#随显模块常用来显示一些软件的帮助提示信息等
+
+import appuifw,graphics,topwindow,e32
+#topwindow是随显模式模块
+lock=e32.Ao_lock()
+
+img=graphics.Image.open('e:\\2.jpg')
+w,h=img.size#获得打开图片的大小
+
+window=topwindow.TopWindow()
+#调用topwindow模块中的TopWindow函数新建一个随显模式窗口
+
+window.size=(w+10,h+10)
+#设定窗口大小
+
+window.background_color=0xff0000
+#设定窗口背景颜色
+
+window.add_image(img,(5,5))
+#将图片添加到窗口中
+
+window.corner_type='square'
+#设定窗口形状为方形
+
+window.shadow=5
+#设定窗口阴影
+
+window.position=(10,50)
+#设定窗口位置
+
+window.show()
+#显示窗口
+
+def exit():
+    window.hide()#隐藏窗口,fading函数为逐渐消退
+    lock.signal()
+
+appuifw.app.exit_key_handler=exit
+lock.wait()

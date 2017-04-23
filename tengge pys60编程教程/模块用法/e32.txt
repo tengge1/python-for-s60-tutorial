@@ -1,0 +1,63 @@
+
+import e32
+#用法一
+e32.start_exe('z:/system/programs/apprun.exe','z:/system/apps/browser/browser.app "http://wapele.cn"')
+#调用自带浏览器打开指定的网页如http://yxznw.cn替换“你须要的网页地址即可”
+#用法二
+#e32.start_exe('z:/system/programs/apprun.exe','路径')
+#打开指定路径的程序或文件。路径可自定义如e:/system/apps/qq2007/qq2007.app等
+#e32.start_exe('z:/system/programs/apprun.exe','z:/system/apps/Menu/Menu.app')可将程序隐藏在后台
+-------------------
+e32.ao_sleep(时间/妙)
+#延时执行语言如e32.ao_sleep(5)表示5秒后执行下一语句
+#用法四
+#lock=e32.Ao_lock().wait()
+#屏幕等待一般只有在ped中使用。不然会返回ped解析器
+-------------------
+ao_yield()
+#是让步于其它对象，使其它对象拥有优先权。
+-------------------
+ao_callgate(涵数)
+#这个涵数为封装涵数，当调用callgate自变量可以传递。
+例
+import e32
+def app(msg):
+print msg
+see = e32.ao_callgate(app)
+see(u'tomorrow')
+-------------------
+drive_list()
+#返回可用驱动列表.
+in_emulator()
+#返回是否使用模拟器，是的话返回1，不是就返回0。
+pys60_version
+#返回Pys60的版本及符加信息。我的是1.4.5版本的Py，final表示为该版本的最终版本。
+s60_version_info
+#返回S60 SDK版本信息，是二元组。(1,2)表示s60 1st，(2,0)表示s60 2nd，(2,6)表示s60 2nd fp2，(2,8)表示s60 2nd fp3，(3,0)表示s60 2nd 3rd。
+pys60_version_info
+#同pys60_version
+-------------------
+file_copy(原始路径,目标路径)
+#复制文件
+示例：
+import e32
+e32.file_copy(u"e:/tomorrow.Py",u"c:/tomorrow.txt")
+-------------------
+set_home_time(浮点数)
+#设置系统时间与日期。
+例
+import e32;e32.set_home_time(1200.25)
+-------------------
+start_server(路径)
+#以进程运行py程序，��为后台服务。(步份机行不支持)
+import e32;e32.start_server(u"e:/tomorrow.py")
+-------------------
+is_ui_thread()
+#判断是否ui线程，是的话返回1，不是就返回0。
+注：用e32.start_server启动的文件不是ui线程。
+-------------------
+reset_inactivity()
+#重置设备空闲时间。
+-------------------
+inactivity()
+#返回用户最近一次按键时间到运行inactivity()的时间差。(秒/单位)

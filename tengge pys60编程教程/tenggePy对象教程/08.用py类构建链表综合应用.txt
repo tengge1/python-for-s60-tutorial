@@ -1,0 +1,67 @@
+作者：tengge
+
+#这一节不太对，大家可直接跳过这一节。
+
+在C语言中，链表是一种重要的构造类型的数据结构，可以用来存储不定长度的多种数据构成的数据。在python中，我们可以用类来模仿它。
+
+看示例：
+class Person:
+    name=""
+    next=None
+
+person1=Person()
+person1.name="Jim"
+
+person2=Person()
+person2.name="Kate"
+person1.next=person2
+#该句将person1的next属性指向person2，类似C语言的指针
+
+print person1.name
+
+person=person1.next
+print person.name
+
+输出：
+Jim
+Kate
+
+在该例中，person1.next其实就是person2，当我们输出person1.next.name时，其实就是person2.name。
+
+也许，上例中并无法体现链表的重要作用。我们再来看另外一个例子。
+
+class Person:
+    name=""
+    next=None
+
+queue=[""]*50
+#该句构建一个含50个空元素的列表
+
+#该循环创建了50个实例，分别为它们命名，并将前一个实例的next属性指向后一个实例，并将它们压入列表（真累啊o∩_∩o）
+for i in range(50):
+    queue[i]=Person()
+    queue[i].name="Person_"+str(i+1)
+    if i>0:
+        queue[i-1].next=queue[i]
+
+#用下面一个循环来输出列表中的50个实例的名称
+person=queue[0]
+while person:
+    print person.name
+    person=person.next
+
+输出：
+Person_1
+Person_2
+Person_3
+Person_4
+……
+……
+Person_49
+Person_50
+
+该例将类、列表和循环综合利用，这在以后的游戏编程中具有重要的作用。
+
+游戏中的每个怪都可以看作一个实例，它有名称、HP、MP、位置等属性，我们用一个循环去检查列表中每个实例的HP属性，只要其小于0，就将其从列表中删除，并将它前面一个实例的next属性指向它的后一个实例，当绘制程序根据实例内容重画游戏界面时，于是怪消失了。
+
+好了，这节就到这里。

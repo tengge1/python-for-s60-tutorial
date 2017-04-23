@@ -1,0 +1,8 @@
+
+
+import firmware
+print firmware.phone_model
+〉〉〉 7610
+ 
+注意：由于原版的firmware载入时会有异常(不知你们的会不会)，我修改后才能正常载入，压缩包已内置我修正的模块和测试代码。
+ 

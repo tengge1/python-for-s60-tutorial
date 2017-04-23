@@ -1,0 +1,94 @@
+本教程来自iniwap！转载请注明出处！
+作者：┈┾夨憶D*.亼ぺ
+#很快第二十节了，这节应该是比较新的内容了
+#游戏免不了对玩家信息的记录，这节就给大家讲述的是如何操作数据库
+#来实现游戏积分的记录和显示问题，这里以玩家排行的形式讲解
+#这节不仅有新知识还有算法哦
+#现在开始
+#-*-coding:utf-8-*-
+import appuifw
+import graphics
+import e32
+#这个模块就是数据库的了，如何使用他，即将讲到
+import e32dbm
+appuifw.app.body=canvas=appuifw.Canvas()
+appuifw.app.screen=’full’
+global running
+running=1
+def chn(x):
+++return x.decode(’utf8’)
+#退出函数
+def quit():
+++global running
+++running=0
+#排行榜函数
+def rank():
+#新建图形
+++img=graphics.Image.new(canvas.size)
+#退出键
+++appuifw.app.exit_key_handler=quit
+#异常处理，这个算是高级的内容了
+#try...except...
+#可能出错的代码放到try 语句块里，如果出错了要执行的操作放到except 里
+#这样你的代码就健壮了很多
+++try:
+#关键函数，e32dbm.open 打开数据库
+#前面是路径，后面的是打开方式’r’ 意思为只读模式打开(只能读取数据库信息)
+#还有其他模式’w’(打开已存在的数据库，读写模式)
+#’c’(打开已存在的，读写模式，如果不存在新建一个)
+#’n’ 新建一个空数据库，读写模式
+++++db=e32dbm.open(’c:\\rank.e32dbm’,’c’)
+#初始化数据库，具体游戏中不可能放在这里的
+#但是不初始化没数据的，这里主要是为了演示，所以给出初始化
+#数据库记录信息是以字典的形式存放的，这里有点难了
+#如果不能理解也没什么，不过字典必须会用的，不然就做不了什么了
+#下面就是基本的字典操作添加了
+++++db[’player1’]=str(10000)
+++++db[’player2’]=str(10000)
+++++db[’player3’]=str(10000)
+++++db[’player4’]=str(10000)
+++++db[’player5’]=str(10000)
+++++db[’player6’]=str(10000)
+++++db[’player7’]=str(10000)
+++++db[’player8’]=str(10000)
+++++db.close()
+++++db=e32dbm.open(’c:\\rank.e32dbm’,’r’)
+#用一个变量记录db.items()获得的字典
+++++tdb=db.items()
+#关闭数据库，这里和文件打开操作一样都要关闭的
+++++db.close()
+++except:
+#如果没有数据库信息给出错误提示
+++++appuifw.note(chn(’error’),’error’)
+#好了，记录取出来了，怎么显示呢？既然是排行榜当然要排序了
+#需要说明的是字典是无序的，所以要排序
+#下面使用冒泡排序，具体原理不做解释，超过范围了。有兴趣的话，可以查看其他参考书
+++for i in range(len(tdb)-1):
+#len(tdb)获得字典长度也就是有几个玩家
+++++for j in range(len(tdb)-i-1):
+#我倒。。讲到这感觉有点难了，不适合初学者了
+#尽量说明白吧,给个tdb的例子如{’xiaowang’:’100’，’xiaozhang’:’200’}
+#这里很明显第一项是关键字也就是玩家姓名，第二项是分数但是是字符串
+#tdb[0][1]=?明显是‘100’
+#int()转换成数字再排序
+#下面是冒泡内容，不细讲
+++++++if int(tdb[j][1])>int(tdb[j+1][1]):
+++++++++t=tdb[j]
+++++++++tdb[j]=tdb[j+1]
+++++++++tdb[j+1]=t
+#又见while死循环，排行榜该显示了
+++while running:
+#清屏
+++++img.clear(0)
+#给点文字说明
+++++img.text((70,30),chn(’排行榜’),0x0000ff)
+#唉。。屏幕小酒显示8个玩家吧
+++++for i in range(8):
+#tdb[i][0]刚才说了，这个就是玩家姓名了，不明白那就是对数组的下标没学好
+++++++img.text((30,55+i*20),chn(tdb[i][0]),0x00ff00)
+#tdb[i][1]分数喽
+++++++img.text((100,55+i*20),chn(’： ’+tdb[i][1]),0xff0000)
+#画到屏幕吧
+++++++canvas.blit(img)
+++++++e32.ao_yield()
+rank()

@@ -1,0 +1,78 @@
+本教程来自iniwap！转载请注明出处！
+作者：┈┾夨憶D*.亼ぺ
+################
+
+#绘制五角星程序#
+
+#开发人----iniwap#
+
+#引用请注明出处#
+
+#---iniwap.cn-----#
+
+################
+
+import appuifw,graphics,e32
+
+from math import *
+
+running=1
+
+#下面是五角星函数
+
+#使用直接插入下面的函数
+
+#pentacle(x,y,s,color,wid)即可
+
+#x为左角x坐标y为上角y坐标
+
+#s五角星边长color,wid颜色线宽
+
+#例 pentacle(10,10,60,0,4)
+
+matrix=[(0,0),(0,0),(0,0),(0,0),(0,
+0),(0,0)]
+
+def pentacle(x,y,s,color,wid):
+
+++++global matrix
+
+#这里存放的是五角星各顶点的坐标
+
+++++matrix=[(x+s*(1+sin(pi/10)),y),(x+2*s*(1+sin(pi/10)),y+s*cos(pi/10)),(x+s*(1+sin(pi/10)+cos(pi/5)),y+s*(cos(pi/5)/tan(pi/10))),(x+s*(1+sin(pi/10)-cos(pi/5)),y+s*(cos(pi/5)/tan(pi/10))),(x,y+s*cos(pi/10)),(x+s*(1+sin(pi/10)),y)]
+
+#这里是画线
+
+++++for i in range(3):
+
+++++++++img.line((matrix[i],matrix[i+2]),outline=color,width=wid)
+
+++++++++img.line((matrix[i],matrix[i+3]),outline=color,width=wid)
+
+def quit():
+
+++++global running
+
+++++running=0
+
+canvas=appuifw.Canvas()
+
+appuifw.app.body=canvas
+
+appuifw.app.screen=’full’
+
+img=graphics.Image.new(canvas.size)
+
+appuifw.app.exit_key_handler=quit
+
+while running:
+
+++++img.clear(0)
+
+#调用函数
+
+++++pentacle(10,10,50,0xff0000,5)
+
+++++canvas.blit(img)
+
+++++e32.ao_yield()

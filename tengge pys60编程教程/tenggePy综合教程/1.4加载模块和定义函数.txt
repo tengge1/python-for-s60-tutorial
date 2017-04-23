@@ -1,0 +1,36 @@
+python有三种加载模块的方式：
+1.普通加载，如：
+import appuifw
+appuifw.app.set_exit()#退出
+2.从模块中加载所有函数，如：
+from appuifw import*
+note(u"Hello!",u"info")
+app.set_exit()
+#不建议使用，易重名
+3.从模块中加载某个函数，如：
+from appuifw import note
+note(u"hello!","info")
+推荐使用第一种！
+
+创建函数的格式：
+def 函数名(参数):
+    语句1
+    语句2
+
+    如果不需要参数，参数可省略；如果只有一个语句，可直接跟在冒号后面；注意缩进，建议缩4格；如果在函数内再定义函数，则再缩进四格。如：
+def plus(a,b):
+    c=a+b
+    return c
+但我们调用函数时，返回a+b的值，如：
+import appuifw,e32
+def plus(a,b):
+    c=a+b
+    return c
+result=plus(20,30)#这样使用含参数的函数
+appuifw.app.body.set(unicode(result))#要将数值格式的转换为unicode格式的才能正常显示！（如图）
+e32.Ao_lock().wait()
+再看另一个：
+import appuifw
+def exit():
+    appuifw.app.set_exit()#定义不含参数的函数
+exit()#这样使用

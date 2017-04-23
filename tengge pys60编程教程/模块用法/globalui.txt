@@ -1,0 +1,36 @@
+
+
+globalui模块用来弹出对话框(后台前后均有效需python v1.440平台支持！)
+----------------
+global_msg_query(内容,标题)
+#弹出对话框
+例：
+impo rt globalui
+globalui.global_msg_query(u“see tomo rrot“,u“title“)
+
+#下面例子将不在引用impo rt globalui
+----------------
+global_note(内容,类型)
+#用法与appuifw.note相同
+类型仅支持“info“,“erro r“两种！
+例：
+globalui.global_note(u“see tomo rrot“,“info“)
+等价于appuifw.note(u“see tomo rrot“,“info“,1)
+----------------
+global_query(内容)
+#询问对话框！注意只有一个内容参数
+例：
+globalui.global_query(u“see tomo rrot“)
+----------------
+global_popup_menu([列表],标题)
+#用法与appuifw.popup_menu()相同
+例：
+i=globalui.global_popup_menu([u“see tomo rrot“,u“hello wo rd“],u“title“)
+if i==0：
+++++globalui.global_note(u“see tomo rrot“)
+else：
+++++globalui.global_note(u“hello wo rd“)
+#+为空格
+----------------
+
+

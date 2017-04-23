@@ -1,0 +1,33 @@
+
+fmm_文件操作模块(模拟ped)
+--------------------
+Manager()
+#类名
+--------------------
+Getpath(mode="open", path="root", name="new", ext="", filters=[])
+mode_参数可选默认为"open"打开操作,"save"为保存操作,"dir"为选择文件夹操作
+path_参数可选.默认为"root"默认磁盘，"last"最后一次操作文件夹，"your_path"你自己定义默认为"E:\\System\\Apps"
+name_参数可选。保存文件(夹)名称
+ext_参数可选。保存后缀
+filters_参数可选。默认没有扩展名
+--------------------
+例：
+import fmm
+man = fmm.Manager()
+man.Getpath()
+#返回所选后缀文件(支持所有后缀文件)
+#注：下面示例不再引用模块和类名
+--------------------
+man.Getpath(mode="save", path="E:\\System\\Apps")
+#保存文件默认路径
+--------------------
+man.Getpath(mode="save", path="last", name="file", ext=".py")
+#保存在最近一次打开文件夹并默认文件为file.py
+--------------------
+man.Getpath(filtres=[".py", ".txt"])
+#定义n个文件类型过虑
+--------------------
+man.Getpath(mode="dir")
+#选择文件夹
+--------------------
+ps:这个模块不支持中文。谁有空改改。以上编写为个人理解。如有错误与不足欢迎提出！模块未汉化。==贴子附件==

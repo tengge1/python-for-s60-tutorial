@@ -1,0 +1,25 @@
+import appswitch
+
+list1=appswitch.application_list(True)
+#给出正在运行的进程列表
+
+list2=appswitch.application_list(False)
+#给出未运行的进程列表
+
+appswitch.end_app(u"UC\u6d4f\u89c8\u5668")
+#结束进程，成功时返回1，参数为功能表中名称的unicode代码
+
+appswitch.kill_app(u"UC\u6d4f\u89c8\u5668")
+#强行结束进程，成功时返回1
+
+name=appswitch.fg_appname()
+#给出正在前台运行进程名称
+
+appswitch.is_appname_fg(u"UC\u6d4f\u89c8\u5668")
+#判断某进程是否在前台运行，前台返回1，后台返回0
+
+appswitch.switch_to_bg(u"UC\u6d4f\u89c8\u5668")
+#将程序转入后台运行，成功返回1
+
+appswitch.switch_to_fg(u"UC\u6d4f\u89c8\u5668")
+#将程序转入前台运行，成功返回1

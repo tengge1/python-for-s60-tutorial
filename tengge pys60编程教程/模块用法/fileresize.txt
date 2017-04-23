@@ -1,0 +1,6 @@
+作者：雨中彩虹
+
+fileresize.pyd用法：
+import fileresize
+fileresize.setsize(filename, size)
+#filename为文件路径名称，size为整数。文件必须是关闭模式。成功返回0，否则返回-1或者1(看出错情况定)

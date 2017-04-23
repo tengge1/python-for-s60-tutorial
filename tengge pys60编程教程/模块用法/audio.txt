@@ -1,0 +1,61 @@
+audio模块是用来播放手机上的音频
+-------------------
+audio.Sound.open(filename)
+#打开声音文件并且付值为path下面要用
+例：
+path=audio.Sound.open("e:/Sounds/Simple/情茧.mp3".decode('utf8'))
+注：记住哦！中文歌名要加.decode('utf8')将中文转化为国际标准！
+-------------------
+play(times, interval, callback)
+#播放歌曲其中(times, interval, callback)的三个参数可选！
+times 重复次数默认为1次
+interval重复间隔时间默认为1秒(播放完毕记算)
+callback不太清楚
+例：
+path.play(2,1)
+#意思是重复两次，间隔为1秒
+-------------------
+stop()
+#停止当前状态
+-------------------
+record()
+#录音
+例：
+path=audio.Sound.open("c:/me.wav")
+#路径你自己填，没有则自动创建！貌似不支持mp3格式录制
+path.record()
+#好��！现在就已经进入的录音状态了。再没有用path.stop()停止以前将一直录制！而且如果录音路径存在的话。不会复盖当前录音而且继续录制！
+-------------------
+close()
+#关闭音频文件
+-------------------
+state()
+#有返回值0为无音频1为停止2为播放3为录音
+-------------------
+max_volume()
+#最大声音
+-------------------
+set_volume(volume)
+#(volume)0-9任意数字
+#为0时静音9时声音最大
+-------------------
+current_volume()
+#返回当前的音量值
+-------------------
+duration()
+#返回当前音频的长度
+#如果要将音频长度转为时间值可以这样：
+dur=path.duration()/100000
+print ((((str((dur / 600)) + ':') + ('%02d' % ((dur % 600) / 10))) + '.') + str((dur % 600))[-1])
+-------------------
+set_position(position)
+#(position)设置播放的位置(快进/快退)
+-------------------
+current_position()
+#返回当前播放音频的长度
+#如果要将音频长度转为时间值可以这样：
+dur=path.current_position()/100000
+print ((((str((dur / 600)) + ':') + ('%02d' % ((dur % 600) / 10))) + '.') + str((dur % 600))[-1])
+-------------------
+say(text)
+#语音阅读部份机型不支持

@@ -1,0 +1,30 @@
+python中默认都是局部变量，只能在定义该变量的函数，及内层函数使用。如：
+
+import appuifw
+def a():
+    m=3
+    def b():#这是a的内层函数，变量m可在该函数中使用
+        n=m+1
+        appuifw.note(unicode(n))
+    b()
+def c():#此函数与a是并列的，局部变量m不能在此使用！！
+    a()
+    appuifw.note(unicode(m))
+a()
+
+在上面那个例子中，我们运行a函数不会出错，运行c就会发生错误，因为我们在与a毫不相干的函数中用了局部变量c！！我们在全局中使用时，要先声明(global m)。改成下面那样就不会出错了。
+
+import appuifw
+def a():
+    global m#声明m是全局变量，在给变量赋值前用
+    m=3
+    def b():
+        n=m+1
+        appuifw.note(unicode(n))
+    b()
+def c():
+    a()
+    appuifw.note(unicode(m))
+c()
+
+注：有时即使声明了，仍会出错，可尝试在每次用到该函数时都声明一下！（local局部的；global全局的）

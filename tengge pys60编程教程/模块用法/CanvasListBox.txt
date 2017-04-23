@@ -1,0 +1,17 @@
+CanvasListBox图型表格模块
+先看示例
+--------------------
+import CanvasListBox,appuifw
+def cn(x):return x.decode('utf8')
+list=[cn("明天见汉化修改\nhttp://wapele.cn"),cn("这里是一个基数行"),cn("偶数行\n")]
+def it():
+++appuifw.note(list[appuifw.app.body.current()],"info")
+CanvasListBox.DemoCanvasListBox(items=list,cbk=it)
+--------------------
+解说：
+DemoCanvasListBox(items,cbk)
+该类下有两个必填参数。
+items为图型窗口表格列表文字(支持多行列表可根据自己需求定义)
+cbk为调用窗口涵数
+上面示例中也可以简写为DemoCanvasListBox(list,it)
+--------------------

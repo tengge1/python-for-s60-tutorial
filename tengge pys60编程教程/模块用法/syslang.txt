@@ -1,0 +1,8 @@
+作者：__旋风__
+
+syslang模块有以下函数：
+getcurrentlanguage()获取当前所使用的语言。
+getdefaultlanguage()获得默认语言。行货的是u'31'。
+getlanguages()获得手机支持的所有语言，返回值为一个列表。
+以上返回值均为unicode码。简体中文对应代码为31，英语为159或者1。
+20080727更新：兼容N70机型

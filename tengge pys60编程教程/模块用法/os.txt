@@ -1,0 +1,125 @@
+
+
+#必须导入os模块下面的语句才会生效
+语句一
+os.path.isdir(路径)
+判断路径是否为目录（文件夹）
+例子:
+输入：
+print os.path.isdir('c:/Nokia')
+输出：
+print out 1
+语句二
+os.path.isfile(路径)
+判断路径是否为文件
+例子:
+输入：
+print os.path.isfile('c:/Nokia/Images/Pictures/1.ota')
+输出：
+print out 1
+语句三
+os.path.exists(路径)
+判断路径(文件或文件夹)是否存在
+例子:
+输入：
+print os.path.exists('c:/Nokia/Images/Pictures/1.ota')
+输出：
+print out 1
+语句四
+os.remove(路径)
+删除路径文件
+例子:
+输入：
+print os.remove('d:/cache/entrylist.hps')
+输出：
+print out None
+语句四
+os.mkdir(路径)
+创建文件夹。
+例子:
+输入：
+print os.mkdir('d:/yxznw')
+输出：
+print out None
+语句五
+os.rmdir(路径)
+删除��件夹，注意，文件夹必须为空文件夹，也就是没有文件的文件夹
+例子:
+输入：
+print os.rmdir('d:/yxznw')
+输出：
+print out None
+语句六
+os.path.getsize(路径)
+获取文件的大小
+例子:
+输入：
+print os.path.getsize('c:/Nokia/Images/Pictures/1.ota')
+输出：
+print out 256
+语句七
+os.listdir(路径)
+获得指定目录中的内容。
+例子:
+输入：
+print os.listdir('c:/Nokia/Images/Pictures/')
+输出：
+print out ['1.ota', '2.ota', '3.ota', '4.ota']
+语句八
+os.getcwd()
+该函数不需要传递参数（括号内无需输入什么），作用是返回所运行脚本的目录。即当前Python脚本工作的目录路径。
+例子:
+输入：
+print os.getcwd()
+输出：
+print out 'Z:\\SYSTEM\\PROGRAMS\\'
+语句九
+os.path.split(路径)
+把路径分成两部分
+例子:
+输入：
+print os.path.split('c:/Nokia/Images/Pictures/')
+输出：
+print out ('c:/Nokia/Images/Pictures', '')
+语句十
+path.splitext(路径)
+把文件名分成文件名称和扩展名
+例子:
+输入：
+print os.path.splitext('c:/Nokia/Images/Pictures/1.ota')
+输出：
+print out ('c:/Nokia/Images/Pictures/1', '.ota')
+语句十一
+os.path.dirname(路径)
+把目录名(文件夹)提出来
+例子:
+输入：
+print os.path.dirname('c:/Nokia/Images/Pictures/1.ota')
+输出：
+print out c:/Nokia/Images/Pictures
+语句十二
+os.path.basename(路径)
+获得主文件名
+例子:
+输入：
+print os.path.basename('c:/Nokia/Images/Pictures/1.ota')
+输出：
+print out 1.ota
+语句十三
+os.rename(原路径,目标路径)
+移动文件夹，改名。剪切。
+例子:
+输入：
+print os.rename('c:/Nokia/Images/Pictures/1.ota','c:/Nokia/Images/Pictures/yxznw.ota')
+输出：
+print out None
+下面列举一些不常用的语言不在写例子
+语法十三
+os.makedirs(路径 [,mode])
+可以创建多级目录
+语法十四
+os.removedirs(路径)
+删除一个目录下所有东西
+语法十五
+os.path.walk(path,visit,arg)path ：是将要遍历的目录visit ：是一个函数指针，函数圆形为：callback(arg,dir,fileList)
+说明：os模块中包含很多操作文件和目录的函数，可以方便地重命名文件，添加、删除、复制目录以及文件等。

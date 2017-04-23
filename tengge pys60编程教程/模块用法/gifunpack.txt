@@ -1,0 +1,8 @@
+用法：
+import gifunpack
+p=gifunpack.Pack()
+l=p.unpack("d:\\1.gif")
+a=0
+for i in l:
+++a+=1
+++i.save(unicode('d:\\'+str(a)+'.png','utf8'))

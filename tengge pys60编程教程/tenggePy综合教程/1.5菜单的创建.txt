@@ -1,0 +1,37 @@
+1.简单菜单
+import appuifw,e32
+def cn(x):return x.decode("utf8")
+def menu1():
+    appuifw.note(cn("这是菜单一！"),"info")
+def exit():
+    appuifw.note(cn("这是退出！"),"info")
+    appuifw.app.set_exit()
+appuifw.app.menu=[(cn("菜单一"),menu1),(cn("退出"),exit)]#选择菜单一，就调用了我们定义好的函数menu1
+e32.Ao_lock().wait()
+
+2.二级菜单
+import appuifw,e32
+def cn(x):return x.decode("utf8")
+def menu1():
+    appuifw.note(cn("这是菜单一！"),"info")
+def menu2():
+    appuifw.note(cn("这是菜单二！"),"info")
+def exit():
+    appuifw.note(cn("这是退出！"),"info")
+    appuifw.app.set_exit()
+appuifw.app.menu=[(cn("一级菜单"),((cn("菜单一"),menu1),(cn("菜单二"),menu2))),(cn("退出"),exit)]
+e32.Ao_lock().wait()
+我们在简单菜单动作的位置添一个小括号，再在里面添一个简单菜单就成了二级菜单，简单吧！
+3.无限菜单
+前两种菜单最多只能建三十个，如果更多就需要无限菜单。而且，前两种只能建在选项上，要建在其他位置，入右键，就需要无限菜单。
+import appuifw,e32
+def cn(x):return x.decode("utf8")
+def popup_menu():
+    list=[cn("菜单一"),cn("菜单二")]#这是列表，详见元组、列表和字典一节
+    index=appuifw.popup_menu(list,cn("无限菜单"))
+    if index==0:
+        appuifw.note(cn("这是菜单一！"),"info")
+    else:
+        appuifw.note(cn("这是菜单二！"),"info")#这是条件语句，注意两个等号和冒号，注意缩进！
+appuifw.app.exit_key_handler=popup_menu#定义在右键上
+e32.Ao_lock().wait()

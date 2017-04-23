@@ -1,0 +1,19 @@
+
+import e32dbm
+#导入模块
+f = e32dbm.open(u'd:\\wapele', 'n')
+#打开文件如果没有该文件将自动创建'n'可读可写'w'只写'c'只读'r'只读
+f[u'url'] = u'http://wapele.cn'
+f[u'me'] = u'See tomorrow'
+#u'me'调用变量u'See tomorrow'
+f.close()#保存内容
+#写入文件
+f = e32dbm.open(u'd:\\wapele', 'c')
+#同上
+url = f[u'url']
+me=f[u'me']
+#me获取f[u'me']读取内容
+f.close()
+#关闭文件
+print url
+print me

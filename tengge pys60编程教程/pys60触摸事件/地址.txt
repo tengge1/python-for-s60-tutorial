@@ -1,0 +1,4 @@
+﻿Symbian开发社区
+http://developer.symbian.org/wiki/index.php/Python_on_Symbian/08._Touch_User_Interface
+中文讨论区
+http://developer.symbian.org/forum/forumdisplay.php?f=53&order=desc&page=2

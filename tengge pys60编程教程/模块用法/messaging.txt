@@ -1,0 +1,14 @@
+
+
+messaging模块用来发送信息
+messaging.sms_send(电话，内容)
+例：messaging.sms_send(u15980037210，u“hello“)
+中文信息messaging.sms_send(u“15980037210“，“你好！“.decode(“utf8“))
+彩信实例import messaging
+
+data = appuifw.query("你的名字".decode('utf8'), "text")
+nbr = '12345' # 收件人
+number
+txt = "内容".decode('utf8') +data
+
+messaging.mms_send(nbr, txt, attachment='e:\\Images\\picture1.jpg')

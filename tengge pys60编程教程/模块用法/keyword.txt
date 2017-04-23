@@ -1,0 +1,16 @@
+
+keyword该模块用来是否是检测关键字
+
+iskeyword(字符串)
+＃检测字符串是PYTHON关键词是则返回1否则为0
+
+例：
+〉〉〉 import keyword
+〉〉〉 keyword.iskeyword(u"import")
+1
+kwlist
+#返回PYTHON关键词
+例
+〉〉〉 import keyword
+〉〉〉 keyword.['and', 'assert', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'exec', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'not', 'or', 'pass', 'print', 'raise', 'return', 'try', 'while', 'yield']
+

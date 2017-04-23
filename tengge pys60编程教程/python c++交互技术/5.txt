@@ -1,0 +1,39 @@
+【教程】PYthonC++交互技术⑤-派森C#缝合
+这章是真正的事例。
+⑤C++扩展Python系统①
+*首先，对于Python基于对象的体系结构，Boost提供了一组封装对象给予支持。这其中除了基本的PyObject（Boost中封装为Boost::Python::object） 对象，还包括了序列容器组。Boost.Python文档的“Obejct Wrapper”部分（/libs/python/doc/v2/ObjectWrapper.html#ObjectWrapper-concept）对此有详细讲解。如果我们的扩展代码中需要调用这些对象，可以直接引用。
+*另一方面，对于函数和对象封装，Boost提供了一套更为友好的方式。例如，如果在函数声明的参数列表中出现可以与Python类型直接对应的*** *、int、float等，不需要手动进行与PyOjbect*的转化，Boost可以识别这些类型。
+*下面我们看一个简单的函数封装示例：
+*首先，在VC中建立一个空的DLL项目，然后定义函数：
+*  Cppcode.h
+#include <string>
+int Add(int, int);
+int Sub(int, int);
+std::string Concat(std::string, std::string);
+
+Cppcode.cpp
+#include “CppCode.h“
+int Add(int x, int y)
+{
+*return x + y;
+}
+int Sub(int x, int y)
+{
+*return x - y;
+}
+std::string Concat(std::string x, std::string y)
+{
+*return x + y;
+}
+然后编写封装代码：
+Wrapper.cpp
+#include <boost/python.hpp>
+#include “CppCode.h“
+using namespace boost::python;
+BOOST_PYTHON_MODULE(FunTest)
+{
+*def(“Add“, Add);
+*def(“Sub“, Sub);
+*def(“Concat“, Concat);
+}    编译生成DLL文件（需要注意的是生成的文件名必须与BOOST_PYTHON_MOUDLE宏的参数一致），放在Python/DLLs目录下即可。（演示）
+由于Python使用动态类型，对于Python代码，函数重载没有语法依据（但是可以定义默认参数值和动态参数列表）。但我们在C++代码中可能会需要重载多个函数定义，Boost.Python对此也有支持。（展示代码）

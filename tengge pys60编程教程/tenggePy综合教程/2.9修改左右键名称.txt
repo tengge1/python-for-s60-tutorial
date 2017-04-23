@@ -1,0 +1,19 @@
+很简单，看代码：
+
+import uitricks#引入修改左右键名称的模块
+def cn(x):return x.decode("utf8")
+
+uitricks.set_text(cn("男孩"),3000)#定义左键名称
+uitricks.set_text(cn("女孩"),3009)#定义右键名称
+
+#结束
+
+3000,3009是与左右软键有关的两个值，可能因机型改变…建议这么写：
+
+import uitricks
+from key_tricks import EAknSoftkeyOptions,EAknSoftkeyExit
+def cn(x):return x.decode("utf8")
+uitricks.set_text(cn("男孩"),EAknSoftkeyOptions)#定义左键名称
+uitricks.set_text(cn("女孩"),EAknSoftkeyExit)#定义右键名称
+
+#哈哈，key_tricks.EAknSoftkeyOptions和key_tricks.EAknSoftkeyExit就提供了那两个值哈！

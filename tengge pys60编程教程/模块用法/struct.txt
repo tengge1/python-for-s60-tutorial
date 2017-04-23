@@ -1,0 +1,37 @@
+python提供了与c语写的数据沟通的模块 struct。
+可用函数有3个pack,unpack,calcsize,下面逐一讲解。
+pack(fmt, v1, ...)
+fmt是pack的的参数，v1是要pack的数据，...代表无限。
+unpack(fmt, string)
+fmt是unpack的的参数，string是要unpack的数据。
+calcsize(fmt)
+--------------------------
+〉〉〉from struct import *
+〉〉〉pack('hhl', 1, 2, 3)
+'\x00\x01\x00\x02\x00\x00\x00\x03'
+〉〉〉unpack('hhl', '\x00\x01\x00\x02\x00\x00\x00\x03')
+(1, 2, 3)
+〉〉〉calcsize('hhl')
+8
+--------------------------
+参数表：
+Format C Type PythonNotes
+x pad byteno value
+c charstring of length 1
+b signed char integer
+B unsigned char integer
+h short integer
+H unsigned short integer
+i int integer 整型
+I unsigned intlong
+l long integer 长整型
+L unsigned longlong
+q long longlong(1)
+Q unsigned long longlong(1)
+f float float 浮点型
+d double float 双精度浮点型
+s char[]string 字符型
+p char[]string
+P void *integer
+--------------------------
+fmt参数的理解并不难，fmt参数要灵活运用，与格式化字符串很类似。

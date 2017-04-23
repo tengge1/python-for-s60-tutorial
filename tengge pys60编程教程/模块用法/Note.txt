@@ -1,0 +1,18 @@
+
+importappuifw
+#appuifw.note(提示信息，“类型"属性)
+#---------------
+#提示型
+appuifw.note(u"see tomorrow"，"info")
+#如果你想要程序在后台也可以提示可以这样：
+appuifw.note(u"see tomorrow"，"info"，1)
+#注：属性为1时后台可提示默认为0下面类型中我不在一一重复说明。
+#可以简写成
+appuifw.note(u"see tomorrow")
+#---------------
+#成功提示型
+appuifw.note(u"see tomorrow"，"conf")
+#---------------
+#错误提示型
+appuifw.note(u"see tomorrow"，"error")
+

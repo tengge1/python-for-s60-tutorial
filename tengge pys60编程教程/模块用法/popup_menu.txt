@@ -1,0 +1,13 @@
+
+appuifw.popup_menu(菜单列表，菜单标题)
+#注：pop菜单一般情况下我们都是把它定义为函数(例如下面示例)。主要是方面程序的调用。其中菜单列表为比填，标题为可选！+为空格
+--------------------
+import appuifw
+def wap():
+++++list=[u”+see+tomorrow”，u”wapele.cn”]
+++++app=appuifw.popup_menu(list，u”title”)
+++++if+app==0:
+++++++++appuifw.note(list[0])
+++++else:
+++++++++appuifw.note(list[0])
+wap()

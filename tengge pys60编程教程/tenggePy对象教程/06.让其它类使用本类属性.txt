@@ -1,0 +1,31 @@
+#作者：tengge
+
+类的一个很重要的特色是可以轻松让其他类修改本类的属性。特别是在本类属性特别多的时候，这一点特别好用。看示例：
+
+class Son:
+    age=20
+    def change(s):
+        Mother().change(s)
+        #此处将自身指代传给其它类，想到于Java中的this指代
+
+class Mother:
+    def change(s,super):
+        super.age=18
+        #通过super接收，并修改其属性
+
+son=Son()
+print son.age
+son.change()
+print son.age
+
+输出：
+20
+18
+
+在该例中，Son类通过函数参数，把自己传给了Mother类，Mother通过change方法修改其age属性。于是Son的属性被改变了。
+
+注意，Mother().change(s)与change=Mother().change(s)不同，前者执行后Mother所占的内存立即被释放，而后者，只有当del change时，所占的内存才会被释放。
+
+如果我们在被调用的类中要使用调用类的属性和方法，同样也需要该方法。
+
+好了，本节就到这里。

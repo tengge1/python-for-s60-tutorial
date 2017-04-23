@@ -1,0 +1,27 @@
+
+akntextutils模块用来文本自动换行
+适用于图型界面
+-----------------
+akntextutils.wrap_text_to_array(text,style,width)
+#参数text文本输入
+#参数style文本字体其中'dese'为系统默认字体
+#参数width为屏幕宽度
+[u]注意：[/u]返回值是一个元组。如例三
+-----------------
+例一：
+〉〉〉 import akntextutils
+〉〉〉for x in akntextutils.wrap_text_to_array('wape乐网™(wapele.cn)欢迎您！明天见™制作'.decode('utf8'),'dese',176):
+++++print x
+wape乐网™(wapele.cn)欢迎您！
+明天见™制作
+-----------------
+for x in akntextutils.wrap_text_to_array(unicode('明天见','utf-8'),u'latinbold12',176):
+++++print x
+明天见
+-----------------
+例三：
+〉〉〉akntextutils.wrap_text_to_array('明天见'.decode('utf8'),u'latinbold12',176)
+(u'\u660e\u5929\u89c1',)
+-----------------
+具有用法请参阅note模块用法示例中的notE
+

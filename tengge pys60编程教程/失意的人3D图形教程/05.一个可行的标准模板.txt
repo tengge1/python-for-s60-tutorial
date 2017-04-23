@@ -1,0 +1,49 @@
+来源：┈┾夨憶D*.亼
+第五课开篇之3D一个可行的标准模板
+#作为开篇，这里只给出基本的代码框架。这是一个崭新的领域，我也在摸索，如有贻误请原谅。图形作为本区的特色，我们有理由相信我们能成为国内最大的pys60社区，欢迎更多朋友加入我们的开源阵营
+#此系原创系列转载务必注明：源自手机网iniwap.cn
+
+#引入模块
+import appuifw, key_codes, glcanvas, graphics,e32
+from gles import *
+#变量定义
+running=1
+#重绘函数，这里定义了投影变换
+def reshape():
+pass
+#
+#初始化函数，用于创建运行参数环境
+def myinit():
+#相应的初始化操作
+pass
+#建模,用于构建三维模型
+def modeling():
+#建模
+pass
+#显示函数，包含一系列变换操作
+def display():
+#外观属性等处理
+pass
+#运行逻辑
+def logic():
+#定义程序运行逻辑，对所描述问题的操作
+pass
+#退出
+def exit():
+pass
+#按键处理
+def keysEvent(event):
+#定义按键事件处理操作
+pass
+#主函数
+def main():
+appuifw.app.exit_key_handler=exit
+appuifw.app.screen = ’full’
+canvas=glcanvas.GLCanvas(redraw_callback=display,event_callback=keysEvent, resize_callback=reshape)
+appuifw.app.body=canvas
+myinit()
+while running:
+#主循环
+pass
+if __name__==“__main__“:
+++main()

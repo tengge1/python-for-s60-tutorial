@@ -1,0 +1,11 @@
+exec函数可运行字符串中的函数。
+
+如：
+
+exec("import appuifw")
+
+相当于
+
+import appuifw
+
+现在，你已经会做“模块函数浏览器”了，快试试吧！提示一下：需要os等模块，需要exec和dir等函数。

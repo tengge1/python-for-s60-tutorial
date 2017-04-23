@@ -1,0 +1,12 @@
+
+switchoff模块用来对手机关机与重启
+该模块只有两个涵数
+---------------
+Restart()
+#重启手机
+例：
+import switchoff
+switchoff.Restart()
+---------------
+Shutdown()
+#关机

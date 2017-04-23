@@ -1,0 +1,12 @@
+
+fold.fold().delete(文件夹路径)
+例：
+import fold
+fold.fold().delete(u"c:/tomorrow")
+#支持文件与文件夹
+文件夹复制：fold.fold().copy(源文件路径，目标文件夹路径)
+例：
+import fold
+fold.fold().delete(u"c:/tomorrow.Py",u"d:/see.txt)
+#支持文件与文件夹
+

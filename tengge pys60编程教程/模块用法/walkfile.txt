@@ -1,0 +1,17 @@
+作者：無爱/诺八一
+
+walkfile.py主要是遍历该文件夹下的所有文件。
+os模块也有遍历的方法，感觉不好用，所以就写了这个。由智能音乐源码中提取。
+
+互交演示：
+
+>>> import walkfile
+>>> w=walkfile.Walk()
+>>> t=w.walk('d:\\')
+>>> print t
+['d:\\cbs\\cbunsaved.dat', 'd:\\system\\Data\\Clpboard.cbd', 'd:\\system\\temp\\mtapdata.dat']
+也可以定义遍历文件的类型。
+>>> t=w.walk('d:\\',['.dat','.lrc'])
+>>> print t
+['d:\\cbs\\cbunsaved.dat', 'd:\\system\\temp\\mtapdata.dat']
+>>>

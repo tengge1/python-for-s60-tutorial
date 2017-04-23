@@ -1,0 +1,11 @@
+import clipboard_CHN
+def cn(x):return x.decode("utf8")
+
+clipboard_CHN.Set(cn("你好！"))
+#设置剪贴板的内容为“你好”
+
+clipboard_CHN.Get()
+#输出剪贴板的内容
+
+clipboard_CHN.Dm
+#获得剪贴板的内容的编码，像这种“\xff\xfeN\x00o\x00k\x00i\x00a\x00 \x006\x001\x002\x000\x00c\x00 \x00A\x00P\x001\x003\x00.\x000\x002\x00”

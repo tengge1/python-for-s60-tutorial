@@ -1,0 +1,30 @@
+
+sprite模块用来gif动画制作
+[b]注意：以下举例是参考下面附件给出的。下面里不再说明：[/b]
+------------------
+object New([callback])
+#建立一个类的参数
+例：
+f1=sprite.load([mydir+’frog.mbm’]，[0.4]，1)
+load(filename[，period[，mirror=0]])
+#filename图片文件地址支持的图片格式有bmp， jpg， gif， png(支持半透名)
+#period可选的参数列表的时间显示为每个图像（浮动，最低为0.1秒)
+#mirror可选的参数，镜像为： 1 ，垂直，水平为 2和c动画gif （如不同大小的图像）镜像正常工作。
+NewSprite(pic)
+#启动图像显示没有坐标
+例：
+ghost=sprite.NewSprite(f8)
+target(sprite，(x，y))
+#变化的位置，x横坐标，y竖坐标
+例：
+sprite.target(flag，(136，0))
+activate([sprite])
+#sprite激活动画，可选参数。
+upda te( sprite，pic)
+#sprite变更的内容图像，
+#pic一些图像必须是相同的
+例：
+sprite.upd ate( ghost，f1)
+close(sprite)
+#关闭图像
+------------------

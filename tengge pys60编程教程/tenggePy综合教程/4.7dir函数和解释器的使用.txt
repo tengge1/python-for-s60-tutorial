@@ -1,0 +1,27 @@
+这节我们学如何用解释器自学学python。我以自学“messaging”模块来讲解！首先打开解释器，输入"import messaging;dir(messaging)"，效果如下：
+
+>>> import messaging
+>>> dir(messaging)
+['ECreated', 'EDeleted', 'EFatalServerError', 'EMovedToOutBox', 'ENoServiceCentre', 'EScheduleFailed', 'EScheduledForSend', 'ESendFailed', 'ESent', '__builtins__', '__doc__', '__file__', '__name__', '_messaging', '_my_messaging', '_sending', '_signaled', 'e32', 'encodingmap', 'mms_send', 'sms_send']
+>>> 
+
+如果我们懂英语，一定知道下面的“sms_send”是发短信的意思，于是继续输入“messaging.sms_send(10086,3)”，我们想将3发到10086，效果：
+
+>>> messaging.sms_send(10086,3)
+Traceback (most recent call last):
+  File "<console>", line 1, in ?
+  File "e:/resource/messaging.py", line 80, in sms_send
+TypeError: argument 1 must be string or read-only buffer, not int
+>>> 
+
+出错了，它说第一个变量应该是字符串，而不应是整数。于是我们修改为“messaging.sms_send("10086",3)”，效果如下：
+
+>>> messaging.sms_send("10086",3)
+>>> 
+
+很成功，手机将短信发出去了！一会儿，我们就能收到10086回的短信！于是我们学会了一个函数：
+
+import messaging
+messaging.sms_send("10086",3)
+
+简单吧！我们已经会做“短信营业厅”软件了！！！

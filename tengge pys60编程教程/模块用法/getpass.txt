@@ -1,0 +1,7 @@
+
+
+getpass模快下一共有两个涵数
+getpass.getpass(prompt=“Password?“)
+相当于appuifw.query(“Password?“，“code“)
+getpass.getuser(prompt=“Username?“)
+相当于appuifw.query(“Username?“，“text“)没有默认值！

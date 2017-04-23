@@ -1,0 +1,16 @@
+btswitch是开启关闭蓝牙的专门模块，主要有以下函数。三版某些函数会有权限问题，做成软件后签名即可正常使用。
+
+import btswitch
+
+btswitch.getmode()
+#获得蓝牙状态，开启返回1，关闭返回0。
+
+btswitch.on()
+#打开蓝牙
+
+btswitch.off()
+#关闭蓝牙
+
+btswitch.blues.version
+#返回蓝牙版本
+

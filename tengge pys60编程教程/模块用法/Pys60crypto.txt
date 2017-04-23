@@ -1,0 +1,17 @@
+作者：__旋风__
+
+本模块提供SHA224 and SHA256计算方法。
+有以下函数：
+update
+copy
+digest
+hexdigest
+=================
+用法：
+>>> x = hashlib.sha224('spam')
+>>> x.hexdigest()
+'e047c44d875407fdb49d53d8b2326fc3e20e27f08434fef1275a3981'
+>>> y = x.copy()
+>>> y.update(' and eggs')
+>>> y.hexdigest()
+'1c54f569f9b5c7cec6a34465de51df10b0048f3d48f7051ac6eb2e54'

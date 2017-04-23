@@ -1,0 +1,33 @@
+
+
+progressbartw模块用来显示进度条
+---------------
+v=progressbartw.ProgressBarTW()
+#类名(这里我们给它付值给v以遍下面调用)
+#该类下有以下涵数
+---------------
+v.begin_prress(total)
+#total为进度的总数(参数可选默认为100)
+---------------
+v.do_progress(current_value)
+#current_value参数必填表示单前的进度
+---------------
+v.end_progress()
+#为进度条完成后(5秒)关闭进度条！
+---------------
+v.check_focus(fg)
+#用来控制进度条的关闭(进度条使用用也是有效使用)
+#fg值为0时关闭进度条
+#fg值为1时开启进度条
+---------------
+例：
+import progressbartw
+v=progressbartw.ProgressBarTW()
+v.begin_progress()
+for i in range(100):
+++++i+=i
+++++v.do_progress(i)
+v.check_focus(0)
+#v.end_progress()
+注：+w为空格
+---------------

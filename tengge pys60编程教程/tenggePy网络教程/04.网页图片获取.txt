@@ -1,0 +1,34 @@
+#作者：tengge
+#这节我们学习将网页图片保存为本地文件，还是上节的代码，我改了改，上节的代码很有用的。
+#网页图片的保存也很重要，验证码就是一张图片，学网页源码提取必须学网页图片获取。
+#本节代码是一个脚本，可直接在ped中运行
+
+import httplib
+import urllib
+
+params = urllib.urlencode({"":""})
+
+headers = {'Content-type': 'application/x-www-form-urlencoded','Accept': 'text/plain'}
+
+conn = httplib.HTTPConnection("10.0.0.172", 80)
+
+myurl="http://wap.baidu.com/r/wise/wapsearchindex/logo_index_s.gif"
+#这个是手机百度网首页的网标，请用上节知识获取最新网标的网址，看网址知道它对应一个gif格式的图片文件
+
+conn.request("POST", myurl, params, headers)
+
+data=conn.getresponse().read()
+#注意read一定要在conn.close前面，否则读不出来，这就是那个gif图片的二进制数据，注意不是图片对象。
+
+conn.close()
+
+#到此为止，图片的获取完成，下面开始保存图片。
+
+f=open("c:\\1.gif","wb")
+#注意用二进制可写方式打开
+f.write(data)
+f.close()
+#好了，现在可以去看看我们保存的图片了。用xplore打开c:\\1.gif，果然是百度的网标。
+
+#这节很简单吧，只要好好学前面的，每一节都很简单！这节就到这里吧。
+

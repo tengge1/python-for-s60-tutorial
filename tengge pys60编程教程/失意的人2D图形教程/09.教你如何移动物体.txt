@@ -1,0 +1,59 @@
+本教程来自iniwap！转载请注明出处！
+作者：┈┾夨憶D*.亼ぺ
+#这是第九节了，这一节将为大家讲解游戏的初步知识
+#如何移动一个物体
+#有不懂，请到问题专版发帖
+#这个我已经重复了很多次
+#当然如果大家都懂更好，不明白酒发帖。
+#-*-coding:utf-8-*-
+#导入模块
+import appuifw,graphics,e32
+#定义坐标点（X,Y）
+pos_y=0
+pos_x=0
+#while循环控制
+running=1
+#退出函数
+def quit():
+....#global 关键字，设置全局变量，含义已讲。
+....global running
+....#running=0 while循环终止
+....running=0
+#中文
+def chn(x):
+....return x.decode(’utf8’)
+#move 函数控制移动，其实质是控制X,Y坐标的增减
+def move(x,y):
+....global pos_y,pos_x
+....#定义两个临时变量，防止X,Y超过屏幕大小
+....tpos_y=pos_y
+....tpos_x=pos_x
+....#坐标增减运算
+....pos_y+=y
+....pos_x+=x
+....#判断移动后是否超过屏幕大小
+....if pos_y<0 or pos_y==320:
+....#超过则坐标值不变，也就是不移动，这样就防止了超出屏幕
+........pos_y=tpos_y
+....if pos_x<0 or pos_x==240:
+........pos_x=tpos_x
+canvas=appuifw.Canvas()
+appuifw.app.body=canvas
+appuifw.app.screen=“full“
+img=graphics.Image.new(canvas.size)
+appuifw.app.exit_key_handler=quit
+#下面为新知识，作用是关联按键
+#格式为：界面.bind(键值，关键字lambda:当按键发生时要调用的函数)
+canvas.bind(63495,lambda: move(-1,0))
+canvas.bind(63496,lambda: move(1,0))
+canvas.bind(63497,lambda: move(0,-1))
+canvas.bind(63498,lambda: move(0,1))
+#一下为第一节标准模块
+while running:
+....#清屏
+....img.clear(0xffffff)
+....#画点，这里可以是任意物体
+....#(pos_x,pos_y)为当前物体位置坐标
+....img.point((pos_x,pos_y),0x00ff00,width=10)
+....canvas.blit(img)
+....e32.ao_yield()

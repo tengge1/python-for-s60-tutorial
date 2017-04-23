@@ -1,0 +1,11 @@
+作者：明天见
+
+import md5
+md=md5.md5()#类名这里我们定义变量为md
+md.update(u'see tomorrow')#效验字符串
+md.digest()#分析md5值
+app = str(md.hexdigest())#输出md5值
+print app
+输出：
+a1cb951b73423a3d5323145f2a5e5b87
+------------------

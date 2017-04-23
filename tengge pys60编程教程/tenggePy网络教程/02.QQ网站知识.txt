@@ -1,0 +1,36 @@
+作者：tengge
+QQ:930372551
+
+这节我们对QQ网站的一些知识进行分析，其他网站、论坛可类似分析。并介绍“空间爬虫”“空间刷刷”“自动聊天工具”“自动空间留言”“自动发帖回帖”“自动挂Q”的基本原理，其实，它们的原理几乎是完全一致的。
+
+1.首先分析空间的网址
+http://blog14.z.qq.com/infocenter_v2.jsp?B_UID=930372551&sid=cabMPEAYKCBugEttaT84MT==
+分析：
+A：B_UID是你现在所在空间的QQ号，sid是由你的QQ号和密码加密而成的，它证明登录者的身份。
+B：我们将B_UID改为谁的QQ号，我们就浏览谁的空间，这就是“空间爬虫”（随机访问别人空间以求回访增加人气）的基本原理。
+C：sid表示登录者的身份，我们可以用不同QQ号的sid来访问我们自己的空间以增加人气，这就是“空间刷刷”的原理。
+注：上面都是假设空间访问不受限的情况下。
+
+2.然后我们分析空间的登录
+<go href="http://qzone13.z.qq.com/login_result.jsp?nb=0&sid=cabMPEAYKCBugEttaT84MT==" method="post">	<postfield name="qq" value="$iqq"/>	<postfield name="pwd" value="$ipwd"/>	<postfield name="mkey" value="44362B5D06E1F5E2EB0CCDB2059F59498CFA9BDE9E5982B1"/></go>
+
+分析：
+A：有三个postfield表示需要提交三个数据到href所指向的网址，qq是指你的qq号，pwd是指你的qq密码，mkey是你请求空间登录界面时系统随机产生的类似验证码的东西，你必须正确提交，才能成功登录空间。
+B：我们用qq和密码成功登录后，我们可以从返回的网页中找一个sid（个人身份识别码）保存下来，这就是“sid”提取器的基本原理。
+
+3.与别人聊天的网页
+<go href="http://q11.3g.qq.com/g/s?sid=cabMPEAYKCBugEttaT84MT==&aid=sendmsg&tfor=qq" method="post"><postfield name="msg" value="$msg"/><postfield name="u" value="526214677"/><postfield name="saveURL" value="0"/><postfield name="do" value="send"/></go>发送QQ消息</anchor>
+
+分析：
+A.msg是从输入框中取得的文字，u是指文字要发送的人的QQ号，saveURL值为"0"，do值为"send"，可直接提交。
+B.通过这种方法，我们可以实现“自动聊天工具”和“QQ炸弹”，也可以实现“自动空间留言”和“自动发帖回帖”，其实很简单。
+（假设QQ空间无限制，而且不需要输入验证码，验证码以后再讲）
+
+4.最后，我们分析登录3GQQ的页面
+<anchor>马上登录 <go href="http://pt.3g.qq.com/handleLogin?r=38445815" method="post"><postfield name="sid" value="gRx6/ZLbzPLJOMkXUX4bTA=="/><postfield name="qq" value="$qq"/><postfield name="pwd" value="$pwd"/><postfield name="toQQchat" value="true" /><postfield name="modifySKey" value="0" /><postfield name="loginType" value="1" />        		<postfield name="aid" value="nLoginHandle" /><postfield name="go_url" value="http://info.3g.qq.com/g/s?aid=index&sid=gRx6/ZLbzPLJOMkXUX4bTA==" /></go></anchor> 
+
+分析：我们需要向go指向的网址提交sid,qq,pwd,toQQchat,modifySKey,loginType的值实现成功登录！其中，sid是你获取登录界面时系统随机产生的，提交时必须正确才能正常登录。于是，我们可以制作“自动挂Q”软件。
+
+
+好了，听糊涂了没，早点休息吧，这节就到这里。
+

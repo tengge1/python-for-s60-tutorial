@@ -1,0 +1,66 @@
+本教程来自iniwap！转载请注明出处！
+作者：┈┾夨憶D*.亼ぺ
+#图形界面标准接口
+
+#请注明iniwap.cn
+
+#有问题请发帖提问
+
+#此模版可以实现大部分界面程序，你要做的就是在while里添加代码
+#接下来将有更精彩的教程上演
+#支持请告诉更多友友来支持我
+#导入相关模块
+
+import appuifw,graphics,e32
+
+running=1
+
+#退出函数
+
+def quit():
+
+++++global running
+
+++++running=0
+
+#中文显示，科学说法是解码为UTF8编码
+
+def chn(x):
+
+++++return x.decode(’utf8’)
+
+#创建canvas实例
+
+canvas=appuifw.Canvas()
+
+#把程序主体设为canvas
+
+appuifw.app.body=canvas
+
+#全屏
+
+appuifw.app.screen=’full’
+
+#创建新图像，默认白色,大小176*208
+
+img=graphics.Image.new((176,208))
+
+#设置最软键退出
+
+appuifw.app.exit_key_handler=quit
+
+#程序运行，这里必须是死循环，否则不能一直显示
+
+while running:
+
+#清屏为黑色
+
+++++img.clear(0)
+
+#把图形画到canvas(画布)上
+
+++++canvas.blit(img)
+
+#线程(不是必须)，但最好有延时
+
+++++e32.ao_yield()

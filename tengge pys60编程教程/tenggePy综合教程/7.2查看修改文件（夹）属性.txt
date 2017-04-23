@@ -1,0 +1,14 @@
+import attribute
+
+attribute.get_att("c:\\1.jpg")
+#查看文件属性，隐藏返回2，只读返回1，系统返回4，同时具有两个属性返回它们的和
+
+attribute.set_att("e:\\2.jpg",attribute.KEntryAttHidden)
+#设为隐藏
+
+attribute.set_att("e:\\2.jpg",attribute.KEntryAttReadOnly)
+#设为只读
+
+attribute.set_att("e:\\2.jpg",attribute.KEntryAttSystem)
+#设为系统
+

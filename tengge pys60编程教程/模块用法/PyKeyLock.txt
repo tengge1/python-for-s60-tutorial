@@ -1,0 +1,17 @@
+
+import PyKeyLock
+
+#载入PyKeyLock模块
+
+PyKeyLock.Lock()
+
+#锁住键盘
+
+#print PyKeyLock.LockStatus()
+
+#判断键盘是否锁住(是：1否：0)
+
+#PyKeyLock.Unlock()
+
+#打开键盘
+

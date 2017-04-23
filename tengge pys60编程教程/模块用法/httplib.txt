@@ -1,0 +1,66 @@
+
+httplib-联网操作模块
+-----------------------
+HTTPConnection ( host [ , port [ , strict [ , timeout ]]] )
+#主类名
+#host=ip地址
+#cmnet时直接写网站的域名/cmwap时写入10.0.0.172[参数必填]
+#port=端口号(默认为80)[参数可选]
+#strict=默认值为false， 表示在无法解析服务器返回的状态[参数可选]
+#timeout=超时时间[参数可选]
+示例：
+conn = httplib.HTTPConnection('10.0.0.172', 80)
+注意：这里的conn我们给主类付值变量方便下面的解说
+-----------------------
+conn.request ( method , url [ , body [ , headers ]] )
+#像服务器发送请求
+#method=请求的方法(方法有get 和post)-[参数必选]
+#url=请求联网的url地址-[参数必选]
+#body=提交到服务器的数据，必须是字符串（如果method 是“post“ ，则可以把body 理解为html 表单中的数据）-[参数可选]
+#请求的http 头-[参数可选]
+get示例：
+conn.request('GET',"http://wapele.cn/wapindex.asp")
+-----------------------
+conn.set_debuglevel (级别设置)
+#默认值为0 ，表示不输出任何调试信息。
+-----------------------
+conn.connect ()
+#连接到Http 服务器
+-----------------------
+conn.close ()
+#关闭与服务器的连接
+-----------------------
+r=conn.getresponse()
+#获取响应数据(这里我们再次定义变量r方便下面解说)
+-----------------------
+r.read([amt]))
+#获取响应的消息体。如果请求的是一个普通的网页，那么该方法返回的是页面的html。可选参数amt表示从响应流中读取指定字节的数据。-[参数可选]
+-----------------------
+r.getheader(name[, default])
+#获取响应头。Name表示头域(header field)名，可选参数default在头域名不存在的情况下作为默认值返回。
+-----------------------
+r.getheaders()
+#以列表的形式返回所有的头信息。
+-----------------------
+r.msg
+#获取所有的响应头信息。
+-----------------------
+r.version
+#获取服务器所使用的http协议版本。11表示http/1.1；10表示http/1.0。
+-----------------------
+r.status
+#获取响应的状态码。如：200表示请求成功。
+-----------------------
+r.reason
+#返回服务器处理请求的结果说明。一般为”OK”
+-----------------------
+注：如有错误和补充欢迎提出！
+更多示例请查阅我以前的贴子！
+完整cmwap接入小示例：
+import httplib
+conn = httplib.HTTPConnection('10.0.0.172', 80)
+conn.request('GET',"http://wapele.cn/wapindex.asp")
+r = conn.getresponse()
+data = r.read().decode('utf8')
+conn.close()
+print data

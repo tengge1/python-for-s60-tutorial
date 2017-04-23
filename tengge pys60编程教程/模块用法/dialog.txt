@@ -1,0 +1,14 @@
+
+
+dialog模块用来调入自带进度条
+示例：
+import dialog，e32
+wait = dialog.Wait(’正在载入\nwape乐网’.decode(’utf8’))
+#进度条的内容
+wait.show()
+#启动进度条
+e32.ao_sleep(10)
+#等待时间
+wait.close()
+#关闭进度条
+------------------

@@ -1,0 +1,38 @@
+【教程】PYthonC++交互技术⑨-扩展综合应用
+这是综合应用式，好好学吧。—.—）⑨综合技术——扩展式嵌入
+和C API一样，在掌握了扩展和嵌入代码后，扩展式嵌入技术就成为一件水到渠成的事，下面这个简单的示例，利用前面提到的MultiBoolean，演示了最简单的扩展式嵌入。
+#include <iostream>
+#include <cstdlib>
+#include <string>
+#include <boost/python.hpp>
+#include “main.h“
+using namespace boost::python;
+int main()
+{  *std::string dictstr;
+*Py_Initialize();
+*try
+*{
+**initMarchLibrary();
+**object main_module((
+***handle<>(borrowed(PyImport_AddModule(“__main__“)))));
+**object main_namespace = main_module.attr(“__dict__“);
+**PyRun_SimpleString(“import MarchLibrary“);
+**object result(( handle<>(
+****PyRun_String(
+******“str(dir(MarchLibrary))“,
+******Py_***_input,
+******main_namespace.ptr(),
+******main_namespace.ptr()))
+***));
+**dictstr = extract<*** *>(result);
+**std::cout<<dictstr<<std::endl;
+*}
+*catch(error_already_set)
+*{
+**PyErr_Print();
+*}
+*std::system(“Pause“);
+*Py_Finalize();
+*return 0;
+}
+注意引入MarchLibrary库的init函数，它于C API中使用的相同。程序运行时，我们可以看到dir函数打印出了该模块的内部成员，如同它是一个标准的Python内置模块。

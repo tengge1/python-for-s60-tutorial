@@ -1,0 +1,30 @@
+作者：tengge
+
+python和c++或者java不同，在父类和子类中同时定义了构造函数时，python会直接用子类的构造函数覆盖父类中的构造函数。
+同时，python也不支持类多态特性，当同时定义了两个同名函数时，后者直接将前者覆盖。
+而在c++中，系统会根据调用函数的参数，自动从同名函数中挑选合适的一个函数。
+有时我们需要需要用父类的构造函数初始化子类，怎么办呢？看示例：
+
+class Person:
+    def __init__(self):
+        self.name="person"
+        self.age=20
+
+class Jim(Person):
+    def __init__(self):
+        Person.__init__(self)
+        #仔细看这一句我是怎么写的，调用Person类构造函数初始化自己
+        self.name="Jim"
+
+jim=Jim()
+print jim.name
+print jim.age
+
+输出：
+Jim
+20
+
+如果没有Person.__init__(self)，那么运行到print jim.age就会出错。子类构造函数将父类的覆盖掉了，子类将不存在age属性。
+其实，Person.__init__就可以当做一个普通函数来使用。
+
+好了，这节就到这里。

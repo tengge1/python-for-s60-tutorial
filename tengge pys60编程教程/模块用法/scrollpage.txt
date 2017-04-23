@@ -1,0 +1,24 @@
+
+scrollpage-列表翻页查找等
+---------------------------
+示例：
+import appuifw,e32,scrollpage
+Txtlist=[u'1',u'2',u'3',u'4',u'5',u'6',u'7',u'8',u'9',u'0',u'a',u'b',u'c',u'd',u'e',u'f',u'g',u'h',u'i',u'j',u'k',u'l',u'm',u'n',u'o',u'p',u'q',u'r',u't',u'u',u'v',u'w',u'x',u'y',u'z']
+#定义列表
+appuifw.app.body = wap = appuifw.Listbox(Txtlist)
+#列表界面
+Scroll=scrollpage.scroll(wap,Txtlist)
+#定义翻页涵数
+wap.bind(35, Scroll.down)
+##键上翻页
+wap.bind(42, Scroll.up)
+#*键下翻页
+wap.bind(50, Scroll.goto)
+#顶部与低部(2健)
+wap.bind(48, Scroll.Search)
+#定义0键为搜索
+wap.bind(53, lambda :Scroll.Search(Scroll.sr))
+#定义5键查找下一个
+lock = e32.Ao_lock()
+appuifw.app.exit_key_handler = lock.signal
+if appuifw.app.full_name().find('Ped') 〉 0:lock.wait()

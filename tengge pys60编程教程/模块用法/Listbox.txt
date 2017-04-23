@@ -1,0 +1,32 @@
+
+appuifw.Listbox(列表,涵数)
+说明：列表有三种类型。我分别用三个示例来显示。其中icon=appuifw.Icon(u"e:/system/apps/ped/ped_file_browser_icons.mbm",0,1)意思是打开该路径中的mbm文件。其中0表示蒙板1表示为主文件(个人理解)
+示例一：简单列表
+import a。ppuifw
+def app():
+appuifw.note(list[L.current()])
+list=[u"wapele.cn",u"see tomorrow"]
+appuifw.app.body=L=appuifw.Listbox(list,app)
+import e32
+lock=e32.Ao_lock()
+lock.wait()
+示例二：双文列表
+import appuifw
+def app():
+appuifw.note(list[L.current()][0])
+list=[(u"wapele.cn",u"see tomorrow"),(u"wapele.cn",u"")]
+appuifw.app.body=L=appuifw.Listbox(list,app)
+import e32
+lock=e32.Ao_lock()
+lock.wait()
+示例三：带图标的列表
+import appuifw
+def app():
+appuifw.note(list[L.current()][0])
+icon=appuifw.Icon(u"e:/system/apps/ped/ped_file_browser_icons.mbm",0,1)
+list=[(u"wapele.cn",u"see tomorrow",icon),(u"wapele.cn",u"",icon)]
+appuifw.app.body=L=appuifw.Listbox(list,app)
+import e32
+lock=e32.Ao_lock()
+lock.wait()
+

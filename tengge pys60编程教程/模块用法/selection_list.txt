@@ -1,0 +1,7 @@
+
+appuifw.selection_list(list,search_field=1)
+说明：list列表为可选seasch_field可选默认为0，为1时输入字符可显示搜索框。具体查看下面示例。
+import appuifw
+list=[u"see tomorrom",u"wapele.cn"]
+index=appuifw.selection_list(list,search_field=1)
+appuifw.note(list[index])

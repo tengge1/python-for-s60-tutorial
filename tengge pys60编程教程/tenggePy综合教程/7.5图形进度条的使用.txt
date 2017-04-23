@@ -1,0 +1,23 @@
+import progressbartw
+import e32
+def cn(x):return x.decode("utf8")
+
+bar=progressbartw.ProgressBarTW(1,0)
+# 第一个参数：1为系统字体，窗口在中间；2为大字体，窗口偏下
+# 第二个参数：1为后台时隐藏进度条，0为不隐藏
+# 两个参数都可缺省，缺省值都是1
+
+bar.set_window_size((176,36)) # 可以自定义窗口大小
+
+bar.set_window_position((20,60))
+#设置窗口位置
+
+bar.begin_progress(5,cn("任务进度："))
+
+for i in range(5):
+    bar.do_progress(i)
+    e32.ao_sleep(1)
+
+bar.end_progress()
+#隐藏进度条
+

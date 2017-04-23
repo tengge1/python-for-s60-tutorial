@@ -1,0 +1,18 @@
+作者：Ｓ⑥_媩褋留念處
+
+这个模块可以将mbm图中的某一位图作为graphics.Image。在ModulePack中有。
+import appuifw
+import MBM
+mbm="e:\\system\\apps\\nameok\\nameok.mbm"
+png0=MBM.image(mbm,0)
+png2=MBM.image(mbm,2)
+body=appuifw.Canvas()
+def redraw(rest):
+  body.blit(png0)
+  body.blit(png2,target=(40,0))
+appuifw.app.body=body=appuifw.Canvas(redraw_callback=redraw)
+redraw(())
+import e32
+lock=e32.Ao_lock()
+appuifw.app.exit_key_handler=lock.signal
+lock.wait()

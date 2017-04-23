@@ -1,0 +1,10 @@
+
+
+HTML2TXT模块是将网页源码转为文本
+HTML2TXT.get(源码)
+例：
+〉〉〉import HTML2TXT
+〉〉〉a=〈?xml version="1.0" encoding="utf-8"?〉〈!DOCTYPE wml PUBLIC"-//WAPFORUM//DTD WML 1.1//EN""http://www.wapforum.org/DTD/wml_1.dtd"〉〈wml〉〈card id="card0" title="WAPE乐网™" newcontext="true" ontimer="http://wapele.cn"〉〈timer value="600"/〉〈p〉see you tomorrow〈/p〉〈/card〉〈/wml〉
+〉〉〉HTML2TXT.get(a)
+〉〉〉see you tomorrow
+

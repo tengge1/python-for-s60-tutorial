@@ -1,0 +1,33 @@
+1.条件语句：
+from appuifw import note
+a=5
+b=3
+if a>b:#如果a>b，执行语句(1)
+    note(u"a>b")#(1)
+else:#否则，执行语句(2)
+    note(u"b>=a")#(2)
+
+如果有多个可能，可尝试用elif，相当于
+else:
+    if ###:
+可以避免过深的缩进。
+
+from appuifw import note
+a=5
+b=3
+if a>b:#如果a>b，执行语句(1)
+    note(u"a>b")#(1)
+elif a<b:#否则，执行语句(2)
+    note(u"b>=a")#(2)
+else:#再不成立，执行语句(3)
+    note(u"a=b")
+
+注意：在条件语句中，“=”应写作“==”，否则会出错！！如：
+
+import appuifw
+if 5=3:#这里少了一个等号，会出错！
+    appuifw.note(u"5=3")
+else:
+    appuifw.note(u"5<>3")
+
+说明：只要if后面的条件满足值为1或True，下面的语句就会被执行！

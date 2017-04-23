@@ -1,0 +1,64 @@
+【教程】PYthonC++交互技术⑦-派森C#继承封装式
+有的人是不是看到③就看不下去了呢？我看到④就开始蒙了，这里越来越蒙。尽管我们是PYS60，但是C++接口缝合是PYS60也可以用的。是通用式。
+下面我们讨论下继承的封装。我们知道C语言没有虚函数的概念，而Python的方法默认都是虚方法。为了实现这一功能，Python API中运用了一些复杂的方法。在Boost中，这个过程被尽可能的封装起来，向自然的C++代码靠拢。
+VirtualTest.h
+#include <boost/python.hpp>
+using namespace boost::python;
+//Override
+struct Base
+{
+*virtual ~Base(){};
+*virtual *** const* Hello()
+*{  **return “Hello. I‘m Base.“;
+*};
+};
+struct Derived : Base
+{
+**** const* Hello()
+*{
+**return “Hello. I‘m Derived.“;
+*};
+};
+struct BaseWrapper : Base, wrapper<Base>
+{
+**** const* Hello()
+{
+**if (override Hello = this->get_override(“Hello“))
+#if BOOST_WORKAROUND(BOOST_MSVC, <= 1300) // Workaround for vc6/vc7
+***return call<*** *>(Hello.ptr());
+#else
+return Hello();
+#endif
+return Base::Hello();
+}
+**** const* default_Hello() { return this->Base::Hello(); }
+};
+Wrapper.cpp
+#include <boost/python.hpp>
+#include “ClassTest.h“
+#include “VirtualTest.h“
+#include <string>
+using namespace boost::python;
+
+BOOST_PYTHON_MODULE(ClassTest)
+{
+*class_<Foo>(“Foo“)
+**.def(“Add“, &Foo::Add)
+**.def(“Sub“, &Foo::Sub)
+**.def(“Concat“, &Foo::Concat)
+*;    *class_<ConFoo>(“ConFoo“)
+**.def(init<*** *>())
+**.def(“GetValue“, &ConFoo::GetValue)
+**.def(“SetValue“, &ConFoo::SetValue)
+*;
+
+*class_<BaseWrapper, boost::noncopyable>(“Base“)
+**.def(“Hello“, &Base::Hello, &BaseWrapper::default_Hello)
+*;
+*class_<Derived>(“Derived“)
+**.def(“Hello“, &Derived::Hello)
+*;
+}
+这��我们要关注的是用于虚函数定义的辅助类BaseWrapper，以及BOOST_PYTHON_MODULE内部的封装代码。
+以上两个示例也展示了构造函数的封装方法，包括禁用构造函数的用法。
+

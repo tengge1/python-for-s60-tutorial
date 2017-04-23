@@ -1,0 +1,27 @@
+>>> age=12.5
+>>> print "My age is %d."%age
+My age is 12.
+>>> 
+
+其中，"My age is %d."%age就相当于"My age is "+str(age)+"."，%d将age转化为整数！
+
+还可以在%与d之间加数字，加的数字表示从左边数第多少位(不够位空格代替)。
+>>>a=1.1
+>>>print ’%5d’%a
+    1
+
+这是其他格式化字符：
+%d取整数
+%o换成八进位(制)
+%x换成十六进位(小写)
+%X换成十六进位(大写)
+%f加小数点(十位格式)
+%c单一字元
+%s字串
+
+这是同时格式化两个。
+>>> month="Nov. "
+>>> day=6
+>>> print "Today is %s%s."%(month,day)
+Today is Nov. 6.
+>>> 

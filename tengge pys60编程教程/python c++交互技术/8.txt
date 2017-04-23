@@ -1,0 +1,37 @@
+:【教程】PYthonC++交互技术⑧-派森C#的嵌入
+找了半天，都没有有关于PYthonC++交互式编写的教程，好不容易找到又看不懂，实在郁闷。到这里我已经不往下看了，实在不懂他在说什么了。网上大多是在C++编码中引入PYthon当小型的库，很少写PYthon和C++的交互，您如果能学好这个，我的老天。
+⑧嵌入Python解释器
+*最简单的Boost嵌入与Python C API并无任何不同，例如以下的代码：
+#include “boost/python.hpp“
+
+int main(int argc, *** *argv[])
+{
+*Py_Initialize();
+*FILE * fp = fopen(“test.py“, “r“);
+*if (fp == NULL) {
+**return 1;
+*}
+*PyRun_SimpleFile(fp, “test.py“);
+Py_Finalize();
+return 0;
+}
+*从以上可以看出，Boost沿用了C API的嵌入流程。但是，Boost在具体的虚拟机功能调用方面提供了完备的封装，以下这个示例展示了模块和对象引用，以及类型转换方面的使用。
+#include <boost/python.hpp>
+using namespace boost::python;
+int main()
+{
+*Py_Initialize();
+*object main_module((
+**handle<>(borrowed(PyImport_AddModule(“__main__“)))));
+*object main_namespace = main_module.attr(“__dict__“);
+*handle<> ignored((PyRun_String(
+**“hello = file(‘hello.txt‘, ‘w‘)\n“
+**“hello.write(‘Hello world!‘)\n“
+**“hello.close()“
+**, Py_file_input
+**, main_namespace.ptr()
+**, main_namespace.ptr())
+*));
+*Py_Finalize();
+}
+对于其他功能，例如方法调用、成员访问等，Boost也提供了相应的功能。下面我们看一下Boost文档中的示例。（展示文档）

@@ -1,0 +1,17 @@
+
+
+fgimage模块是TopWindow模块的简化
+----------------
+fg=fgimage.FGImage()
+#类名这里我们定义一个变量方便下面涵数的解说
+----------------
+fg.set(x，y，img._bitmapapi())
+#启动随显
+x为高度
+y为宽度
+img._bitmapapi()作用是将img画的图显示出来
+如img=graphics.Image.new((170，22))
+----------------
+fg.unset()
+#关闭随显
+----------------

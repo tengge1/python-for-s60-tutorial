@@ -1,0 +1,112 @@
+感觉miso模块在塞班机上支持的不是很好，部分函数有bug。大部分取自��联网
+-------------------------
+check_heap()检查堆并抛出中断的线程堆
+-------------------------
+compress_all_heaps()压缩内存
+-------------------------
+miso.get_hal_attr(11)不知是什么，但参数为11时可得到CPU速度
+-------------------------
+local_bt_name()返回蓝牙名称
+local_bt_address()返回蓝牙地址(我得到的是00:1D:6E:0B:71:A3，是什么不知)
+以上两个函数在蓝牙启动时有效，否则报错
+-------------------------
+reset_inactivity_timer()激活屏幕背光，注意两次激活间必须超过1秒，否则无效。(与e32.reset_inactivity()相同)
+-------------------------
+miso.vibrate(震动时间,震动频率)震动，频率在1到100之间。情景模式需开震动才有效，否则会报错(vibra模块的震动不会报错)。
+仅在OS8.x有效
+-------------------------
+restart_phone()重启手机
+-------------------------
+get_thread_priority()
+获取线程优先级，返回整数。
+-------------------------
+set_thread_priority(priority)设置线程优先级
+以下是线程优先级列表EPriorityNull (-30, cannot be setby user code)
+EPriorityMuchLess (-20)
+EPriorityLess (-10)
+EPriorityNormal (0)
+EPriorityMore (10)
+EPriorityMuchMore (20)
+EPriorityRealTime (30)
+EPriorityAbsoluteVeryLow (100)
+EPriorityAbsoluteLow (200)
+EPriorityAbsoluteBackground(300)
+EPriorityAbsoluteForeground(400)
+EPriorityAbsoluteHigh (500 highest possible apart from the kernel)
+-------------------------
+get_process_priority()获取程序优先级
+-------------------------
+set_process_priority(priority)设置程序优先级
+EPriorityLow (150)
+EPriorityBackground (250)
+EPriorityForeground (350)
+EPriorityHigh (450)
+EPriorityWindowServer (650)
+EPriorityFileServer (750)
+EPriorityRealTimeServer (850)
+EPrioritySupervisor (950)
+-------------------------
+下面这些测试了下，没用懂。
+□
+num_alloc_heap_cells()
+Returns the total number of cells allocated on the calling
+thread's heap.
+num_free_heap_cells()
+Returns the total number of free cells on the calling thread's heap.
+alloc_heap_cells_size()
+Returns the total size of the cells allocated on the calling
+thread's heap.
+heap_biggest_avail()
+Returns the space available in the largest free block an the
+calling thread's heap.
+heap_total_avail()
+Returns the total free space available on the calling thread's heap
+heap_base_address()
+Returns the base address of the heap of the running thread as an integer
+free_heap_cell(address)
+Frees the heap cell at the specified address. Passing an invalid address will result in a panic.
+alloc_heap_cell(size)
+Allocates a cell of at least the specified size from the current
+thread's heap.
+size:: An integer value.
+get_subst_path(drive_num)
+Returns the path assigned to the specified substed drive.
+drive_num:: An integer specifying a drive number.
+create_drive_subst(drive_num, path)
+Assigns a path to a drive letter. To clear an existing
+substitution, specify an empty string as the path.
+drive_num:: An integer specifying a drive number.
+path:: A unicode string specifying the path.
+set_hal_attr(attr, value):
+Sets the specified HAL attribute to the specified value.
+attr:: An integer specifying the attribute.
+value:: An integer specifying its value.
+get_hal_attr(attr)
+Gets the value of the specified HAL attribute.
+attr:: An integer specifying the attribute.
+tick_count()
+Returns the current tick count.
+class FsNotifyChange:
+def __init__(self):
+Constructs an instance of FsNotifyChange. After finishing
+using a instance, you should call close() on it to free the
+associated resources.
+notify_change(self, type, callback, pathname = None)
+Asynchronously requests notification of changes either
+anywhere in the filesystem, or only in locations matching the
+optionally specified Unicode pathname (which may contain wildcards)
+The type parameter indicates the kind of change that should
+result in notification -- its value should be one of:
+ENotifyEntry=0x00 (directory addition or deletion, or change
+of disk in a drive)
+ENotifyAll=0x01 (any change)
+ENotifyFile=0x04 (file creation,rename, or deletion)
+ENotifyDir=0x08 (directory creation, rename, or deletion)
+ENotifyAttributes=0x10(attribute change)
+ENotifyWrite=0x20(change resulting from a write to a file)ENotifyDisk=0x40(change resulting from a raw write to a disk).
+cancel(self)
+Cancels any outstanding request.
+close(self)
+Frees the resources associated with the object instance.
+来源：媩褋留念处
+

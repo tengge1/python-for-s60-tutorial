@@ -1,0 +1,24 @@
+
+import base64
+import StringIO
+a = "this is a test"
+b = base64.encodestring(a)# 对字符串编码
+print b
+print base64.decodestring(b)
+# 对字符串解码
+c = StringIO.StringIO()
+c.write(a)
+d = StringIO.StringIO()
+e = StringIO.StringIO()
+c.seek(0)
+base64.encode(c, d)
+# 对StringIO内的数据进行编码
+print d.getvalue()
+d.seek(0)
+base64.decode(d, e)
+# 对StringIO内的数据进行解码
+print e.getvalue()
+#上面的encode函数和decode函数的参数其实还可以是文件对象的，那的象这样：
+f1 = open('c:\\f1.txt', 'r')
+f2 = open('c:\\f2.txt', 'w')base64.encode(f1, f2)
+f1.close()f2.close()

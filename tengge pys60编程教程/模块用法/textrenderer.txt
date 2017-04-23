@@ -1,0 +1,67 @@
+import appuifw
+import e32,textrenderer
+import graphics
+def ru(x):
+  return x.decode('utf-8')
+
+app_lock=e32.Ao_lock()
+
+#appuifw.app.screen = 'full'
+
+buff=None
+s_1=0
+s_3=18
+s_8=1
+
+def handle_redraw(rect):
+    if buff:
+        canv.blit(buff)
+
+def s_5():
+    global s_3
+    s_3=appuifw.query(ru('输入字体大小：'),'number',s_3)
+    s_2()
+
+def s_4():
+    global s_8
+    s_7=appuifw.query(ru('行间隔[1--10]：'),'number',s_8)
+    if s_7 == None:
+        return
+    if s_7 > 10 or s_7 < 1:
+        return
+    s_8 = int(s_7)
+    s_2()
+
+def s_6():
+    global s_1
+    s_9 =  appuifw.popup_menu([ru('至左'),ru('至右'),ru('居中')],ru('排序方式'))
+    if s_9 == None:
+        return
+    if s_9 == 0:
+        s_1=0
+        s_2()
+    elif s_9 == 1:
+        s_1=1
+        s_2()
+    elif s_9 == 2:
+        s_1=2
+        s_2()
+
+def s_2():
+    global canv,buff
+    canv = appuifw.Canvas(redraw_callback=handle_redraw)
+    appuifw.app.body = canv
+    buff = graphics.Image.new(canv.size)
+    buff.clear(255)
+    canv.blit(buff)
+    renderer=textrenderer.TextRenderer(buff)
+    renderer.move_to(0,10)
+#    renderer.set_position([10,5])
+    renderer.render(ru('Python（派森）语言是一种功能强大而完善的通用型计算机程序设计语言'),fill=6549347,font=('dense', int(s_3), graphics.FONT_BOLD),alignment=s_1,line_spacing=1+s_8*0.1)
+
+appuifw.app.menu = [(ru('切换'),s_6),(ru('字体'),s_5),(ru('间隔'),s_4)]
+
+appuifw.app.exit_key_handler=app_lock.signal
+
+s_2()
+app_lock.wait()

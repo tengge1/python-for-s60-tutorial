@@ -1,0 +1,6 @@
+
+
+location模块只有一个调用语句
+location.gsm_location()
+返回值如(460， 0， 22980， 23924)
+#返回gsm位置做标

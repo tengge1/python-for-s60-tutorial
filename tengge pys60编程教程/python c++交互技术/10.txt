@@ -1,0 +1,77 @@
+【教程】PYthonC++交互技术⑩-必看篇
+这篇是插入的事例，最好看一下。
+⑩最终扩展--用C/C++扩展Python语言
+Python是一门功能强大的脚本语言，它的强大不仅表现在功能上，还表现在其扩展性上。她提供大量的API以方便程序员利用C/C++对PythonPython是一门功能强大的脚本语言，它的强大不仅表现在功能上，还表现在其扩展性上。她提供大量的API以方便程序员利用C/C++对Python进行扩展。因为执行速度慢几乎是所有脚本语言的通病，Python通过一个巧妙的方法，使得程序员可以利用C/C++编写执行速度比较慢的模块，从而获得与C/C++差不多的执行性能。本文给出一个例子说明怎样用C来扩展Python。
+1、在C和Python之间进行数据类型转化
+Python有六��基本数据类型：整型，浮点型，字符串，列表，字典，元组。在进行介绍之前，我们先了解一下怎么在C和Python之间转化几种常用的数据类型。
+整型转化 PyObject *pInt = Py_BuildValue(\“i\“， 2007);
+浮点型转化
+PyObject *pFloat = Py_BuildValue(\“f\“， 3.14);
+字符串转化
+
+PyObject *pString = Py_BuildValue(\“s\“， \“I am Yan.Dingcheng\“);
+2、用C扩展Python
+在了解了常用的数据类型转化以后，我们就可以编写一些C程序来扩展Python了。比如下面有个C文件exam.c，我们要在Python里调用它里面的函数。
+int power(int a) { return a * a; }
+int add_int(int a， int b) { return a + b; }
+void my_print(const *** *s) { if (!s) { return; }
+printf(\“%s \\n\“， s); }
+void whoami(void) { printf(\“I am plusboy. \\n\“); }
+那么我们首先要将其实现为Python的一个模块，这需要编写一个封装接口，我们把它保存为wrap_exam.c，示例如下：
+#include Python.h
+PyObject *wrap_power(PyObject *self， PyObject *args) { int result， n; /*这里args包含Python解释器要传递给C函数的参数列表， \“i:power\“表示要给power函数传递一个整数，
+n保存从Python脚本里传过来的参数*/
+if (!PyArg_ParseTuple(args， \“i:power\“， &n)) {
+return NULL;
+}
+result = power(n);
+return Py_BuildValue(\“i\“， result);
+}
+PyObject *wrap_add_int(PyObject *self， PyObject *args) { int result， a， b;
+/*这里args包含Python解释器要传递给C函数的参数列表， \“ii:power\“表示要给add_int函数传递两个整数， a， b保存从Python脚本里传过来的参数*/
+if (!PyArg_ParseTuple(args， \“ii:add_int\“， &a， &b)) {
+return NULL;
+}
+result = add_int(a， b);
+return Py_BuildValue(\“i\“， result); }
+PyObject *wrap_my_print(PyObject *self， PyObject *args) { *** *s = NULL; /*这里args包含Python解释器要传递给C函数的参数列表， \“s:my_print\“表示要给my_print函数传递一个字符串， s保存从Python脚本里传过来的参数*/
+if (!PyArg_ParseTuple(args， \“s:my_print\“， &s)) {
+Py_INCREF(Py_None);
+return Py_None;
+}
+my_print(s);
+Py_INCREF(Py_None);
+return Py_None;
+}
+PyObject *wrap_whoami(PyObject *self， PyObject *args)
+{ whoami();
+Py_INCREF(Py_None); /*引用计数加1*/
+return Py_None;
+}
+/*这里一个函数列表，它给出了所有可以被Python使用的函数。 函数列表由四个部分组成：函数名，导出函数，参数传递方式和函数描述。 其中参数传递方式有两种，
+METH_VARARGS是标准形式，它通过Python的元组 在Python解释器和C函数之间传递参数，另一种是METH_KEYWORDS，它通过 Python的字典类型在Python解释器和C函数之间传递参数。*/
+static PyMethodDef examMethods[] = {
+{\“power\“， wrap_power， METH_VARARGS， \“calculate power\“}，
+{\“add_int\“， wrap_add_int， METH_VARARGS， \“add int\“}，
+{\“my_print\“， wrap_my_print， METH_VARARGS， \“print string\“}，
+{\“whoami\“， wrap_whoami， METH_VARARGS， \“who am i\“}，
+{NULL， NULL， 0， NULL} };
+/*这是初始化函数，所有的扩展模块都必须要有一个初始化函数，以便Python能对模块进行初始化， Python解释器规定所有初始化函数的函数名都必须以以下方式构成： init + 模块名 这样当Python解释器导入模块的时候将根据模块名查找初始化函数，一旦找到就调用该初始化函数， 初始化函数则调用Py_InitModule()来注册在该模块中可以用到的函数。*/ void initexam() { PyObject *m = Py_InitModule(\“exam\“， examMethods); }
+最后是编译链接
+[plusboy@plusboy]$gcc -fpic -shared -o exam.so exam.c wrap_exam.c -I/usr/include/python2.3 [Page]
+下面是相应的Python测试程序，test.py
+#!/usr/bin/python
+import exam
+print exam.power(2) print exam.add_int(100， 100) exam.my_print(\“I am plusboy\“) exam.whoami()
+3、执行结果
+[plusboy@plusboy exam]$./test.py
+4
+200 I am plusboy I am plusboy.
+4、总结 所有的Python导出函数都有一个相同的函数原型
+PyObject *fucn(PyObject *self， PyObject *args);
+self参数只有当C函数被实现为内联函数的时候才会被用到，args参数包含Python解释器要传递给C函数的参数列表。
+所有的导出函数都返回一个指向PyObject的指针，如果对应的C函数没有返回值，即返回类型为void，则应返回一个全局的None对像，并将其引用计数加1。如下所示：
+
+PyObject *wrap_whoami(PyObject *self， PyObject *args) { whoami(); Py_INCREF(Py_None); /*引用计数加1*/ return Py_None; }
+
+

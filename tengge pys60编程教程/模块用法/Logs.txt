@@ -1,0 +1,74 @@
+logs模块的用法，得到短信和通话等记录
+
+logs 模块可以获取手机短信，email ，通话记录等信息的日志。
+dir的信息很多，就不列举了。主要说下用法吧。
+以短信和通话记录为例。
+短信：
+import logs
+import time
+#mode 为类型，in 为接收，out 为发送
+l =logs.sms(mode='out')
+for i in l :
+#时间
+t=time.localtime(i['time'])
+smstime=str(t[0])+('/')+str(t[1])+('/')+str(t[2])+('/')+str(t[3])+(':')+str(t[4])+(':')+str(t[5])
+print smstime
+#号码
+print i['number']
+#内容
+print i['subject']
+其中还可以得到很多信息，如下：
+{'status': u'Sent', 'direction': u'Outgoing', 'description': u'Short message', 'duration type': -1, 'number': u'+8613634331557','contact': -1, 'flags': 2, 'time': 1235075058.42975, 'duration': 0, 'link': 0, 'subject': u'\u6ca1\u4e8b\u554a\uff0c\u6211\u548c\u4ed6\u8bf4\u70e6\uff0c\u5f97\u505a\u505a\u6837\u5b50\u554a', 'data': '\x02\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00', 'id': 8787, 'name': u''}
+具体都是什么，大家摸索着来。
+值得一提的是，当参数为out 时，获得的发出信息会比信息已发信息中多的多，这说明系统还是在暗暗记录着你的操作的。
+通过这个，我们可以看出，不使用inbox 模块，也可以读取信息的。
+通话记录：
+import logs
+import time
+#mode 有in 来电，out 去电，missed未接
+l =logs.calls(mode='out')
+for i in l :
+#时间
+t=time.localtime(i['time'])
+calltime=str(t[0])+('/')+str(t[1])+('/')+str(t[2])+('/')+str(t[3])+(':')+str(t[4])+(':')+str(t[5])
+print call time
+#号码
+print i['number']
+其他数据如下，具体含义自测：
+{'status': u'', 'direction': u'Outgoing', 'description': u'Voice call', 'duration type': 1, 'number': u'+8615843040739', 'contact': -1, 'flags': 0, 'time': 1234937006.86562, 'duration': 0, 'link': 0, 'subject': u'0', 'data': '', 'id': 8737, 'name': u''}
+通过上面的代码，我们就可以用python 来读取通话记录了。
+logs模块的其他东西，用法基本和上面两个都是一样的，大家可以自己动手写一写。
+这个模块是在做自由备份时学习的，以下摘自诺基亚论坛，本人只是简单翻译说明：
+How to use logs
+如何使用logs模块
+This article describes how to read the phone's logs usingPys60.
+这篇文章描述pys60如何读取手机日志。
+Example 1: Show the latest missed call's number.
+例1：显示最后一个未接来电号码
+import logs
+l=logs.calls(mode='missed')[0]
+#The dictionary for the latest missed call
+#返回最后未接电话的字典
+#Other tags are 'in' for received and 'out' for dialed
+#其他的索引'in'代表来电'out '代表拨出电话
+print l["number"]
+#Displays the value for the entry "number"
+#显示电话号码
+Example 2: Show a list of all the numbers from which SMS have been received.
+例2：显示所有收到短信的号码
+import logs
+l=logs.sms(mode='in')
+fori inrange(len(l)):
+printl[i]["number"]
+#这个复杂点，不弄了，大家自己看吧
+Example 3: Show a list of the durations of all dialed calls along with their dates
+from __future__ import division
+import logs
+l=logs.calls(mode='out')
+durations=[]
+times=[]
+fori inrange(len(l)):
+durations.append(l[i]["duration"])
+times.append(l[i]["time"])
+#The times we added to the list are Unix timestamps, meaning seconds since 1970 00:00:00,
+这个时间我们添加的是自 1970 00:00:00相差的秒

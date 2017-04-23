@@ -1,0 +1,29 @@
+#源码来自哇麦池塘随缘情恋教程，注释为tengge所作，再学一下time模块，你就能制作定时发短信软件了。学完这一节，你已经能制作远程控制手机的工具。
+
+import appuifw,inbox
+#inbox是查看收件箱、发件箱、草稿箱等的模块
+
+i=inbox.Inbox()
+#括号内省略参数，默认为查看收件箱
+，见下面注释1
+
+m=i.sms_messages()
+#inbox.Inbox.sms_message为获得短信的ID号的函数
+
+list=[]
+
+for t in m:
+    list.append(i.content(t))
+#对列表操作的函数见《tenggePy教程（1）》，inbox.Inbox.content(x)为获取ID号为x的短信内容的函数
+
+index=appuifw.selection_list(choices=list,search_field=1)
+#见《tenggePy教程（1）》有关选择列表的函数
+
+if index!=-1:#“!=”为不等号
+    appuifw.note(list[index])
+
+#1.i=inbox.Inbox(inbox.EInbox)#查看收件箱
+#1.i=inbox.Inbox(inbox.EDraft)#查看草稿箱
+#1.i=inbox.Inbox(inbox.EOutbox)#查看发件箱
+#1.i=inbox.Inbox(inbox.ESent)#查看正在发送的信息
+

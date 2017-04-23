@@ -1,0 +1,114 @@
+本文由阿斌所写，与tengge无关！！！
+tengge做了一个修改心情的工具，挺好用的。呵呵。
+
+为了方便大家更好理解，下面主要以泡椒回复与发帖为例进行讲解！
+
+无论是回复还是发帖，我们必须先知道要提交哪些数据！这点容易理解！比如：
+回复时，我们要提交的只有回复的内容！
+而发帖时，我们要提交的是帖子题目和帖子内容！
+
+接下是关键！
+如何提交？发送地址是什么？
+
+这个需要懂点网络基础，你不懂也没关系，照着弄就行了，但不同的网站不同，要靠大家多领悟、多测试！
+
+下面咱们先看回复实例！
+
+【一、获取网页源码】
+我们以获取本帖的网页源码为例简单讲解一下！
+打开UC，【菜单】→【工具】→【网页属性】，把当页url的地址复制出来，就是下面这个：
+http://ct.paojiao.com/topic.do?method=topicdetail&topicid=546082&r i d=65b4afca70b1462eb83
+其中r i d=65b4afca70b1462eb83是个人标识！
+
+接下来用源码查看获取网页的源码（下载网页源码，便于比较，x-plore编辑状态可查看）！
+
+有友友说可以用UC直接提取网页的源码，但我跟其他S60v3的友友交流过，三版机是不行的，二版机没试过，请自测！
+
+【二、查看源码】
+搜索“快速回复”可以看到以下的源码：
+<anchor title="快速回复">快速回复<go method="post" href="topic.do?method=topicreplyend&topicid=548874&id=76&sortid=2&pn=1&r i d=65b4afca70b1462eb83"><postfield name="content" value="$(content20090816205733)"/><postfield name="expression" value="$(expression)"/>
+
+从上面的源码可以看出：
+回复的内容将发送到topic.do?method=topicreplyend&topicid=548874&id=76&sortid=2&pn=1&r i d=65b4afca70b1462eb83，
+注意：
+上面的地址缺省了
+http://ct.paojiao.com
+所以完整的地址应该是：
+http://ct.paojiao.com/topic.do?method=topicreplyend&topicid=548874&id=76&sortid=2&pn=1&r i d=65b4afca70b1462eb83
+
+大家可以认真比较一下，这个地址跟我们刚才用UC提取的地址是有区别的！
+
+给合前面的源码，再看看下面的源码：
+<postfield name="content" value="$(content20090816205733)"/><postfield name="expression" value="$(expression)"/>
+可以看出"content"是输入框的内容，"expression"是表情菜单！
+
+好了，了解相关知识后我们就可以来编写代码了！
+
+〓〓〓〓〓〓〓〓〓〓
+import appuifw,httplib,urllib,e32
+
+def cn(x):return x.decode("utf8")
+def en(x):return x.encode("utf8")
+appuifw.app.body = m = appuifw.Text()
+m.set(cn("输入回复的内容！"))
+
+def a():
+    wan=m.get()#获取界面的内容
+    url="http://ct.paojiao.com/topic.do?method=topicreplyend&topicid=548874&id=76&sortid=2&pn=1&r i d=65b4afca70b1462eb83【填你自己的标识】"
+#这是发送的地址
+
+    conn = httplib.HTTPConnection("10.0.0.172", 80)#这是网络接入点
+    headers = {"Content-type": "application/x-www-form-urlencoded","Accept": "text/plain"}#这个是文件头，必须的，照搬
+
+    params = urllib.urlencode({"content":en(wan),"expression":en(cn("p002_笑脸"))})#这里是要提交的内容和表情，注意格式，另外编码是encode，要转换
+
+    conn.request("POST",url,params,headers)#这是post的项目，包括发送地址，提交内容，还有文件头
+
+#以下照搬就可以了
+    r = conn.getresponse()
+    conn.close()
+    appuifw.note(cn("回复成功！"),"conf")
+
+appuifw.app.menu=[(cn("回复"),a)]
+e32.Ao_lock().wait()
+〓〓〓〓〓〓〓〓〓〓
+代码就不讲解了，上面已有注解！
+
+下面我们再来看看发帖的情况！
+发帖与回复差不多，下面主要讲一下发帖要提交的内容！
+
+【获取源码】
+第一步同样要获取源码！用UC点上面的发帖进发帖界面提取当前url地址，接下来照前面的教程获取源码！
+从源码中我们可以看到以下源码：
+<br/>发表文本新贴<br/>
+<input name="topic20090816231051" type="text" size="15" value="主题" />(3-25字)<br/>
+<input name="content20090816231051" type="text" size="15" value="内容" />(6字以上)<br/>
+<anchor>发表贴子
+<go method="post" href="topic.do?method=savetopicend&id=76&sortid=2&type=1&r i d=65b4afca70b1462eb83">
+<postfield name="topictype" value="$(topictype)"/>
+<postfield name="topic" value="$(topic20090816231051)"/>
+<postfield name="content" value="$(content20090816231051)"/>
+
+从上面可以看出：
+发送的地址是
+http://ct.paojiao.com/topic.do?method=savetopicend&id=76&sortid=2&type=1&r i d=65b4afca70b1462eb83
+
+提交的内容
+"topic"是帖子标题！
+"content"是帖子内容！
+
+代码就不写了，大家把回复那个脚本对应修改一下就可以了！
+
+另外：别的网站发送的网址可能要分成很多部分，比如：
+每个论坛的地址为一部分，每个帖子的id为一部分，个人标识又为了部分……等等！
+大家只要在这句
+params = urllib.urlencode({"content":en(wan),"expression":en(cn("p002_笑脸"))})
+中把各部分对应提交上去就行了！
+具体情况还要靠大家多测试！
+
+好了，就一节就讲到这了！
+由于池塘已限制了刷草，大家如果对刷帖软件感兴趣，可以到别的网站去测试（呵呵）！
+
+提示一下：
+可以结合上一节的随机选择，还有前面的循环语句，一个简单的for循环就可以实现自动回帖了，脚本自己编写吧，学以致用嘛！
+

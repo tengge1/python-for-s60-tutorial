@@ -1,0 +1,25 @@
+
+appswitch模块用来对开启程序的一些操作
+--------------------
+application_list(true)
+#获取开启软件线程列表
+例：
+import appswitch
+appswitch.application_list(True)
+(u“Ped“，u“UCWEB“， u“Notepad“， u“Menu“， u“Phone“， u“SysAp“， u“Autolock“， u“ScreenSaver“， u“RtEngine“)
+--------------------
+switch_to_bg(u“UCWEB“)
+#判断程序是否启动有返回值0为程序未启动
+例：
+appswitch.switch_to_bg(u“UCWEB“)
+1
+--------------------
+switch_to_fg(u“UCWEB“)
+#转到该程序
+--------------------
+end_app(u“UCWEB“)
+#关闭该程序
+--------------------
+kill_app(u“UCWEB“)
+#貌似同switch_to_bg
+--------------------

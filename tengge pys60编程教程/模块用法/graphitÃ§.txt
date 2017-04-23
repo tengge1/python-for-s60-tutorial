@@ -1,0 +1,25 @@
+import graphit,appuifw
+
+def cn(x):
+  return x.decode('utf-8')
+
+def tomorrow():
+  body.set_list(graphit.Util.parse(cn('在这里你可以写很长很长的文本而不用去但心它是否会自动换行！你现在看到这段文字是会自动分行的！非常的不错。')))
+
+def path():
+  appuifw.app.body = body = graphit.Lister([cn('指定后缀示例')], graphit.Util.center(cn('graphit模块用法说明')))
+  path = graphit.manager(path='c:\\',ext='.py')
+  #(path='',find='file',ext=None,lite=False)其中path=''是默认打开路径,find='file'当find='dir'是选择文件夹,ext='.Py'选择后缀文件,lite=False为标题显示为True时关闭。上面中个函数皆为可选。
+  if path<>None:
+     appuifw.note(cn("你所选择的文件是")+path)
+  body.run()
+def select(index):
+   if (index == 0):appuifw.note(cn('这里就是你看到的列表了！'))
+   elif (index == 1):tomorrow()
+   elif (index == 2):path()
+#选择列表
+appuifw.app.body=body=graphit.Lister([cn("示例列表一"),cn("长文本示例"),cn("文件操作示例")],graphit.Util.center(cn("graphit模块用法说明")),select)
+body.run()
+#graphit.Lister([选择列表],graphit.Util.center(标题说明),选择涵数)
+import e32
+e32.ao_sleep(5)

@@ -1,0 +1,18 @@
+作者：√ゞ絕配ぷ无恋℡
+
+#显示自己手机ip地址
+import socket
+ap_id = socket.select_access_point()
+apo = socket.access_point(ap_id)
+apo.start()
+print apo.ip()
+
+———————
+#断开网络链接
+import socket,e32
+api=socket.select_access_point()
+apo=socket.access_point(api)
+apo.start()
+e32.ao_sleep(2)
+#这里放需要联网的函数
+apo.stop()

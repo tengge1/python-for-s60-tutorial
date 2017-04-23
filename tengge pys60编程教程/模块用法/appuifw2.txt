@@ -1,0 +1,100 @@
+
+#输入法的操作只对自带的有效
+import appuifw2,e32
+cn=lambda s : s.decode("utf-8")
+
+print appuifw2.query(cn("吃了吗?"),"query",ok=cn("吃了"),cancel=cn("没有"))
+#ok按键和cancel按键名称
+
+text=appuifw2.Text(move_callback=None,edit_callback=None,scrollbar=1,skinned=1,word_wrap=0,t9=1,fixed_case=0)
+#move_callback光标移动事件
+#edit_callback编辑事件,文本发生变化调用此功能
+#scrollbar,右边的*动条
+#skinned,背景使用主题背景
+#word_wrap暂时没弄清有何用
+#t9,英文的自动组词模式开关
+#fixed_case英文输入模式大小写开关1则只能输入大写字母
+appuifw2.app.title=cn("你好")
+text.indicator_text=u"HELLO"
+#设置输入法左边的文字（默认输入法时显示）
+appuifw2.app.body=text
+#text.add(text.indicator_text)
+text.insert(0,cn("Hello,how are you?"))
+text.insert(len(text),u"test.")
+#插入字符
+text.set_pos(len(text))
+text.apply(pos=3,length=-2)
+
+text.set_selection(0,9)
+#(pos,anchor)设置已选字符
+
+print "(pos,anchor,text):",text.get_selection()
+
+#返回(pos,anchor,text)（光标,起点/终点,所选字符)
+text.set_word_wrap(1)
+#text.set_limit(10)
+#设置最多输入字符，（默认输入法有效）
+text.set_pos(len(text))
+
+print "get word info=",text.get_word_info()
+
+#text.set_allowed_cases(appuifw2.EUpperCase)
+#ELowerCase,ETextCase,EAllCases
+#设置允许的输入法（默认输入法）
+#text.set_case(appuifw2.ELowerCase)
+#设置输入法
+
+#text.set_input_mode(appuifw2.ENullInputMode)
+#设置输入模式
+#text.set_undo_buffer(pos=0,length=-1)
+
+#text.move(appuifw2.EFLineDown,select=1)
+#EFNoMoveMent
+#EFLeft,EFRight,EFLineUp,EFLineDown
+#EFPageUp,EFPageDown,EFLineBeg,EFLineEnd
+#text.move_display(appuifw2.EFLineBeg)
+
+appuifw2.app.screen="normal"
+text.add(u"\nabcabcabc\nabcabcabc")
+
+#print "coordinate=",text.pos2xy(5)
+#print "pos=",text.xy2pos((40,30))
+
+text.select_all()
+#选取所有
+text.clear_selection()
+#取消选取
+#text.clear_undo()
+#取消重做
+#print "Can undo=",text.can_undo()
+#可否重做
+#print "Can cut=",text.can_cut()
+#可否剪切
+#print "Can copy=",text.can_copy()
+#可否复制
+#print "Can paste=",text.can_paste()
+#可否粘贴
+text.set_selection(0,5)
+
+text.cut()
+text.undo()
+#重做剪切/粘贴
+text.set_selection(6,18)
+e32.ao_sleep(1)
+text.copy()
+#复制所选
+text.set_pos(len(text))
+e32.ao_sleep(0.5)
+#print "has_changed=",text.has_changed
+text.paste()
+#text.read_only=1
+#禁止输入，非自带输入法引起崩溃
+text.screen='normal'
+def quit():
+app_lock.signal()
+#text.add(appuifw2.query(u"","text"))
+
+appuifw2.app.exit_key_handler=quit
+app_lock=e32.Ao_lock()
+app_lock.wait()
+来源:木狼

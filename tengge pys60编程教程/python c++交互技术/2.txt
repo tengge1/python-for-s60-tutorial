@@ -1,0 +1,5 @@
+【教程】PYthonC++交互技术②
+②Python C API
+*Python虚拟机开放了大量的API，几乎所有的语法内容，和虚拟机功能，都可以通过C-API从外部调用实现。加上整个虚拟机开放源码，用C语言操作Python虚拟机非常方便，从某种意义上说，Python可以作为一个C语言的运行时环境存在。同时，C语言也可以作为Python的底层扩展使用。
+*Python C API的引用头文件是python.h，在Python安装目录的include子目录可以找到。静态连接库pythonxx.lib（xx=主版本号+一级子版本号，如python2.4对应python24.lib）在libs目录下。
+
